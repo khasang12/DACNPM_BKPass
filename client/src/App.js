@@ -22,7 +22,7 @@ function App() {
           <p>Loading...</p>
         ):(
           data.msg.map((user,i)=>(
-            <p key={i}>{user}</p>
+            <p className="text-4xl font-bold underline" key={i}>{user}</p>
           ))
         )
       }
