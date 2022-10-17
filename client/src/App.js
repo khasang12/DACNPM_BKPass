@@ -1,5 +1,4 @@
 import './App.css';
-
 import React, { useEffect, useState } from 'react'
 
 function App() {
@@ -15,6 +14,13 @@ function App() {
     )
   }, [])
 
+function App () {
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <InitPage/>
+    } // Add new page here
+  ]);
   return (
     <div className="App">
       {
