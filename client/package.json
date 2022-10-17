@@ -10,9 +10,11 @@
     "flowbite": "^1.5.3",
     "flowbite-react": "^0.2.0",
     "react": "^18.2.0",
+    "react-currency-input-field": "^3.6.5",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.0.8",
     "tw-elements": "^1.0.0-alpha12",
     "web-vitals": "^2.1.4"
   },
