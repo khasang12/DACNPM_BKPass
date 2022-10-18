@@ -1,22 +1,16 @@
-import './App.css';
-import React from 'react';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import InitPage from "./components/pages/initPage";
+import "./App.css";
 
-function App () {
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <InitPage/>
-    } // Add new page here
-  ]);
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AddItemForm from "./components/pages/AddItemForm";
+
+function App() {
   return (
-    <div className="App">
-      <RouterProvider router={router}/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="add-item" element={<AddItemForm />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
