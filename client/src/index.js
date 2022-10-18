@@ -9,9 +9,11 @@ import 'tw-elements';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Navbar/>
-    <App />
-    <Footer/>
+    <div class="sm:container mx-auto">
+      <Navbar/>
+      <App />
+      <Footer/>
+    </div>
   </React.StrictMode>
 );
 
