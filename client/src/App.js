@@ -1,14 +1,18 @@
 import "./App.css";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AddItemForm from "./components/pages/AddItemForm";
+import InitPage from "./components/pages/initPage";
+import SearchPage from "./components/pages/searchPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="add-item" element={<AddItemForm />} />
+        <Route path="" element={<InitPage />} />
+        <Route path="search" element={<SearchPage />} />
       </Routes>
     </BrowserRouter>
   );
