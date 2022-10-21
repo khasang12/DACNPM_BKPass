@@ -1,3 +1,4 @@
+import DisplayItem from "../pages/DisplayItem";
 import Item from "./Item";
 
 export default function ItemsList () {
