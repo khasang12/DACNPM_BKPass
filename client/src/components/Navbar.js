@@ -1,24 +1,30 @@
-import "../assets/styles/navbar.css"
+import "../assets/styles/navbar.css";
 import logo from "../assets/img/logo.png";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faSearch, faBell, faBriefcase, faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faSearch,
+  faBell,
+  faBriefcase,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
-
 export function Navbar() {
-    const [searchStr, setSearchStr] = useState("");
-    const search = (e) => {
-        e.preventDefault();
-        if (searchStr !== "") {
-            window.location.assign(`./search?s=${searchStr}`)
-        }
+  const [searchStr, setSearchStr] = useState("");
+  const search = (e) => {
+    e.preventDefault();
+    if (searchStr !== "") {
+      window.location.assign(`./search?s=${searchStr}`);
     }
+  };
 
-    const onSearchBoxChange = (e) => {
-        setSearchStr(e.target.value);
-    }
+  const onSearchBoxChange = (e) => {
+    setSearchStr(e.target.value);
+  };
 
-    const onSearchBoxKeyDown = (e) => {
+
+  const onSearchBoxKeyDown = (e) => {
         if (e.key === "Enter"){
             e.preventDefault();
             if (searchStr !== "") {
@@ -26,6 +32,7 @@ export function Navbar() {
             }
         }
     }
+  };
 
     const onClickMenuBtn = () => {
         const menuList = document.getElementById("menuDropdown");
@@ -122,6 +129,18 @@ export function Navbar() {
                     </div>
                 </div>
             </div>
+            <button
+              className="align-middle mr-3 rounded-full bg-[#030391] text-white pl-3 pr-3 ml-2"
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.assign("./add-item");
+              }}
+            >
+              Đăng bán
+            </button>
+          </div>
         </div>
-    )
+      </div>
+    </div>
+  );
 }
