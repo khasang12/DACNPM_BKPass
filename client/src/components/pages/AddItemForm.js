@@ -92,9 +92,10 @@ export default function AddItemForm() {
   };
 
   return (
-    <div className="flex bg-gray-300 px-40 border">
-      <div className="flex-auto justify-center items-center text-gray-700 bg-white px-4 py-7 mx-0">
-        <div className="flex flex-col grow-0 justify-center items-center px-2">
+    <div className="flex flex-col lg:flex-row bg-gray-300 md:px-40 border">
+      <div className="flex-end lg:flex-auto justify-center items-center text-gray-700 bg-white px-4 py-7 mx-0">
+        <h1 className="lg:hidden text-2xl mt-10 mb-5 font-bold">Thông tin sản phẩm</h1>
+        <div className="lg:flex flex-row lg:flex-col grow-0 justify-center items-center px-2">
           <label
             htmlFor="dropzone-file"
             className="flex flex-col justify-center items-center px-2 w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100"
@@ -132,7 +133,7 @@ export default function AddItemForm() {
               multiple
             />
           </label>
-          <div className="grid grid-cols-3 mt-10">
+          <div className="grid grid-cols-2 md:grid-cols-3 mt-10">
             {(files || []).map((url) => (
               <img className="w-full p-2" src={url} key={url} alt="..." />
             ))}
@@ -140,14 +141,14 @@ export default function AddItemForm() {
         </div>
       </div>
 
-      <div className="shrink-0 w-2/3 text-gray-700 bg-white px-4 py-7">
+      <div className="shrink-0 lg:w-2/3 text-gray-700 bg-white px-4 py-7">
         <form
           action=""
           className="w-full"
           onSubmit={(event) => handleSubmit(event)}
           data-modal-toggle="defaultModal"
         >
-          <div className="inline-block relative w-full">
+          <div className="inline-block mb-7 relative w-full">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="grid-first-name"
@@ -157,7 +158,7 @@ export default function AddItemForm() {
             <select
               name="category"
               onChange={(e) => handleChange(e)}
-              className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+              className="block appearance-none md:w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
             >
               <option>Chọn danh mục</option>
               <option>Sách</option>
@@ -166,7 +167,7 @@ export default function AddItemForm() {
             </select>
           </div>
 
-          <h1 className="text-2xl mt-10 mb-5 font-bold">Thông tin chi tiết</h1>
+          <h1 className="hidden lg:block text-2xl mt-10 mb-5 font-bold">Thông tin chi tiết</h1>
 
           <label
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -187,7 +188,7 @@ export default function AddItemForm() {
               />
               <label
                 htmlFor="status-new"
-                className="inline-flex justify-center items-center p-2 w-1/2 text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
+                className="inline-flex justify-center items-center p-2 md:w-1/2 text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
               >
                 <div className="block">
                   <div className="w-full">Hàng mới</div>
@@ -205,7 +206,7 @@ export default function AddItemForm() {
               />
               <label
                 htmlFor="status-old"
-                className="inline-flex justify-center items-center p-2 w-1/2 text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
+                className="inline-flex justify-center items-center p-2 md:w-1/2 text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
               >
                 <div className="block">
                   <div className="w-full">Đã sử dụng</div>
@@ -274,6 +275,7 @@ export default function AddItemForm() {
             >
               Địa chỉ nhận hàng
             </label>
+
             <input
               type="text"
               id="location"
@@ -345,7 +347,7 @@ export default function AddItemForm() {
                       <span className="flex flex-row items-center">
                         <p className="text-gray-500 mr-5">Tag:</p>
                         <p className="px-2 py-1 bg-green-300 rounded mr-5 hover:bg-gray-300">
-                          {values.tag}
+                          {values.category}
                         </p>
                       </span>
                     </h3>
@@ -467,7 +469,7 @@ export default function AddItemForm() {
             >
               <div class="modal-dialog relative w-auto pointer-events-none">
                 <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-                  <div class="relative bg-white rounded-lg shadow">
+                  <div class="relative justify-center bg-white rounded-lg shadow">
                     <button
                       type="button"
                       class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
@@ -504,7 +506,7 @@ export default function AddItemForm() {
                         data-modal-toggle="success-modal"
                         type="submit"
                         onClick={handleSubmit}
-                        class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
+                        class="text-white mb-5 bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-1 sm:mr-2"
                         data-bs-toggle="modal"
                         data-bs-target="#success-modal"
                         href="/"
@@ -515,7 +517,7 @@ export default function AddItemForm() {
                         data-bs-dismiss="modal"
                         aria-label="Close"
                         type="button"
-                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                        class="text-gray-500 mb-5 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                       >
                         Trở về trang chính
                       </a>

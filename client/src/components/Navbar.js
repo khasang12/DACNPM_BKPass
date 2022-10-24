@@ -46,7 +46,7 @@ export function Navbar() {
                         md:justify-start
                     "
           >
-            <img src={logo} className="w-20" alt="logo"></img>
+            <img src={logo} className="w-10 md:w-20" alt="logo"></img>
             <i className="text-xl font-bold text-[#1488D8]">BKPass</i>
           </h6>
         </div>
