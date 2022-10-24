@@ -32,7 +32,6 @@ export function Navbar() {
             }
         }
     }
-  };
 
     const onClickMenuBtn = () => {
         const menuList = document.getElementById("menuDropdown");
@@ -77,7 +76,7 @@ export function Navbar() {
                             absolute right-2 md:static
                             md:flex-grow 
                             flex flex-col md:flex-row justify-between 
-                            w-80 mt-1 mb-1" 
+                            w-72 mt-1 mb-1" 
                             id="menuDropdown"
                         >
                             <button className="text-[#030391] hover:text-[#1488D8] text-end mr-2 mt-4 md:mt-0 md:mr-0 " 
@@ -129,18 +128,6 @@ export function Navbar() {
                     </div>
                 </div>
             </div>
-            <button
-              className="align-middle mr-3 rounded-full bg-[#030391] text-white pl-3 pr-3 ml-2"
-              onClick={(e) => {
-                e.preventDefault();
-                window.location.assign("./add-item");
-              }}
-            >
-              Đăng bán
-            </button>
-          </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
