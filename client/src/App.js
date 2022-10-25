@@ -1,32 +1,22 @@
-import './App.css';
+import "./App.css";
 
-import React, { useEffect, useState } from 'react'
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AddItemForm from "./components/pages/AddItemForm";
+import InitPage from "./components/pages/initPage";
+import SearchPage from "./components/pages/searchPage";
+import DisplayItem from "./components/pages/DisplayItem";
 
 function App() {
-  const [data, setData] = useState([{}])
-
-  useEffect(() => {
-    fetch('http://localhost:5000/api/').then(
-      res => res.json()
-    ).then(
-      data => {
-        setData(data)
-      }
-    )
-  }, [])
-
   return (
-    <div className="App">
-      {
-        (typeof data.msg === 'undefined') ? (
-          <p>Loading...</p>
-        ) : (
-          data.msg.map((user, i) => (
-            <p className="text-4xl font-bold underline" key={i}>{user}</p>
-          ))
-        )
-      }
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="add-item" element={<AddItemForm />} />
+        <Route path="demo-item" element={<DisplayItem />} />
+        <Route path="/" element={<InitPage />} />
+        <Route path="search" element={<SearchPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

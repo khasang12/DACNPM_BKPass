@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.2.0",
+    "@fortawesome/free-regular-svg-icons": "^6.2.0",
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@headlessui/react": "^1.7.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -10,9 +14,10 @@
     "flowbite": "^1.5.3",
     "flowbite-react": "^0.2.0",
     "react": "^18.2.0",
+    "react-currency-input-field": "^3.6.5",
     "react-dom": "^18.2.0",
-    "react-rating-stars-component": "^2.2.0",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.0.8",
     "tw-elements": "^1.0.0-alpha12",
     "web-vitals": "^2.1.4"
   },

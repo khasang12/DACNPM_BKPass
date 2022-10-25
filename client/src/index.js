@@ -10,11 +10,11 @@ import { Comment } from './components/pages/Comment';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Navbar/>
-    <App/>
-    <Comment/>
-    <Footer/>
-  </React.StrictMode>
+    <div class="sm:container mx-auto">
+      <Navbar/>
+      <App />
+      <Footer/>
+    </div>
 );
 
 // If you want to start measuring performance in your app, pass a function

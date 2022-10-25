@@ -1,13 +1,14 @@
 import React from "react";
-import logo from "../assets/img/HCMUTLOGO.png"
-import "../assets/styles/Footer.css"
+import logo from "../assets/img/HCMUTLOGO.png";
+import "../assets/styles/Footer.css";
 export function Footer() {
-    return (
-        <footer class="text-center lg:text-left bg-white-100 text-black font-medium  font-[Inter var] ">
-            <div class="mx-6 py-10 text-center md:text-left">
-                <div class="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="">
-                        <h6 class="
+  return (
+    <footer className="text-center lg:text-left bg-white-100 text-black font-medium font-[Inter var]">
+      <div className="mx-6 py-10 text-center md:text-left">
+        <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="">
+            <h6
+              className="
             font-semibold
             mb-4
             flex
@@ -87,4 +88,5 @@ export function Footer() {
             </div>
         </footer>
     )
+}
 }
