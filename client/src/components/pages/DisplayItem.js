@@ -2,11 +2,11 @@ import React from "react";
 
 export default function DisplayItem() {
   return (
-    <div className="flex bg-gray-300 border px-60">
+    <div className="flex bg-gray-300 border md:px-60">
       <div className=" bg-white px-10 py-10 leading-loose">
         <div
           id="carouselExampleControls"
-          className="mb-10 w-1/4 carousel slide relative"
+          className="mb-10 md:w-1/3 carousel slide relative"
           data-bs-ride="carousel"
         >
           <div class="carousel-inner relative w-full overflow-hidden">
@@ -89,7 +89,7 @@ export default function DisplayItem() {
         <h3>
           <span className="text-gray-500">Mô tả</span>
         </h3>
-        <p className="leading-5 pr-10 text-justify">
+        <p className="leading-5 md:pr-10 text-justify">
           Giải tích toán học là bộ môn của toán học liên quan đến những vấn đề
           của biến đổi và chuyển động. Phương tiện chủ yếu của nó là nghiên cứu
           các đại lượng vô cùng bé. Nó đề cập đến chuyện những đại lượng nọ tiến
@@ -99,14 +99,14 @@ export default function DisplayItem() {
         </p>
         <div className="inline-flex">
           <button
-            className="bg-blue-300 focus:outline-none text-gray-800 font-bold py-2 px-10 mr-5 rounded"
+            className="bg-blue-300 focus:outline-none text-gray-800 font-bold py-2 px-5 md:px-10 mr-5 rounded"
             disabled
           >
             Đánh dấu
           </button>
           <a
             href="#"
-            className="bg-red-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-10 rounded"
+            className="bg-red-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-5 md:px-10 rounded"
           >
             Thay trạng thái
           </a>
