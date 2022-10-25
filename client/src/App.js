@@ -6,7 +6,8 @@ import AddItemForm from "./components/pages/AddItemForm";
 import InitPage from "./components/pages/initPage";
 import SearchPage from "./components/pages/searchPage";
 import DisplayItem from "./components/pages/DisplayItem";
-import { Comment } from "./components/pages/Comment";
+import BuyHistory from "./components/pages/BuyHistory";
+import SellHistory from "./components/pages/SellHistory";
 
 function App() {
   return (
@@ -15,8 +16,9 @@ function App() {
         <Route path="add-item" element={<AddItemForm />} />
         <Route path="demo-item" element={<DisplayItem />} />
         <Route path="/" element={<InitPage />} />
-        <Route path="/profile" element={<Comment />} />
         <Route path="search" element={<SearchPage />} />
+        <Route path="buy-history" element={<BuyHistory />} />
+        <Route path="sell-history" element={<SellHistory />} />
       </Routes>
     </BrowserRouter>
   );

@@ -9,6 +9,8 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 export function Navbar() {
   const [searchStr, setSearchStr] = useState("");
@@ -88,10 +90,23 @@ export function Navbar() {
                                 <FontAwesomeIcon icon={faHome} className="mr-2"></FontAwesomeIcon>
                                 Trang chủ
                             </button>
-                            <button className="text-[#030391] hover:text-[#1488D8] text-end mr-2 mt-4 md:mt-0 md:mr-0">
-                                <FontAwesomeIcon icon={faBriefcase} className="mr-2"></FontAwesomeIcon>
+                            <Dropdown 
+                              className="text-[#030391] hover:text-[#1488D8]" 
+                              autoClose="outside"
+                              >
+                              <FontAwesomeIcon
+                                icon={faBriefcase}
+                                className="mr-2"
+                              ></FontAwesomeIcon>
+                              <Dropdown.Toggle>
                                 Đơn hàng
-                            </button>
+                              </Dropdown.Toggle>
+                              <Dropdown.Menu>
+                                <Dropdown.Item href="/buy-history">Đơn mua</Dropdown.Item>
+                                <Dropdown.Divider />
+                                <Dropdown.Item href="/sell-history">Đơn bán</Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
                             <button className="text-[#030391] hover:text-[#1488D8] text-end mr-2 mt-4 md:mt-0 md:mr-0">
                                 <FontAwesomeIcon icon={faBell} className="mr-2"></FontAwesomeIcon>
                                 Thông báo
