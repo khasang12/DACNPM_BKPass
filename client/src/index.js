@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import 'tw-elements';
+import { Comment } from './components/pages/Comment';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -14,7 +15,6 @@ root.render(
       <App />
       <Footer/>
     </div>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
