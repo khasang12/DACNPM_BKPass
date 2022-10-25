@@ -6,11 +6,13 @@ import reportWebVitals from './reportWebVitals';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import 'tw-elements';
+import { Comment } from './components/pages/Comment';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Navbar/>
-    <App />
+    <App/>
+    <Comment/>
     <Footer/>
   </React.StrictMode>
 );

@@ -7,6 +7,6 @@
         @apply font-bold mb-4 flex justify-center md:justify-start text-2xl;
     }
     div > p{
-        @apply flex items-center justify-center md:justify-start mb-4
+        @apply flex items-center justify-center md:justify-start mb-4;
     }
 }
