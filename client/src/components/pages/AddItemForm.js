@@ -61,6 +61,15 @@ export default function AddItemForm() {
       ...values,
       [event.target.name]: event.target.value,
     });
+    let number
+    if (event.target.name=="price"){
+      number = event.target.value.replaceAll(',', '')
+      setValues({
+        ...values,
+        "price": number,
+      });
+    }
+    
   };
   const handleValidation = () => {
     const { price, img, category, item_status } = values;
