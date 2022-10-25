@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import CurrencyInput from "react-currency-input-field";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function AddItemForm() {
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     category: "",
     item_status: "",
@@ -49,12 +51,13 @@ export default function AddItemForm() {
           navigate("/setAvatar");
         }
       }*/
-      //navigate(`/add-item/${values.id}`,{state:values})
       console.log(values);
       setDone(true);
-      return true;
+      if (event.target.name==="viewitem")
+        navigate("/demo-item")
+      else if (event.target.name==="homepage")
+        navigate("/")
     }
-    return false;
   };
   const handleChange = (event) => {
     setValues({
@@ -512,20 +515,19 @@ export default function AddItemForm() {
                         Đăng hàng thành công
                       </h3>
                       <a
-                        data-modal-toggle="success-modal"
                         type="submit"
                         onClick={handleSubmit}
+                        name="viewitem"
                         class="text-white mb-5 bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-1 sm:mr-2"
-                        data-bs-toggle="modal"
-                        data-bs-target="#success-modal"
-                        href="/"
                       >
-                        Mặt hàng đang bán
+                        Xem mặt hàng
                       </a>
                       <a
                         data-bs-dismiss="modal"
                         aria-label="Close"
-                        type="button"
+                        type="submit"
+                        onClick={handleSubmit}
+                        name="homepage"
                         class="text-gray-500 mb-5 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                       >
                         Trở về trang chính
