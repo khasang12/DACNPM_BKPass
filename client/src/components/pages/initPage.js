@@ -1,9 +1,10 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
+import { Homepage } from "./HomePage";
 
 function InitPage() {
-  const [data,setData] = useState([{}])
+  const [data, setData] = useState([{}])
 
-  useEffect(()=>{
+  useEffect(() => {
     fetch('http://localhost:5000/api/').then(
       res => res.json()
     ).then(
@@ -11,18 +12,17 @@ function InitPage() {
         setData(data)
       }
     )
-  },[])
+  }, [])
 
   return (
     <div className="App">
       {
-        (typeof data.msg === 'undefined')?(
+        (typeof data.msg === 'undefined') ?
+        (
+          <Homepage />
+          ) : (
           <p>Loading...</p>
-        ):(
-          data.msg.map((user,i)=>(
-            <p className="text-4xl font-bold underline" key={i}>{user}</p>
-          ))
-        )
+          )
       }
     </div>
   );
