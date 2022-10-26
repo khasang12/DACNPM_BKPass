@@ -42,7 +42,6 @@ export default function AddItemForm() {
     } else {
       setDone({ status: true, msg: "validated form" });
     }
-    console.log(values, done);
   }, [values]);
 
   async function uploadMultipleFiles(e) {
@@ -183,7 +182,7 @@ export default function AddItemForm() {
           </div>
 
           <h1 className="hidden lg:block text-2xl mt-10 mb-5 font-bold">
-            Thông tin chi tiết {done["status"] ? "Yes" : "No"}
+            Thông tin chi tiết
           </h1>
 
           <label
@@ -306,7 +305,7 @@ export default function AddItemForm() {
           <div className="inline-flex">
             <button
               type="button"
-              class="inline-block px-6 py-2.5 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+              className="inline-block px-6 py-2.5 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
               data-bs-toggle="modal"
               data-bs-target="#exampleModalXl"
             >
@@ -315,7 +314,7 @@ export default function AddItemForm() {
 
             <button
               type="submit"
-              class="ml-6 inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+              className="ml-6 inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
               data-bs-toggle={done["status"] ? "modal" : ""}
               data-bs-target={done["status"] ? "#popup-modal" : ""}
               onClick={handleValidation}
@@ -324,18 +323,18 @@ export default function AddItemForm() {
             </button>
             {/* View Item Modal */}
             <div
-              class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+              className="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
               id="exampleModalXl"
               tabindex="-1"
               aria-labelledby="exampleModalXlLabel"
               aria-modal="true"
               role="dialog"
             >
-              <div class="modal-dialog modal-xl relative w-auto pointer-events-none">
-                <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-                  <div class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+              <div className="modal-dialog modal-xl relative w-auto pointer-events-none">
+                <div className="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+                  <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
                     <h5
-                      class="text-xl font-medium leading-normal text-gray-800"
+                      className="text-xl font-medium leading-normal text-gray-800"
                       id="exampleModalXlLabel"
                     >
                       Demo sản phẩm
@@ -343,12 +342,12 @@ export default function AddItemForm() {
 
                     <button
                       type="button"
-                      class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                      className="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
                       data-bs-dismiss="modal"
                       aria-label="Close"
                     ></button>
                   </div>
-                  <div class="modal-body relative p-4 leading-loose">
+                  <div className="modal-body relative p-4 leading-loose">
                     <div className="flex flex-row">
                       {values.img[0]
                         ? values.img[0].map((item) => (
@@ -397,7 +396,7 @@ export default function AddItemForm() {
 
             {/* Confirmation Modal */}
             <div
-              class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+              className="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
               id="popup-modal"
               data-bs-backdrop="static"
               data-bs-keyboard="false"
@@ -405,18 +404,18 @@ export default function AddItemForm() {
               aria-labelledby="popup-modalLabel"
               aria-hidden="true"
             >
-              <div class="modal-dialog relative w-auto pointer-events-none">
-                <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-                  <div class="relative bg-white rounded-lg shadow">
+              <div className="modal-dialog relative w-auto pointer-events-none">
+                <div className="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+                  <div className="relative bg-white rounded-lg shadow">
                     <button
                       type="button"
-                      class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                      className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
                       data-bs-dismiss="modal"
                       aria-label="Close"
                     >
                       <svg
                         aria-hidden="true"
-                        class="w-5 h-5"
+                        className="w-5 h-5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -428,10 +427,10 @@ export default function AddItemForm() {
                         ></path>
                       </svg>
                     </button>
-                    <div class="p-6 text-center">
+                    <div className="p-6 text-center">
                       <svg
                         aria-hidden="true"
-                        class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200"
+                        className="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -444,14 +443,14 @@ export default function AddItemForm() {
                           d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                         ></path>
                       </svg>
-                      <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                      <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                         Xác nhận đăng hàng ?
                       </h3>
                       <button
                         data-modal-toggle="popup-modal"
                         type="submit"
                         onClick={handleSubmit}
-                        class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
+                        className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
                         data-bs-toggle="modal"
                         data-bs-target="#success-modal"
                       >
@@ -461,7 +460,7 @@ export default function AddItemForm() {
                         data-bs-dismiss="modal"
                         aria-label="Close"
                         type="button"
-                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                        className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                       >
                         Quay lại
                       </button>
@@ -472,7 +471,7 @@ export default function AddItemForm() {
             </div>
 
             <div
-              class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+              className="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
               id="success-modal"
               data-bs-backdrop="static"
               data-bs-keyboard="false"
@@ -480,18 +479,18 @@ export default function AddItemForm() {
               aria-labelledby="success-modalLabel"
               aria-hidden="true"
             >
-              <div class="modal-dialog relative w-auto pointer-events-none">
-                <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
-                  <div class="relative justify-center bg-white rounded-lg shadow">
+              <div className="modal-dialog relative w-auto pointer-events-none">
+                <div className="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+                  <div className="relative justify-center bg-white rounded-lg shadow">
                     <button
                       type="button"
-                      class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                      className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
                       data-bs-dismiss="modal"
                       aria-label="Close"
                     >
                       <svg
                         aria-hidden="true"
-                        class="w-5 h-5"
+                        className="w-5 h-5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -503,23 +502,23 @@ export default function AddItemForm() {
                         ></path>
                       </svg>
                     </button>
-                    <div class="p-6 text-center">
+                    <div className="p-6 text-center">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
-                        class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200"
+                        className="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200"
                       >
                         <path d="M243.8 339.8C232.9 350.7 215.1 350.7 204.2 339.8L140.2 275.8C129.3 264.9 129.3 247.1 140.2 236.2C151.1 225.3 168.9 225.3 179.8 236.2L224 280.4L332.2 172.2C343.1 161.3 360.9 161.3 371.8 172.2C382.7 183.1 382.7 200.9 371.8 211.8L243.8 339.8zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z" />
                       </svg>
 
-                      <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                      <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                         Đăng hàng thành công
                       </h3>
                       <a
                         type="submit"
                         onClick={handleSubmit}
                         name="viewitem"
-                        class="text-white mb-5 bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-1 sm:mr-2"
+                        className="text-white mb-5 bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-1 sm:mr-2"
                       >
                         Xem mặt hàng
                       </a>
@@ -529,7 +528,7 @@ export default function AddItemForm() {
                         type="submit"
                         onClick={handleSubmit}
                         name="homepage"
-                        class="text-gray-500 mb-5 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                        className="text-gray-500 mb-5 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                       >
                         Trở về trang chính
                       </a>
