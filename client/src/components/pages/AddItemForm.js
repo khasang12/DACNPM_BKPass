@@ -77,7 +77,7 @@ export default function AddItemForm() {
       else if (event.target.name === "homepage") navigate("/");
     }
   };
-  const handleChange = async (event) => {
+  const handleChange = (event) => {
     setValues({
       ...values,
       [event.target.name]: event.target.value,
