@@ -1,6 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function DisplayItem() {
+  const navigate = useNavigate();
+  const handleSubmit = (event) => {
+    if (event.target.name === "profile")
+      navigate("/comment")
+  }
   return (
     <div className="flex bg-gray-300 border md:px-60">
       <div className=" bg-white px-10 py-10 leading-loose">
@@ -118,7 +124,8 @@ export default function DisplayItem() {
           Kha Sang
         </span>
         <button
-          disabled
+          onClick={handleSubmit}
+          name="profile"
           className="bg-yellow-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-5 mr-5 mt-2 rounded"
         >
           Xem thông tin

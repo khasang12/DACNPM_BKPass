@@ -26,6 +26,8 @@ export default function AddItemForm() {
     const { price, header, img, category, item_status, addr } = values;
     if (category === "Chọn danh mục" || category === "") {
       setDone({ status: false, msg: "Vui lòng chọn danh mục" });
+    } else if (img.length === 0) {
+      setDone({ status: false, msg: "Vui lòng thêm ít nhất 1 ảnh" });
     } else if (item_status === "") {
       setDone({
         status: false,
@@ -33,12 +35,10 @@ export default function AddItemForm() {
       });
     } else if (!price.match(/^\d+(?:[,]\d+)*VND$/)) {
       setDone({ status: false, msg: "Giá tiền không thể là số âm" });
-    } else if (img.length === 0) {
-      setDone({ status: false, msg: "Vui lòng thêm ít nhất 1 ảnh" });
-    } else if (addr === "") {
-      setDone({ status: false, msg: "Vui lòng điền địa chỉ" });
     } else if (header === "") {
       setDone({ status: false, msg: "Vui lòng điền tên mặt hàng" });
+    } else if (addr === "") {
+      setDone({ status: false, msg: "Vui lòng điền địa chỉ" });
     } else {
       setDone({ status: true, msg: "validated form" });
     }
@@ -56,6 +56,7 @@ export default function AddItemForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (handleValidation()) {
+      console.log(1);
       /*console.log("in validation", loginRoute);
       const { password, username } = values;
       const { data } = await axios.post(loginRoute, {
@@ -83,7 +84,7 @@ export default function AddItemForm() {
       [event.target.name]: event.target.value,
     });
     let number;
-    if (event.target.name == "price") {
+    if (event.target.name === "price") {
       number = event.target.value.replaceAll(",", "");
       setValues({
         ...values,
@@ -101,7 +102,9 @@ export default function AddItemForm() {
     };
     if (done["status"] === false) {
       toast.error(done["msg"], toastOptions);
+      return false;
     }
+    return true;
   };
   return (
     <div className="flex flex-col lg:flex-row bg-gray-300 md:px-40 border">
@@ -351,7 +354,11 @@ export default function AddItemForm() {
                     <div className="flex flex-row">
                       {values.img[0]
                         ? values.img[0].map((item) => (
-                            <img src={item} className="block w-1/5 h-full" />
+                            <img
+                              src={item}
+                              alt="item"
+                              className="block w-1/5 h-full"
+                            />
                           ))
                         : ""}
                     </div>
@@ -514,15 +521,16 @@ export default function AddItemForm() {
                       <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                         Đăng hàng thành công
                       </h3>
-                      <a
+                      <button
+                        data-bs-dismiss="modal"
                         type="submit"
                         onClick={handleSubmit}
                         name="viewitem"
                         className="text-white mb-5 bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-1 sm:mr-2"
                       >
                         Xem mặt hàng
-                      </a>
-                      <a
+                      </button>
+                      <button
                         data-bs-dismiss="modal"
                         aria-label="Close"
                         type="submit"
@@ -531,7 +539,7 @@ export default function AddItemForm() {
                         className="text-gray-500 mb-5 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                       >
                         Trở về trang chính
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
