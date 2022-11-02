@@ -39,7 +39,7 @@ export function Footer() {
                             Về chúng tôi
                         </h6>
                         <p class="mb-4">
-                            <a href="#!" class="text-gray-600">Đội phát triển</a>
+                            <a href="/dev" class="text-gray-600">Đội phát triển</a>
                         </p>
                         <p class="mb-4">
                             <a href="#!" class="text-gray-600">Liên hệ hỗ trợ</a>
