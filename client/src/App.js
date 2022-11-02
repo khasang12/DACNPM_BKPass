@@ -8,7 +8,8 @@ import SearchPage from "./components/pages/searchPage";
 import DisplayItem from "./components/pages/DisplayItem";
 import BuyHistory from "./components/pages/BuyHistory";
 import SellHistory from "./components/pages/SellHistory";
-
+import {Comment} from './components/pages/Comment'
+import {DevTeam} from './components/pages/DeveloperTeam'
 function App() {
   return (
     <BrowserRouter>
@@ -20,6 +21,7 @@ function App() {
         <Route path="buy-history" element={<BuyHistory />} />
         <Route path="sell-history" element={<SellHistory />} />
         <Route path="comment" element={<Comment />} />
+        <Route path ="dev" element = {<DevTeam/>}/>
       </Routes>
     </BrowserRouter>
   );
