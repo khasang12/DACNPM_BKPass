@@ -78,10 +78,10 @@ export function Navbar() {
                             absolute right-2 md:static
                             md:flex-grow 
                             flex flex-col md:flex-row justify-between 
-                            w-72 mt-1 mb-1" 
+                            w-72 mt-1 mb-1 z-50" 
                             id="menuDropdown"
                         >
-                            <button className="text-[#030391] hover:text-[#1488D8] text-end mr-2 mt-4 md:mt-0 md:mr-0 " 
+                            <button className="text-[#030391] hover:text-[#1488D8] text-end pr-2 pt-4 md:pt-0 md:pr-0 w-full" 
                                 onClick={(e) => {
                                     e.preventDefault()
                                     window.location.assign("./")
@@ -91,9 +91,10 @@ export function Navbar() {
                                 Trang chủ
                             </button>
                             <Dropdown 
-                              className="text-[#030391] hover:text-[#1488D8]" 
+                              className="text-[#030391] hover:text-[#1488D8] text-end pr-2 pt-4 md:pt-0 md:pr-0 w-full" 
                               autoClose="outside"
-                              >
+                              align="end"
+                            >
                               <FontAwesomeIcon
                                 icon={faBriefcase}
                                 className="mr-2"
@@ -101,17 +102,23 @@ export function Navbar() {
                               <Dropdown.Toggle>
                                 Đơn hàng
                               </Dropdown.Toggle>
-                              <Dropdown.Menu>
-                                <Dropdown.Item href="/buy-history">Đơn mua</Dropdown.Item>
+                              <Dropdown.Menu className="w-72 bg-white rounded border border-[#1488d8]">
+                                <Dropdown.Item 
+                                    href="/buy-history"
+                                    className="w-full bg-white pr-2 mt-3 mb-3"
+                                >Đơn mua</Dropdown.Item>
                                 <Dropdown.Divider />
-                                <Dropdown.Item href="/sell-history">Đơn bán</Dropdown.Item>
+                                <Dropdown.Item 
+                                    href="/sell-history"
+                                    className="w-full bg-white pr-2 mt-3 mb-3"
+                                >Đơn bán</Dropdown.Item>
                               </Dropdown.Menu>
                             </Dropdown>
-                            <button className="text-[#030391] hover:text-[#1488D8] text-end mr-2 mt-4 md:mt-0 md:mr-0">
+                            <button className="text-[#030391] hover:text-[#1488D8] text-end pr-2 pt-4 md:pt-0 md:pr-0 w-full">
                                 <FontAwesomeIcon icon={faBell} className="mr-2"></FontAwesomeIcon>
                                 Thông báo
                             </button>
-                            <button className="text-[#030391] hover:text-[#1488D8] text-end mr-2 mt-4 md:mt-0 md:mr-0">
+                            <button className="text-[#030391] hover:text-[#1488D8] text-end pr-2 pt-4 md:pt-0 md:pr-0 w-full">
                                 <FontAwesomeIcon icon={faUser} className="mr-2"></FontAwesomeIcon>
                                 Đăng nhập
                             </button>

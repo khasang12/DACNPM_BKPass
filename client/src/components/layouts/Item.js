@@ -2,7 +2,7 @@ import {timeAgo} from '../../service/timeAgo'
 
 export default function Item({item}) {
     return (
-        <div className="flex flex-col w-72 rounded m-2 border-2 rounded-2xl">
+        <div className="flex flex-col w-72 rounded m-2 border-2 rounded-2xl hover:border-2 hover:border-[#1488d8]">
             <div className="w-full h-72">
                 <img alt="item"
                     src={item.image}
