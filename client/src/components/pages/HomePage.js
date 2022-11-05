@@ -1,8 +1,6 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import img1 from "../../assets/img/coverimg.jpg";
 import ItemsList from '../layouts/ItemList';
-
-
 export function Homepage() {
     return (
         <div >

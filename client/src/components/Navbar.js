@@ -62,9 +62,9 @@ export function Navbar() {
                     </h6>
                 </div>
                 <div className="grow flex flex-col justify-start mr-3 ml-3">
-                    <div class="w-full block flex-grow md:flex md:items-center md:w-auto">
-                        <div class="block md:hidden flex flex-row justify-end ">
-                            <button class="relative flex items-center px-3 py-2 border rounded text-teal-200 border-[#030391] text-[#030391] mr-2"
+                    <div className="w-full block flex-grow md:flex md:items-center md:w-auto">
+                        <div className="block md:hidden flex flex-row justify-end ">
+                            <button className="relative flex items-center px-3 py-2 border rounded text-teal-200 border-[#030391] text-[#030391] mr-2"
                                 id="menuBtn"
                                 onClick={onClickMenuBtn}
                             >

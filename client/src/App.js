@@ -10,6 +10,7 @@ import BuyHistory from "./components/pages/BuyHistory";
 import SellHistory from "./components/pages/SellHistory";
 import {Comment} from './components/pages/Comment'
 import {DevTeam} from './components/pages/DeveloperTeam'
+import {AddComment} from './components/pages/AddComment'
 function App() {
   return (
     <BrowserRouter>
@@ -22,6 +23,7 @@ function App() {
         <Route path="sell-history" element={<SellHistory />} />
         <Route path="comment" element={<Comment />} />
         <Route path ="dev" element = {<DevTeam/>}/>
+        <Route path = "add-comment" element = {<AddComment/>} />
       </Routes>
     </BrowserRouter>
   );
