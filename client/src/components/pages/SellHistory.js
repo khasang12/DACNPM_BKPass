@@ -16,7 +16,9 @@ export default function SellHistory() {
                         Đã bán
                     </button>
             </div>
-            <ItemsList />
+            <div className="List_Wrapper" style={{ maxWidth: 700 }}>
+                <ItemsList />
+            </div>
         </div>
     )
 }
