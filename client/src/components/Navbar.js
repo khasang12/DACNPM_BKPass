@@ -159,7 +159,7 @@ export function Navbar() {
               </button>
             </div>
           </div>
-          <div className="flex grow md:grow-0 lg:flex-row justify-between w-100 mb-2 mt-2">
+          <div className="flex grow md:grow-0 git lg:flex-row justify-between w-100 mb-2 mt-2">
             <div className="w-3/4 flex flex-1 flex-row items-center bg-slate-200 rounded-full pl-2 pr-2 pt-1 pb-1">
               <input
                 placeholder="Tìm kiếm mặt hàng"
