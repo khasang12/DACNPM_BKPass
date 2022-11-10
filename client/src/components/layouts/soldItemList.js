@@ -49,7 +49,7 @@ function Item({ item }) {
               </div>
             </div>
           </div>
-          <div className="align-middle mt-auto lg:w-3/5 flex flex-row flex-end space-x-4">
+          <div className="align-middle mt-auto lg:w-4/5 flex flex-row flex-end space-x-4">
             <button
               name="view"
               onClick={handleSubmit}
