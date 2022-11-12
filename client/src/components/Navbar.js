@@ -1,6 +1,7 @@
 import "../assets/styles/navbar.css";
 import logo from "../assets/img/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { NotiData } from "./notiData";
 import {
   faHome,
   faSearch,
@@ -14,7 +15,8 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 export function Navbar() {
   const [searchStr, setSearchStr] = useState("");
-  const [dropDown, setDropDown] = useState(false);
+  const [dropDown, setDropDown] = useState({ items: false, noti: false });
+
   const search = (e) => {
     e.preventDefault();
     if (searchStr !== "") {
@@ -22,9 +24,9 @@ export function Navbar() {
     }
   };
 
-  const handleDropdown = () => {
-    setDropDown((dropDown) => !dropDown);
-    console.log(dropDown);
+  const handleDropdown = (e) => {
+    const updatedValues = { [e.target.name]: !dropDown[e.target.name] };
+    setDropDown({ ...dropDown, ...updatedValues });
   };
 
   const onSearchBoxChange = (e) => {
@@ -132,6 +134,7 @@ export function Navbar() {
                 </Dropdown.Menu>
               </Dropdown> */}
               <button
+                name="items"
                 className="text-[#030391] hover:text-[#1488D8] p-1 md:text-start lg:pr-2 lg:pt-4 md:pt-0 md:pr-0 w-full"
                 onClick={handleDropdown}
               >
@@ -140,16 +143,25 @@ export function Navbar() {
                   className="mr-2"
                 ></FontAwesomeIcon>
                 Đơn hàng
-                {dropDown && <DropdownSection />}
+                {dropDown["items"] && <DropdownSection />}
               </button>
 
-              <button className="text-[#030391] hover:text-[#1488D8] p-1 md:text-center lg:pr-2 lg:pt-4 md:pt-0 md:pr-0 w-full">
+              <button
+                name="noti"
+                onClick={handleDropdown}
+                className="relative text-[#030391] hover:text-[#1488D8] p-1 md:text-center lg:pr-2 lg:pt-4 md:pt-0 md:pr-0 w-full"
+              >
                 <FontAwesomeIcon
                   icon={faBell}
                   className="mr-2"
                 ></FontAwesomeIcon>
+                <span class="invisible md:visible text-sm absolute top-0 left-2/3 translate-middle rounded-full p-1 bg-red-500 text-white">
+                  +99 <span class="visually-hidden">unread messages</span>
+                </span>
                 Thông báo
+                {dropDown["noti"] && <DropdownNotification />}
               </button>
+
               <button className="text-[#030391] hover:text-[#1488D8] p-1 md:text-center lg:pr-2 lg:pt-4 md:pt-0 md:pr-0 w-full">
                 <FontAwesomeIcon
                   icon={faUser}
@@ -223,4 +235,85 @@ const DropdownSection = () => {
       </ul>
     </div>
   );
+};
+
+const DropdownNotification = () => {
+  return (
+    <div
+      id="dropdown"
+      style={{minWidth:"250px"}}
+      class="left-28 md:left-1/2 top-1 md:top-auto md:left-0 md:bottom-auto md:left-auto absolute md:justify-end z-50 md:w-full bg-white rounded divide-y divide-gray-100 shadow"
+    >
+      <div class="block py-2 px-4 font-medium text-start text-gray-700 bg-gray-50">
+        Thông báo mới nhất
+      </div>
+      <div class="divide-y divide-gray-100 overflow-auto h-72">
+        {NotiData.map((noti) => (
+          <a
+          href="#"
+          class="flex py-3 px-4 hover:bg-gray-100"
+          key={noti.id}
+          onClick={(e) => {
+                e.preventDefault();
+                window.location.assign("./demo-item");
+              }}
+        >
+          <div class="flex-shrink-0">
+            <img
+              class="w-8 h-8 rounded-full"
+              src={noti.img}
+              alt="Jese image"
+            />
+          </div>
+          <div class="pl-3 w-full text-start">
+            <div class="overflow-visible text-gray-500 text-sm mb-1.5">
+              <span class="font-semibold text-gray-900">
+                {noti.name}
+              </span>
+              
+            </div>
+            <div class="text-sm text-[#030391] mb-1">
+            <span class="font-bold text-gray-900">
+                Nội dung:  
+              </span> {noti.msg}
+            </div>
+            
+            <div class="text-xs text-[#030391]">
+            <span class="font-semibold text-gray-900">
+                Người bán: 
+              </span> {noti.vendor}
+            </div>
+            <div class="text-xs text-blue-600">
+            <span class="font-semibold text-gray-900">
+                Cập nhật từ:
+              </span> {noti.time}
+            </div>
+          </div>
+          </a>
+        ))}
+      </div>
+  
+      <a
+        class="block py-2 text-sm font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white"
+      >
+        <div class="inline-flex items-center ">
+          <svg
+            class="mr-2 w-4 h-4 text-gray-500 dark:text-gray-400"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+            <path
+              fill-rule="evenodd"
+              d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          Xem tất cả
+        </div>
+      </a>
+    </div>
+  )
 };
