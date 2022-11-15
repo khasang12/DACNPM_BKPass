@@ -9,7 +9,7 @@ export function Comment() {
         return (
             <div>
                 <Info />
-                <div className="flex p-3 left-80">
+                <div className="flex p-3 lg:left-80">
                     <button className="flex flex-col md:flex-row bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                         Tất cả đánh giá
                     </button>
@@ -17,10 +17,10 @@ export function Comment() {
                 <ul>
                     {comment.map(item => <li>
                         <div className="flex justify-center p-1.5">
-                            <div className="flex flex-col md:flex-row md:w-2/3 rounded-lg bg-gray shadow-lg p-1.5 ">
+                            <div className="flex lg:flex-none flex-col md:flex-row md:w-2/3 rounded-lg bg-gray shadow-lg p-5 pb-2">
                                 <img
                                     src={avatar}
-                                    className="rounded-full w-1/6 h/6 md:w-16 md:h-16 pt-4"
+                                    className="rounded-full w-12 h-16 pt-4"
                                     alt="Avatar"
                                 />
                                 <div className="p-6 flex flex-col justify-start bg-gray">

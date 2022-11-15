@@ -1,8 +1,9 @@
 import ReactStars from "react-rating-stars-component";
-
+import { useNavigate } from "react-router-dom";
 function Saler ({saler}) {
+    const navigate = useNavigate();
     return (
-        <div className="flex flex-row w-11/12 md:w-3/4 rounded m-2 p-4 border-2 rounded-2xl hover:border-2 hover:border-[#1488d8]">
+        <div className="flex flex-row w-11/12 md:w-3/4 rounded m-2 p-4 border-2 rounded-2xl hover:border-2 hover:border-[#1488d8]" onClick={navigate("/comment")}>
             <div className="w-28 h-28 rounded-full border-2">
                 <img alt="saler"
                     src={saler.image}

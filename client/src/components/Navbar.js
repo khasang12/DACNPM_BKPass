@@ -155,10 +155,10 @@ export function Navbar() {
                   icon={faBell}
                   className="mr-2"
                 ></FontAwesomeIcon>
-                <span class="invisible md:visible text-sm absolute top-0 left-2/3 translate-middle rounded-full p-1 bg-red-500 text-white">
-                  +99 <span class="visually-hidden">unread messages</span>
-                </span>
                 Thông báo
+                <span class="invisible md:visible text-sm absolute top-0 lg:left-2/3 translate-middle rounded-full p-1 bg-red-500 text-white">
+                  +1 <span class="visually-hidden">unread messages</span>
+                </span>
                 {dropDown["noti"] && <DropdownNotification />}
               </button>
 
@@ -210,7 +210,7 @@ const DropdownSection = () => {
   return (
     <div
       id="dropdown"
-      class="left-28 bottom-10 md:bottom-auto md:left-auto absolute md:justify-end z-50 w-full lg:w-44 bg-white rounded divide-y divide-gray-100 shadow"
+      class="left-28 bottom-10 md:bottom-auto md:left-auto absolute md:justify-end z-50 w-full md:w-auto lg:w-44 bg-white rounded divide-y divide-gray-100 shadow"
     >
       <ul
         class="py-1 text-sm text-gray-700 dark:text-gray-200"
@@ -221,7 +221,7 @@ const DropdownSection = () => {
             href="/buy-history"
             class="block py-2 px-4 hover:bg-gray-100 hover:text-[#1488D8] text-[#030391]"
           >
-            Đơn bán
+            Đơn mua
           </a>
         </li>
         <li>
@@ -229,7 +229,7 @@ const DropdownSection = () => {
             href="/sell-history"
             class="block py-2 px-4 hover:bg-gray-100 hover:text-[#1488D8] text-[#030391]"
           >
-            Đơn mua
+            Đơn bán
           </a>
         </li>
       </ul>

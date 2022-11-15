@@ -4,8 +4,8 @@ import "../assets/styles/Footer.css";
 export function Footer() {
   return (
     <footer className="text-center lg:text-left bg-white-100 text-black font-medium font-[Inter var]">
-      <div className="mx-6 py-5 text-center md:text-left">
-        <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div className="mx-6 pt-5 md:py-5 text-center md:text-left">
+        <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-10">
           <div className="flex md:block">
             <h6
               className="
@@ -19,7 +19,9 @@ export function Footer() {
           "
             >
               <img src={logo} className="w-20 mr-3"></img>
-              <i className="text-sm text-md-2xl font-bold text-[#1488D8]">BKPass</i>
+              <i className="text-sm text-md-2xl font-bold text-[#1488D8]">
+                BKPass
+              </i>
             </h6>
             <p className="flex-1 text-start ml-2">
               Là một trang web giúp cho người dùng trao đổi các vật dụng đã qua
@@ -56,8 +58,8 @@ export function Footer() {
               </p>
             </div>
           </div>
-
-          <div className="flex-1 md:flex-none md:ml-auto">
+          <div className="hidden md:block lg:hidden"></div>
+          <div className="flex-1 md:flex-none md:mr-auto">
             <h6>Follow us</h6>
             <p>
               <a

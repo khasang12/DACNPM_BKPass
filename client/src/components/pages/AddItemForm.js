@@ -56,7 +56,6 @@ export default function AddItemForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (handleValidation()) {
-      console.log(1);
       /*console.log("in validation", loginRoute);
       const { password, username } = values;
       const { data } = await axios.post(loginRoute, {
@@ -73,7 +72,6 @@ export default function AddItemForm() {
           navigate("/setAvatar");
         }
       }*/
-      console.log(values);
       if (event.target.name === "viewitem") navigate("/demo-item");
       else if (event.target.name === "homepage") navigate("/");
     }
@@ -107,7 +105,7 @@ export default function AddItemForm() {
     return true;
   };
   return (
-    <div className="flex flex-col lg:flex-row bg-gray-300 md:px-40 border">
+    <div className="flex flex-col lg:flex-row bg-blue-50 md:px-40">
       <div className="flex-end lg:flex-auto justify-center items-center text-gray-700 bg-white px-4 py-7 mx-0">
         <h1 className="lg:hidden text-2xl mt-10 mb-5 font-bold">
           Thông tin sản phẩm
@@ -134,7 +132,7 @@ export default function AddItemForm() {
                 ></path>
               </svg>
               <p className="mb-2 text-sm text-gray-500">
-                <span className="font-semibold">Thêm hình ảnh</span>
+                <span className="font-semibold">Thêm hình ảnh (*)</span>
               </p>
               <p className="text-xs text-gray-500">
                 SVG, PNG, JPG or GIF (MAX. 800x400px)
@@ -192,7 +190,7 @@ export default function AddItemForm() {
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
             htmlFor="grid-first-name"
           >
-            Tình trạng hàng
+            Tình trạng hàng (*)
           </label>
           <ul className="flex w-2/3 mt-3 mb-5 md:grid-cols-2 mt-2">
             <li className="flex-1">
@@ -236,28 +234,10 @@ export default function AddItemForm() {
 
           <div className="mb-6">
             <label
-              htmlFor="price"
-              className="block mb-2 text-sm font-medium text-gray-900"
-            >
-              Giá
-            </label>
-            <CurrencyInput
-              id="price"
-              name="price"
-              placeholder="Nhập giá tiền"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              decimalsLimit={2}
-              onChange={(e) => handleChange(e)}
-              suffix="VND"
-            />
-          </div>
-
-          <div className="mb-6">
-            <label
               htmlFor="header"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Tiêu đề
+              Tiêu đề (*)
             </label>
             <input
               type="text"
@@ -272,10 +252,28 @@ export default function AddItemForm() {
 
           <div className="mb-6">
             <label
+              htmlFor="price"
+              className="block mb-2 text-sm font-medium text-gray-900"
+            >
+              Giá (*)
+            </label>
+            <CurrencyInput
+              id="price"
+              name="price"
+              placeholder="Nhập giá tiền"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              decimalsLimit={2}
+              onChange={(e) => handleChange(e)}
+              suffix="VND"
+            />
+          </div>  
+
+          <div className="mb-6">
+            <label
               htmlFor="desc"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Mô tả (dưới 50 từ)
+              Mô tả (dưới 100 từ)
             </label>
             <textarea
               id="desc"
@@ -292,7 +290,7 @@ export default function AddItemForm() {
               htmlFor="location"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Địa chỉ nhận hàng
+              Địa chỉ nhận hàng (*)
             </label>
 
             <input
