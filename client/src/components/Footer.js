@@ -3,68 +3,59 @@ import logo from "../assets/img/HCMUTLOGO.png";
 import "../assets/styles/Footer.css";
 export function Footer() {
   return (
-    <footer className="text-center lg:text-left bg-white-100 text-black font-medium font-[Inter var]">
+    <footer className="mt-5 lg:mt-10 text-center lg:text-left bg-white-100 text-black font-medium font-[Inter var]">
       <div className="mx-6 pt-5 md:py-5 text-center md:text-left">
-        <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-10">
-          <div className="flex md:block">
-            <h6
-              className="
+        <div className="flex flex-row flex-wrap">
+          <h6
+            className="
             font-semibold
             mb-4
-            flex
-            flex-1
+            flex-auto
             items-center
-            justify-center
-            md:justify-start
+            justify-start
+            hidden
+            lg:flex
           "
-            >
-              <img src={logo} className="w-20 mr-3"></img>
-              <i className="text-sm text-md-2xl font-bold text-[#1488D8]">
-                BKPass
-              </i>
-            </h6>
-            <p className="flex-1 text-start ml-2">
-              Là một trang web giúp cho người dùng trao đổi các vật dụng đã qua
-              sử dụng với giá cả phải chăng, uy tín.
+          >
+            <img src={logo} className="w-20 mr-3"></img>
+            <i className="text-sm text-md-2xl font-bold text-[#1488D8]">
+              BKPass
+            </i>
+          </h6>
+          <div className="flex-auto mr-auto">
+            <h6>CSKH</h6>
+            <p class="mb-1 md:mb-4">
+              <a href="#!" class="text-gray-600">
+                Hướng dẫn mua hàng
+              </a>
+            </p>
+            <p class="mb-1 md:mb-4">
+              <a href="#!" class="text-gray-600">
+                Hướng dẫn bán hàng
+              </a>
             </p>
           </div>
 
-          <div className="flex flex-row lg:flex-col">
-            <div className="flex-1 md:flex-none md:mr-3">
-              <h6>CSKH</h6>
-              <p class="mb-1 md:mb-4">
-                <a href="#!" class="text-gray-600">
-                  Hướng dẫn mua hàng
-                </a>
-              </p>
-              <p class="mb-1 md:mb-4">
-                <a href="#!" class="text-gray-600">
-                  Hướng dẫn bán hàng
-                </a>
-              </p>
-            </div>
-
-            <div className="flex-1 md:flex-none md:mr-3">
-              <h6>Về chúng tôi</h6>
-              <p class="mb-1 md:mb-4">
-                <a href="/dev" class="text-gray-600">
-                  Đội phát triển
-                </a>
-              </p>
-              <p class="mb-1 md:mb-4">
-                <a href="#!" class="text-gray-600">
-                  Liên hệ hỗ trợ
-                </a>
-              </p>
-            </div>
+          <div className="flex-auto">
+            <h6>Về chúng tôi</h6>
+            <p class="mb-1 md:mb-4">
+              <a href="/dev" class="text-gray-600">
+                Đội phát triển
+              </a>
+            </p>
+            <p class="mb-1 md:mb-4">
+              <a href="#!" class="text-gray-600">
+                Liên hệ hỗ trợ
+              </a>
+            </p>
           </div>
-          <div className="hidden md:block lg:hidden"></div>
-          <div className="flex-1 md:flex-none md:mr-auto">
+
+          <div className="flex-auto">
             <h6>Follow us</h6>
             <p>
               <a
                 href="https://facebook.com/vnhsngxxx"
-                class="mr-9 text-gray-800"
+                class="mr-2 md:mr-9 text-gray-800"
               >
                 <svg
                   class="w-6 h-6 text-blue-600 fill-current"
@@ -79,7 +70,7 @@ export function Footer() {
             <p>
               <a
                 href="https://www.linkedin.com/in/sang-nguy%E1%BB%85n-752a2a209/"
-                class="mr-9 text-gray-800"
+                class="mr-2 md:mr-9 text-gray-800"
               >
                 <svg
                   class="w-6 h-6 text-blue-500 fill-current"
@@ -97,6 +88,27 @@ export function Footer() {
         </div>
       </div>
       <div class="text-center p-6 bg-gray-200">
+        <div className="flex-col w-full">
+          <h6
+            className="
+            font-semibold
+            mb-4
+            flex-none
+            items-center
+            justify-center
+            lg:hidden
+          "
+          >
+            <img src={logo} className="w-20 mr-3"></img>
+            <i className="text-sm text-md-2xl font-bold text-[#1488D8]">
+              BKPass
+            </i>
+          </h6>
+          <p className="items-center justify-center">
+            BKPass - Một trang web giúp cho người dùng trao đổi các vật dụng đã qua sử
+            dụng với giá cả phải chăng, uy tín.
+          </p>
+        </div>
         <a
           class="text-black font-semibold"
           href="https://www.google.com/maps/place/Tr%C6%B0%E1%BB%9Dng+%C4%90%E1%BA%A1i+h%E1%BB%8Dc+B%C3%A1ch+Khoa+-+%C4%90%E1%BA%A1i+h%E1%BB%8Dc+Qu%E1%BB%91c+gia+Th%C3%A0nh+ph%E1%BB%91+H%E1%BB%93+Ch%C3%AD+Minh+(c%C6%A1+s%E1%BB%9F+2)/@10.880564,106.803188,17z/data=!3m1!4b1!4m5!3m4!1s0x3174d958707f8685:0xd577177b5198597f!8m2!3d10.8805587!4d106.8053767"
