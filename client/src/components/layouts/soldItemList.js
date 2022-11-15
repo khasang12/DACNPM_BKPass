@@ -1,31 +1,28 @@
 import { timeAgo } from "../../service/timeAgo";
 //import {seller} from '../../components/profile'
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEye,
+  faTrashCan,
+  faPenToSquare,
+} from "@fortawesome/free-solid-svg-icons";
 
 function Item({ item }) {
   const navigate = useNavigate();
-  const handleSubmit = (event) => {
-    if (event.target.name === "view") {
-      navigate("/demo-item");
-    } else if (event.target.name === "edit") {
-      navigate("/add-item");
-    } else if (event.target.name === "homepage") {
-      navigate("/");
-    }
-  };
   return (
     <div className="flex flex-col h-200 m-3 p-3 border-2 rounded-2 border-blue-200">
-      <div className="flex w-130 h-50">
-        <div className="block w-1/5 h-full p-3">
+      <div className="flex w-100 lg:w-130 h-50">
+        <div className="flex md:w-1/5 h-full p-3">
           <img
             alt="item"
             src={item.image}
-            className="block w-120 h-120 content--blur align-middle"
+            className="block w-12 h-12 md:w-full md:h-full content--blur align-middle"
           />
         </div>
-        <div className="flex flex-col flex-1">
-          <div className="flex flex-row flex-1 mb-1/5 lg:mb-0">
-            <div className="flex-col w-7/10" style={{ minWidth: "200px" }}>
+        <div className="shrink flex flex-col flex-1">
+          <div className="flex flex-row mb-1/5 lg:mb-0">
+            <div className="flex-col w-1/2 md:w-3/4">
               <div className="mb-1 text-xl font-bold ">{item.name}</div>
               <div className="md:mt-5 text-lg text-[#030981] font-semibold h-3/10">
                 Giá:
@@ -49,31 +46,54 @@ function Item({ item }) {
               </div>
             </div>
           </div>
-          <div className="align-middle mt-auto lg:w-4/5 flex flex-row flex-end space-x-4">
+          <div className="align-middle mt-2 flex flex-row flex-end space-x-4">
             <button
               name="view"
-              onClick={handleSubmit}
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.assign("./demo-item");
+              }}
               className="flex-auto bg-green-400 hover:bg-gray-700 text-white border border-blue-700 rounded h-10"
             >
-              Xem mặt hàng
+              <span className="md:hidden">
+                <FontAwesomeIcon icon={faEye} color="#fff"></FontAwesomeIcon>
+              </span>
+
+              <p className="hidden md:block">Xem mặt hàng</p>
             </button>
             <button
               name="edit"
-              onClick={handleSubmit}
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.assign("./add-item");
+              }}
               className="flex-auto bg-[#030981] hover:bg-gray-700 text-white border border-blue-700 rounded h-10"
             >
-              Sửa thông tin
+              <span className="md:hidden">
+                <FontAwesomeIcon
+                  icon={faPenToSquare}
+                  color="#fff"
+                ></FontAwesomeIcon>
+              </span>
+
+              <p className="hidden md:block">Sửa thông tin</p>
             </button>
             <button
               name="delete"
-              onClick={handleSubmit}
               data-modal-toggle="popup-modal"
               type="submit"
               data-bs-toggle="modal"
               data-bs-target="#delete-modal"
               className="flex-auto bg-red-500 hover:bg-gray-700 text-white border border-blue-700 rounded h-10"
             >
-              Xóa mặt hàng
+              <span className="md:hidden">
+                <FontAwesomeIcon
+                  icon={faTrashCan}
+                  color="#fff"
+                ></FontAwesomeIcon>
+              </span>
+
+              <p className="hidden md:block">Xóa thông tin</p>
             </button>
             {/* Delete-Item Modal */}
             <div
@@ -130,7 +150,6 @@ function Item({ item }) {
                       <button
                         data-modal-toggle="popup-modal"
                         type="submit"
-                        onClick={handleSubmit}
                         className="text-white bg-red-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
                         data-bs-toggle="modal"
                         data-bs-target="#success-modal"
@@ -199,7 +218,10 @@ function Item({ item }) {
                         data-bs-dismiss="modal"
                         aria-label="Close"
                         type="submit"
-                        onClick={handleSubmit}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          window.location.assign("/");
+                        }}
                         name="homepage"
                         className="text-gray-500 mb-5 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                       >

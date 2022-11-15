@@ -1,8 +1,10 @@
 import {timeAgo} from '../../service/timeAgo'
+import { useNavigate } from 'react-router-dom'
 
 export default function Item({item}) {
+    const navigate = useNavigate()
     return (
-        <div className="flex flex-col w-72 rounded m-2 border-2 rounded-2xl hover:border-2 hover:border-[#1488d8]">
+        <div className="flex flex-col w-72 rounded m-2 border-2 rounded-2xl hover:border-2 hover:border-[#1488d8]" onClick={()=>navigate("/demo-item")}>
             <div className="w-full h-72">
                 <img alt="item"
                     src={item.image}

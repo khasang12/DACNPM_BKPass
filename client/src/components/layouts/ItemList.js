@@ -1,4 +1,3 @@
-import DisplayItem from "../pages/DisplayItem";
 import Item from "./Item";
 
 export default function ItemsList() {
@@ -74,12 +73,13 @@ export default function ItemsList() {
             time: new Date() - 200000000
         },
     ];
+    
     return (
         <div className="w-full flex flex-col items-center">
             <div className="flex flex-row flex-wrap justify-center w-full">
                 {items.map(
                     (item) => {
-                        return <Item item={item} key={item.id} />
+                        return <Item item={item} key={item.id}/>
                     }
                 )}
             </div>
