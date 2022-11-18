@@ -11,7 +11,8 @@ import SellHistory from "./components/pages/SellHistory";
 import {Comment} from './components/pages/Comment'
 import {DevTeam} from './components/pages/DeveloperTeam'
 import {AddComment} from './components/pages/AddComment'
-import Register from "./components/pages/register";
+import Register from "./components/pages/Register";
+import Login from "./components/pages/Login";
 function App() {
   return (
     <BrowserRouter>
@@ -26,6 +27,7 @@ function App() {
         <Route path ="dev" element = {<DevTeam/>}/>
         <Route path = "add-comment" element = {<AddComment/>} />
         <Route path = "register" element = {<Register/>}/>
+        <Route path = "login" element = {<Login/>}/>
       </Routes>
     </BrowserRouter>
   );

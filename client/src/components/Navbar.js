@@ -15,7 +15,11 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 export function Navbar() {
   const [searchStr, setSearchStr] = useState("");
-  const [dropDown, setDropDown] = useState({ items: false, noti: false });
+  const [dropDown, setDropDown] = useState({
+    items: false,
+    noti: false,
+    acc: false,
+  });
 
   const search = (e) => {
     e.preventDefault();
@@ -149,25 +153,30 @@ export function Navbar() {
               <button
                 name="noti"
                 onClick={handleDropdown}
-                className="relative text-[#030391] hover:text-[#1488D8] p-1 md:text-center lg:pr-2 lg:pt-4 md:pt-0 md:pr-0 w-full"
+                className="relative text-[#030391] hover:text-[#1488D8] p-1 md:text-start lg:pr-2 lg:pt-4 md:pt-0 md:pr-0 w-full"
               >
                 <FontAwesomeIcon
                   icon={faBell}
                   className="mr-2"
                 ></FontAwesomeIcon>
                 Thông báo
-                <span class="invisible md:visible text-sm absolute top-0 lg:left-2/3 translate-middle rounded-full p-1 bg-red-500 text-white">
+                <span class="invisible md:visible text-sm absolute top-0 lg:left-1/3 translate-middle rounded-full p-1 bg-red-500 text-white">
                   +1 <span class="visually-hidden">unread messages</span>
                 </span>
                 {dropDown["noti"] && <DropdownNotification />}
               </button>
 
-              <button className="text-[#030391] hover:text-[#1488D8] p-1 md:text-center lg:pr-2 lg:pt-4 md:pt-0 md:pr-0 w-full">
+              <button
+                name="acc"
+                onClick={handleDropdown}
+                className="text-[#030391] hover:text-[#1488D8] p-1 md:text-start lg:pr-2 lg:pt-4 md:pt-0 md:pr-0 w-full"
+              >
                 <FontAwesomeIcon
                   icon={faUser}
                   className="mr-2"
                 ></FontAwesomeIcon>
                 Tài khoản
+                {dropDown["acc"] && <DropdownUser />}
               </button>
             </div>
           </div>
@@ -237,11 +246,42 @@ const DropdownSection = () => {
   );
 };
 
+const DropdownUser = () => {
+  return (
+    <div
+      id="dropdown"
+      class="left-28 -bottom-10 md:bottom-auto md:left-auto absolute md:justify-end z-50 w-full md:w-auto lg:w-44 bg-white rounded divide-y divide-gray-100 shadow"
+    >
+      <ul
+        class="py-1 text-sm text-gray-700 dark:text-gray-200"
+        aria-labelledby="dropdownDefault"
+      >
+        <li>
+          <a
+            href="/register"
+            class="block py-2 px-4 hover:bg-gray-100 hover:text-[#1488D8] text-[#030391]"
+          >
+            Đăng kí
+          </a>
+        </li>
+        <li>
+          <a
+            href="/login"
+            class="block py-2 px-4 hover:bg-gray-100 hover:text-[#1488D8] text-[#030391]"
+          >
+            Đăng nhập
+          </a>
+        </li>
+      </ul>
+    </div>
+  );
+};
+
 const DropdownNotification = () => {
   return (
     <div
       id="dropdown"
-      style={{minWidth:"250px"}}
+      style={{ minWidth: "250px" }}
       class="left-28 md:left-1/2 top-1 md:top-auto md:left-0 md:bottom-auto md:left-auto absolute md:justify-end z-50 md:w-full bg-white rounded divide-y divide-gray-100 shadow"
     >
       <div class="block py-2 px-4 font-medium text-start text-gray-700 bg-gray-50">
@@ -250,52 +290,44 @@ const DropdownNotification = () => {
       <div class="divide-y divide-gray-100 overflow-auto h-72">
         {NotiData.map((noti) => (
           <a
-          href="#"
-          class="flex py-3 px-4 hover:bg-gray-100"
-          key={noti.id}
-          onClick={(e) => {
-                e.preventDefault();
-                window.location.assign("./demo-item");
-              }}
-        >
-          <div class="flex-shrink-0">
-            <img
-              class="w-8 h-8 rounded-full"
-              src={noti.img}
-              alt="Jese image"
-            />
-          </div>
-          <div class="pl-3 w-full text-start">
-            <div class="overflow-visible text-gray-500 text-sm mb-1.5">
-              <span class="font-semibold text-gray-900">
-                {noti.name}
-              </span>
-              
+            href="#"
+            class="flex py-3 px-4 hover:bg-gray-100"
+            key={noti.id}
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.assign("./demo-item");
+            }}
+          >
+            <div class="flex-shrink-0">
+              <img
+                class="w-8 h-8 rounded-full"
+                src={noti.img}
+                alt="Jese image"
+              />
             </div>
-            <div class="text-sm text-[#030391] mb-1">
-            <span class="font-bold text-gray-900">
-                Nội dung:  
-              </span> {noti.msg}
+            <div class="pl-3 w-full text-start">
+              <div class="overflow-visible text-gray-500 text-sm mb-1.5">
+                <span class="font-semibold text-gray-900">{noti.name}</span>
+              </div>
+              <div class="text-sm text-[#030391] mb-1">
+                <span class="font-bold text-gray-900">Nội dung:</span>{" "}
+                {noti.msg}
+              </div>
+
+              <div class="text-xs text-[#030391]">
+                <span class="font-semibold text-gray-900">Người bán:</span>{" "}
+                {noti.vendor}
+              </div>
+              <div class="text-xs text-blue-600">
+                <span class="font-semibold text-gray-900">Cập nhật từ:</span>{" "}
+                {noti.time}
+              </div>
             </div>
-            
-            <div class="text-xs text-[#030391]">
-            <span class="font-semibold text-gray-900">
-                Người bán: 
-              </span> {noti.vendor}
-            </div>
-            <div class="text-xs text-blue-600">
-            <span class="font-semibold text-gray-900">
-                Cập nhật từ:
-              </span> {noti.time}
-            </div>
-          </div>
           </a>
         ))}
       </div>
-  
-      <a
-        class="block py-2 text-sm font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white"
-      >
+
+      <a class="block py-2 text-sm font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
         <div class="inline-flex items-center ">
           <svg
             class="mr-2 w-4 h-4 text-gray-500 dark:text-gray-400"
@@ -315,5 +347,5 @@ const DropdownNotification = () => {
         </div>
       </a>
     </div>
-  )
+  );
 };
