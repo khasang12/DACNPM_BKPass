@@ -5,26 +5,27 @@ function InitPage() {
   const [data, setData] = useState({})
   console.log(data);
 
-  useEffect(() => {
-    fetch('http://localhost:5000/api/').then(
-      res => res.json()
-    ).then(
-      data => {
-        setData(data)
-      }
-    )
-  }, [])
+  // useEffect(() => {
+  //   fetch('http://localhost:5000/api/').then(
+  //     res => res.json()
+  //   ).then(
+  //     data => {
+  //       setData(data)
+  //     }
+  //   )
+  // }, [])
 
   return (
     <div className="App">
-      {
+      <Homepage />
+      {/* {
         (typeof data.msg === 'undefined') ?
         (
           <Homepage />
           ) : (
           <p>Loading...</p>
           )
-      }
+      */}
     </div>
   );
 }
