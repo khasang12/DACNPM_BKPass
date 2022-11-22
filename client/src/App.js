@@ -1,6 +1,6 @@
 import "./App.css";
 
-import React from "react";
+import React from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AddItemForm from "./components/pages/AddItemForm";
 import InitPage from "./components/pages/initPage";
@@ -11,7 +11,7 @@ import SellHistory from "./components/pages/SellHistory";
 import {Comment} from './components/pages/Comment'
 import {DevTeam} from './components/pages/DeveloperTeam'
 import {AddComment} from './components/pages/AddComment'
-import Register from "./components/pages/Register";
+import Register from "./components/pages/register";
 import Login from "./components/pages/Login";
 function App() {
   return (

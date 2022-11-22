@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose'),  Schema = mongoose.Schema;
 
 const feedbackSchema = new mongoose.Schema({
   authorId: {
@@ -24,44 +24,46 @@ const feedbackSchema = new mongoose.Schema({
 });
 
 const userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: false,
-    unique: true,
-  },
-  phoneNum: {
-    type: String,
-    required: false,
-    unique: true,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  gender: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-    required: true,
-  },
-  feedbacks: {
-    type: [feedbackSchema],
-    default: [],
-  },
-  markItems: {
-    type: [String],
-    default: [],
-  },
-  salingItems: {
-    type: [String],
-    default: [],
-  },
-});
-
+    email : {
+        type: String,
+        required: false,
+        unique: true
+    },
+    phoneNum : {
+        type: String,
+        required: false,
+        unique: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    gender : {
+        type: Number,
+        required: true
+    },
+    password : {
+        type: String,
+        required: true
+    },
+    image : {
+        type: String,
+        required: true
+    },
+    feedbacks : {
+        type: [feedbackSchema],
+        default: []
+    },
+    markItems : {
+        type: [String],
+        default: []
+    },
+    salingItems: {
+        type: [String],
+        default: []
+    }
+})
+userSchema.methods.comparePassword = function(password){
+    return bcrypt.compareSync(password, this.password)
+}
 module.exports = mongoose.model("Users", userSchema, "Users");
