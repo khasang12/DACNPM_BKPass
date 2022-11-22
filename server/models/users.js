@@ -1,27 +1,27 @@
 const mongoose = require('mongoose'),  Schema = mongoose.Schema;
 
 const feedbackSchema = new mongoose.Schema({
-  authorId: {
-    type: String,
-    required: true,
-  },
-  content: {
-    type: String,
-    required: true,
-  },
-  numStarsRate: {
-    type: Number,
-    required: true,
-  },
-  idDeleted: {
-    type: Boolean,
-    default: false,
-  },
-  createAt: {
-    type: String,
-    required: true,
-  },
-});
+    authorId: {
+        type: String,
+        required: true
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    numStarsRate: {
+        type: Number,
+        required: true
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false
+    },
+    createAt: {
+        type: String,
+        required: true
+    }
+})
 
 const userSchema = new mongoose.Schema({
     email : {
@@ -39,7 +39,8 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     gender : {
-        type: Number,
+        type: String,
+        enum: ['male', 'female', 'secret'],
         required: true
     },
     password : {
@@ -55,10 +56,6 @@ const userSchema = new mongoose.Schema({
         default: []
     },
     markItems : {
-        type: [String],
-        default: []
-    },
-    salingItems: {
         type: [String],
         default: []
     }
