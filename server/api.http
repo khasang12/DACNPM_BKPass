@@ -1,0 +1,179 @@
+# register
+GET http://localhost:5000/register
+Content-Type: application/json
+{
+    name: "Pham Minh Duy",
+    email: "duy.pham@gmail.com",
+    phoneNum: "1234567890",
+    gender: "male",
+    studentId: "1919191",
+    password: "duyduy",
+    image: "http://"
+}
+###
+# log in
+
+GET http://localhost:5000/login
+Content-Type: application/json
+{
+    emailOrPhone: "duypm1111",
+    password: "aaaaaa"
+}
+
+###
+# get list of item
+# filter gồm có pagenum, limit, author, category, name, markby, sortby
+GET http://localhost:5000/items?pagenum=1&limit=10
+{
+    token: "" 
+}
+### có thể không có token (nếu chưa đăng nhập)
+###
+GET http://localhost:5000/items?author=12221212
+
+###
+GET http://localhost:5000/items?category=giaotrinh
+
+###
+GET http://localhost:5000/items?name=giaitich1
+
+###
+GET http://localhost:5000/items?markby=12221212
+
+# kiểu trả về là danh sách các item
+{
+    items: [
+        {
+            id: "",
+            category: "",
+            status: "",
+            price: "",
+            title: "",
+            image: "",
+            createAt: "",
+            isMarked: "",
+            isSelling: "",
+            authorId: "",
+            authorName: "",
+            authorImage: "",
+        }
+    ]
+}
+
+### chi tiết mặt hàng
+GET http://localhost:5000/item/:itemId
+{
+    token: "" 
+}
+
+### có thể không có token (nếu chưa đăng nhập)
+### kiểu trả về
+{
+    id: "",
+    category: "",
+    status: "",
+    price: 100000,
+    title: "",
+    description: "",
+    address: "",
+    numConcerner: 10,
+    image: "",
+    createAt: "",
+    isMarked: "",
+    isSelling: "",
+    authorId: "",
+    authorName: "",
+    authorImage: "",
+}
+
+### đăng mặt hàng mới
+POST  http://localhost:5000/item
+Content-Type: application/json
+{
+    category: "",
+    status: "",
+    price: 100000,
+    title: "",
+    description: "",
+    address: "",
+    image: "",
+    token: "",
+}
+
+### update mặt hàng
+PUT http://localhost:5000/item/:itemId
+Content-Type: application/json
+{
+    category: "",
+    status: "",
+    price: 100000,
+    title: "",
+    description: "",
+    address: "",
+    image: "",
+    token: "",
+    isSelling: ""
+}
+
+### xóa mặt hàng
+DELETE http://localhost:5000/item/:itemId
+
+### search saler
+GET http://localhost:5000/users?name=duy&sortby=1
+
+### kiểu trả về
+{
+    users: [
+        {
+            id: "",
+            image: "",
+            name: "",
+            description: "",
+            numSellingItem: 10,
+            numSaledItem: 10,
+            rate: "",
+            numFeedback: 15
+        },
+    ]
+}
+
+
+### get saler detail
+GET http://localhost:5000/user/:userId
+### kiểu trả về
+{
+    id: "",
+    image: "",
+    name: "",
+    description: "",
+    numSellingItem: 10,
+    numSaledItem: 10,
+    rate: "",
+    numFeedback: 15,
+}
+### get saler feedback
+GET http://localhost:5000/user/:userId/feedback
+### kiểu trả về
+{
+    feedback: [
+        {
+            authorId: "",
+            authorImage: "",
+            authorName: "",
+            content: "",
+            numStarsRate: 4,
+            isDeleted: false,
+            createAt: ""
+        }
+    ]
+}
+### thêm feedback
+POST http://localhost:5000/user/:userId/feedback
+{
+    token: "",
+    feedback: "",
+    numStarsRate: 5
+}
+
+### Xóa feedback
+DELETE  http://localhost:5000/user/:userId/feedback/:feedbackId

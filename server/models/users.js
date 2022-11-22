@@ -13,7 +13,7 @@ const feedbackSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    idDeleted: {
+    isDeleted: {
         type: Boolean,
         default: false
     },
@@ -39,7 +39,8 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     gender : {
-        type: Number,
+        type: String,
+        enum: ['male', 'female', 'secret'],
         required: true
     },
     password : {
@@ -55,10 +56,6 @@ const userSchema = new mongoose.Schema({
         default: []
     },
     markItems : {
-        type: [String],
-        default: []
-    },
-    salingItems: {
         type: [String],
         default: []
     }
