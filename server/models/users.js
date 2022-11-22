@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+const mongoose = require('mongoose'),  Schema = mongoose.Schema;
 const feedbackSchema = new mongoose.Schema({
     authorId: {
         type: String,
@@ -63,5 +62,7 @@ const userSchema = new mongoose.Schema({
         default: []
     }
 })
-
+userSchema.methods.comparePassword = function(password){
+    return bcrypt.compareSync(password, this.password)
+}
 module.exports = mongoose.model("Users", userSchema, "Users");

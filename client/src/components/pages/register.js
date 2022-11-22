@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import React from 'react';
 const Register = () => {
   const [done, setDone] = useState({ status: false, msg: "empty form" });
   const [values, setValues] = useState({
