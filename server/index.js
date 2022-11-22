@@ -1,17 +1,20 @@
 const express = require('express')
 const cors = require('cors')
 const app = express();
+
 const User = require("./models/users");
 const dotenv = require("dotenv");
 require("dotenv").config();
+
+const userRoutes = require('./routes/userRoutes')
+
+
 dotenv.config();
 app.use(express.json())
 const jwt = require("jsonwebtoken")
 app.use(cors())
-bcrypt = require('bcryptjs'),
-    app.get('/api', (req, res) => {
-        res.json({ "msg": ["A", "B", "C"] })
-    })
+
+bcrypt = require('bcryptjs')
 
 app.post('/register', async (req, res) => {
     try {
@@ -85,4 +88,5 @@ app.post("/login", async (req, res) => {
 app.listen(5000, () => { console.log("Server started on 5000"); })
 
 const connectDB = require("./config/db");
+
 connectDB();
