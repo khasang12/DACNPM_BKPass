@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { loginRoute } from "../../api/APIRoutes";
+import axios from "axios";
 
 export default function Login() {
+  const navigate = useNavigate()
   const [done, setDone] = useState({ status: false, msg: "empty form" });
   const [values, setValues] = useState({
     email: "",
@@ -22,22 +25,22 @@ export default function Login() {
     }
   }, [values]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
-      // console.log("in validation", registerRoute);
-      // const { password, username, email } = values;
-      // const { data } = await axios.post(registerRoute, {
-      //   username,
-      //   email,
-      //   password,
-      // });
-      // if (data.status === false) {
-      //   toast.error(data.msg, toastOptions);
-      // } else {
-      //   localStorage.setItem("chat-app-user", JSON.stringify(data.user));
-      //   navigate("/");
-      // }
+      console.log("in validation", loginRoute);
+      const { password, username } = values;
+      const { data } = await axios.post(loginRoute, {
+        username,
+        password,
+      });
+      if (data.status === false) {
+        toast.error(data.msg, toastOptions);
+      } else {
+        localStorage.setItem("bkpass-user", JSON.stringify(data.user));
+        toast.success("Đăng nhập thành công", toastOptions);
+        window.location.assign("/");
+      }
       console.log("OK");
     }
   };
@@ -48,13 +51,6 @@ export default function Login() {
     });
   };
   const handleValidation = () => {
-    const toastOptions = {
-      position: "top-right",
-      autoClose: 3000,
-      pauseOnHover: true,
-      draggable: true,
-      theme: "dark",
-    };
     if (done["status"] === false) {
       toast.error(done["msg"], toastOptions);
       return false;
@@ -127,3 +123,11 @@ export default function Login() {
     </div>
   );
 }
+
+const toastOptions = {
+  position: "top-right",
+  autoClose: 3000,
+  pauseOnHover: true,
+  draggable: true,
+  theme: "dark",
+};

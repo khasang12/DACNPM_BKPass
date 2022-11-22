@@ -1,38 +1,41 @@
 const mongoose = require('mongoose');
 const itemSchema = new mongoose.Schema(
     {
+        idAuthor: {
+            type: String,
+            required: true
+        },
         category: {
-            type: String, 
+            type: String,
             enum: ['book', 'electronics', 'others'],
             required: true
         },
-        status:{
+        status: {
             type: String,
             enum: ['used', 'new'],
             required: true
         },
-        price:{
+        price: {
             type: NumberDecimal,
             required: true
         },
-        title:{
+        title: {
             type: String,
             required: true
         },
-        description:{
+        description: {
             type: String,
-            required: true
-        },
-        address: {
-            type: String,
-            required: true
-        },
-        tag: {
-            type: String,
-            required: true
         },
         image: {
             type: [String],
+            required: true
+        },
+        date: {
+            type: Date,
+            required: true
+        },
+        markDate: {
+            type: Date,
             required: true
         }
     }
