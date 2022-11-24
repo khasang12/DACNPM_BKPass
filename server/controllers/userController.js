@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const users = require("../models/users");
-
+const jwt = require("jsonwebtoken")
 module.exports.register = async (req, res, next) => {
   try {
     console.log(req.body)
@@ -19,7 +19,7 @@ module.exports.register = async (req, res, next) => {
     // password
     const hashed = await bcrypt.hash(password, 10);
     // add to DB
-    const user = await users.create({
+    const newUser = await users.create({
       email,
       name,
       image,
@@ -27,28 +27,50 @@ module.exports.register = async (req, res, next) => {
       phoneNum,
       password: hashed,
     });
-    delete user.password;
-    return res.json({ status: true, user });
+    delete newUser.password;
+    const token = jwt.sign(
+      { user_id: newUser._id, 
+        email: newUser.email 
+      },
+      process.env.JWT_KEY,
+      {
+        expiresIn: "2h",
+      }
+    );
+    console.log(token);
+    newUser.token = token;
+    return res.json({ status: true, newUser });
   } catch (ex) {
+    console.log(ex);
     next(ex);
   }
 };
 
 module.exports.login = async (req, res, next) => {
-  try{
-      const {username, password} = req.body
-      const user = await users.findOne({username})
-      if(!user){
-          return res.json({msg:"Tên đăng nhập hoặc mật khẩu không tồn tại", status: false})
+  try {
+    const { email, password } = req.body
+    const user = await users.findOne({ email })
+    if (!user) {
+      return res.json({ msg: "Tên đăng nhập hoặc mật khẩu không tồn tại", status: false })
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password)
+    if (!isPasswordValid) {
+      return res.json({ msg: "Sai mật khẩu. Vui lòng thử lại", status: false })
+    }
+    const token = jwt.sign(
+      { user_id: user._id, email },
+      process.env.JWT_KEY,
+      {
+        expiresIn: "2h",
       }
-      const isPasswordValid = await bcrypt.compare(password, user.password)
-      if(!isPasswordValid){
-          return res.json({msg:"Tên đăng nhập hoặc mật khẩu không tồn tại", status: false})
-      }
-      delete user.password
-      return res.json({status: true, user})
+    );
+    user.token = token;
+    console.log("Logged in")
+    console.log(token)
+    delete user.password;
+    return res.json({ status: true, user })
   }
-  catch(ex){
-      next(ex)
+  catch (ex) {
+    next(ex)
   }
 }

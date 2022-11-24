@@ -24,7 +24,6 @@ const Register = () => {
   useEffect(() => {
     const { name, email, password, repassword, image, gender, phoneNum } =
       values;
-    console.log(gender);
     if (name === "") {
       setDone({ status: false, msg: "Vui lòng nhập họ tên" });
     } else if (gender === "Chọn giới tính") {
@@ -66,7 +65,10 @@ const Register = () => {
     event.preventDefault();
     if (handleValidation()) {
       console.log("in validation", registerRoute);
-      const { name, email, password, image, gender, phoneNum } = values;
+      var { name, email, password, image, gender, phoneNum } = values;
+      if (gender == "Nam") gender = "male"
+      else if (gender == "Nữ") gender = "female" 
+      else if(gender == "Không tiết lộ") gender = "secret"
       console.log(values)
       const { data } = await axios.post(registerRoute, {
         name,
