@@ -18,14 +18,6 @@ function InitPage() {
   return (
     <div className="App">
       <Homepage />
-      {/* {
-        (typeof data.msg === 'undefined') ?
-        (
-          <Homepage />
-          ) : (
-          <p>Loading...</p>
-          )
-      */}
     </div>
   );
 }

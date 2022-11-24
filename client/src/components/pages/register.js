@@ -65,10 +65,9 @@ const Register = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
-      console.log("in validation", registerRoute);
       const { name, email, password, image, gender, phoneNum } = values;
-      console.log(values)
-      const { data } = await axios.post(registerRoute, {
+      console.log({ name, email, password, image, gender, phoneNum })
+      const res = await axios.post(registerRoute, {
         name,
         email,
         password,
@@ -76,10 +75,10 @@ const Register = () => {
         gender,
         phoneNum,
       });
-      if (data.status === false) {
-        toast.error(data.msg, toastOptions);
+      if (res.status === false) {
+        toast.error(res.data.msg, toastOptions);
       } else {
-        localStorage.setItem("bkpass-user", JSON.stringify(data.user));
+        localStorage.setItem("bkpass-user", JSON.stringify(res.data.user));
         setRegister(true)
         toast.success("Đăng kí tài khoản thành công", toastOptions);
         navigate("/login")
@@ -140,10 +139,10 @@ const Register = () => {
             onChange={(e) => handleChange(e)}
             className="block appearance-none md:w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
           >
-            <option>Chọn giới tính</option>
-            <option>Nam</option>
-            <option>Nữ</option>
-            <option>Không tiết lộ</option>
+            <option value="">Chọn giới tính</option>
+            <option value="male">Nam</option>
+            <option value="female">Nữ</option>
+            <option value="secret">Không tiết lộ</option>
           </select>
         </div>
 
@@ -242,7 +241,7 @@ const Register = () => {
             className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
             data-bs-toggle={register ? "modal" : ""}
             data-bs-target={register ? "#popup-modal" : ""}
-            onClick={handleValidation}
+            onClick={handleSubmit}
           >
             Đăng kí
           </button>

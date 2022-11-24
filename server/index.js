@@ -6,9 +6,6 @@ const User = require("./models/users");
 const dotenv = require("dotenv");
 require("dotenv").config();
 
-const userRoutes = require('./routes/userRoutes')
-
-
 dotenv.config();
 app.use(express.json())
 const jwt = require("jsonwebtoken")
@@ -16,19 +13,16 @@ app.use(cors())
 
 bcrypt = require('bcryptjs')
 
-app.post('/register', async (req, res) => {
+app.post('/api/auth/register', async (req, res) => {
     try {
-        const { name, gender, email, phoneNum, password, retypePassword, image } = req.body
-        if (!(name && gender && email && phoneNum && password && retypePassword && image)) {
-            res.status(400).send("All input is required")
-        }
-        if (password != retypePassword) {
-            res.status(400).send("Password does not match. Please try again!")
+        const { name, gender, email, phoneNum, password,  image } = req.body
+        if (!(name && gender && email && phoneNum && password && image)) {
+            res.status(400).send({msg: "All input is required"})
         }
         const oldUser = await User.findOne({ email });
         if (oldUser) {
             console.log(oldUser)
-            return res.status(409).send("User Already Exist. Please Login")
+            return res.status(409).send({msg: "User Already Exist. Please Login"})
         }
         encryptedPassword = await bcrypt.hash(password, 10)
 
@@ -40,7 +34,7 @@ app.post('/register', async (req, res) => {
             password: encryptedPassword,
             image
         })
-        print("Created account successfully.")
+        console.log("Created account successfully.")
         const token = jwt.sign(
             { user_id: newUser._id, email },
             process.env.JWT_KEY,
@@ -49,13 +43,13 @@ app.post('/register', async (req, res) => {
             }
         );
         newUser.token = token;
-        res.status(201).json(newUser);
+        res.status(201).send(newUser);
     } catch (error) {
         console.log(error)
     }
 })
 
-app.post("/login", async (req, res) => {
+app.post("/api/auth/login", async (req, res) => {
 
     try {
         const { email, password } = req.body;
