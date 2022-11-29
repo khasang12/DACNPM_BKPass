@@ -7,16 +7,16 @@ const itemSchema = new mongoose.Schema(
         },
         category: {
             type: String,
-            enum: ['book', 'electronics', 'others'],
+            enum: ['Sách', 'Thiết bị số', 'Vật dụng khác'],
             required: true
         },
         status: {
             type: String,
-            enum: ['used', 'new'],
+            enum: ['Đã sử dụng', 'Hàng mới'],
             required: true
         },
         price: {
-            type: NumberDecimal,
+            type: Number,
             required: true
         },
         title: {

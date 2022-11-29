@@ -14,8 +14,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 
 export function Navbar() {
-  const userLogin = localStorage.getItem("bkpass-user");
-  console.log(userLogin);
+  const userLogin = JSON.parse(localStorage.getItem("bkpass-user"));
   const [searchStr, setSearchStr] = useState("");
   const [dropDown, setDropDown] = useState({
     items: false,
@@ -32,7 +31,9 @@ export function Navbar() {
   };
 
   const handleDropdown = (e) => {
-    console.log(e.target);
+    if (e.target.name != "acc"){
+      window.location.assign(`./403`);
+    }
     const updatedValues = { [e.target.name]: !dropDown[e.target.name] };
     setDropDown({ ...dropDown, ...updatedValues });
   };
@@ -125,7 +126,7 @@ export function Navbar() {
                   className="mr-2"
                 ></FontAwesomeIcon>
                 Đơn hàng
-                {dropDown["items"] && <DropdownSection />}
+                {userLogin && dropDown["items"] && <DropdownSection />}
               </button>
 
               <button
@@ -141,7 +142,7 @@ export function Navbar() {
                 <span class="invisible md:visible text-sm absolute top-0 lg:left-1/3 translate-middle rounded-full p-1 bg-red-500 text-white">
                   +1 <span class="visually-hidden">unread messages</span>
                 </span>
-                {dropDown["noti"] && <DropdownNotification />}
+                {userLogin && dropDown["noti"] && <DropdownNotification />}
               </button>
 
               {userLogin ? (
@@ -161,7 +162,7 @@ export function Navbar() {
                     className="w-5 h-5 md:w-10 md:h-10 align-bottom  md:p-2 mr-2"
                   /> */}
                   <p className="flex align-middle my-auto">
-                    {userLogin ? JSON.parse(userLogin).name : "JFF"}
+                    {userLogin ? userLogin["name"] : "JFF"}
                   </p>
                   {dropDown["user"] && <DropdownUser />}
                 </button>
