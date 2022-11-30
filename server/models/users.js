@@ -55,9 +55,25 @@ const userSchema = new mongoose.Schema({
         type: [feedbackSchema],
         default: []
     },
-    markItems : {
-        type: [String],
-        default: []
+    numSellingItems: {
+        type: Number,
+        default: 0
+    },
+    numSaledItems: {
+        type: Number,
+        default: 0
+    },
+    averageStarsRate : {
+        type: Number,
+        default: 0
+    },
+    numRate: {
+        type: Number,
+        default: 0
+    },
+    description: {
+        type: String,
+        default: ""
     }
 })
 userSchema.methods.comparePassword = function(password){

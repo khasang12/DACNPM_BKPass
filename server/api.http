@@ -1,5 +1,5 @@
 # register
-GET http://localhost:5000/register
+GET http://localhost:5000/user/register
 Content-Type: application/json
 {
     name: "Pham Minh Duy",
@@ -13,7 +13,7 @@ Content-Type: application/json
 ###
 # log in
 
-GET http://localhost:5000/login
+GET http://localhost:5000/user/login
 Content-Type: application/json
 {
     emailOrPhone: "duypm1111",
@@ -22,14 +22,15 @@ Content-Type: application/json
 
 ###
 # get list of item
-# filter gồm có pagenum, limit, author, category, name, markby, sortby
-GET http://localhost:5000/items?pagenum=1&limit=10
+# filter gồm có page, limit, author, category, name, sortby, status, markby
+# xong
+GET http://localhost:5000/items?page=1&limit=10
 {
     token: "" 
 }
 ### có thể không có token (nếu chưa đăng nhập)
 ###
-GET http://localhost:5000/items?author=12221212
+GET http://localhost:5000/items?author=author_id_here
 
 ###
 GET http://localhost:5000/items?category=giaotrinh
@@ -38,22 +39,23 @@ GET http://localhost:5000/items?category=giaotrinh
 GET http://localhost:5000/items?name=giaitich1
 
 ###
-GET http://localhost:5000/items?markby=12221212
+GET http://localhost:5000/items?markby=user_id_here
+
 
 # kiểu trả về là danh sách các item
 {
     items: [
         {
-            id: "",
+            _id: "",
             category: "",
             status: "",
             price: "",
             title: "",
             image: "",
-            createAt: "",
+            date: "",
             isMarked: "",
             isSelling: "",
-            authorId: "",
+            idAuthor: "",
             authorName: "",
             authorImage: "",
         }
@@ -61,6 +63,7 @@ GET http://localhost:5000/items?markby=12221212
 }
 
 ### chi tiết mặt hàng
+# xong
 GET http://localhost:5000/item/:itemId
 {
     token: "" 
@@ -78,31 +81,32 @@ GET http://localhost:5000/item/:itemId
     address: "",
     numConcerner: 10,
     image: "",
-    createAt: "",
+    date: "",
     isMarked: "",
     isSelling: "",
-    authorId: "",
+    idAuthor: "",
     authorName: "",
     authorImage: "",
 }
 
 ### đăng mặt hàng mới
+# xong
 POST  http://localhost:5000/item
 Content-Type: application/json
+Authorization: token_here
 {
     category: "",
     status: "",
     price: 100000,
     title: "",
     description: "",
-    address: "",
     image: "",
-    token: "",
 }
 
 ### update mặt hàng
 PUT http://localhost:5000/item/:itemId
 Content-Type: application/json
+Authorization: token_here
 {
     category: "",
     status: "",
@@ -111,7 +115,6 @@ Content-Type: application/json
     description: "",
     address: "",
     image: "",
-    token: "",
     isSelling: ""
 }
 
@@ -119,6 +122,7 @@ Content-Type: application/json
 DELETE http://localhost:5000/item/:itemId
 
 ### search saler
+# xong
 GET http://localhost:5000/users?name=duy&sortby=1
 
 ### kiểu trả về
@@ -137,8 +141,8 @@ GET http://localhost:5000/users?name=duy&sortby=1
     ]
 }
 
-
 ### get saler detail
+# xong
 GET http://localhost:5000/user/:userId
 ### kiểu trả về
 {
@@ -151,7 +155,19 @@ GET http://localhost:5000/user/:userId
     rate: "",
     numFeedback: 15,
 }
+
+### change user info
+# xong
+PUT http://localhost:5000/user/:userId
+Authorization: "token here"
+
+{
+    user: {
+
+    }
+}
 ### get saler feedback
+# xong
 GET http://localhost:5000/user/:userId/feedback
 ### kiểu trả về
 {
@@ -168,12 +184,14 @@ GET http://localhost:5000/user/:userId/feedback
     ]
 }
 ### thêm feedback
+# xong
 POST http://localhost:5000/user/:userId/feedback
+Authorization: 
 {
-    token: "",
     feedback: "",
     numStarsRate: 5
 }
 
 ### Xóa feedback
+# xong
 DELETE  http://localhost:5000/user/:userId/feedback/:feedbackId
