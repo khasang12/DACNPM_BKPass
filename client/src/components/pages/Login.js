@@ -6,7 +6,7 @@ import { loginRoute } from "../../api/APIRoutes";
 import axios from "axios";
 
 export default function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [done, setDone] = useState({ status: false, msg: "empty form" });
   const [values, setValues] = useState({
     email: "",
@@ -29,9 +29,9 @@ export default function Login() {
     event.preventDefault();
     if (handleValidation()) {
       console.log("in validation", loginRoute);
-      const { password, username } = values;
+      const { password, email } = values;
       const { data } = await axios.post(loginRoute, {
-        username,
+        email,
         password,
       });
       if (data.status === false) {
@@ -39,7 +39,7 @@ export default function Login() {
       } else {
         localStorage.setItem("bkpass-user", JSON.stringify(data.user));
         toast.success("Đăng nhập thành công", toastOptions);
-        window.location.assign("/");
+        navigate(-1);
       }
       console.log("OK");
     }

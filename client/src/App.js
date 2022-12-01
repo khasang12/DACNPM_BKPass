@@ -13,6 +13,9 @@ import {DevTeam} from './components/pages/DeveloperTeam'
 import {AddComment} from './components/pages/AddComment'
 import Register from "./components/pages/register";
 import Login from "./components/pages/Login";
+import NotFound from "./components/pages/NotFound";
+import Unauthenticated from "./components/pages/Unauthenticated";
+
 function App() {
   return (
     <BrowserRouter>
@@ -28,6 +31,8 @@ function App() {
         <Route path = "add-comment" element = {<AddComment/>} />
         <Route path = "register" element = {<Register/>}/>
         <Route path = "login" element = {<Login/>}/>
+        <Route path="403" element = {<Unauthenticated/>} />
+        <Route path="*" element = {<NotFound/>} />
       </Routes>
     </BrowserRouter>
   );

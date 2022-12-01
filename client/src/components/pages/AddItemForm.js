@@ -1,19 +1,19 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { addItemRoute } from "../../api/APIRoutes";
 
 export default function AddItemForm() {
   const navigate = useNavigate();
-
   const [values, setValues] = useState({
     category: "",
     item_status: "",
     price: "",
     header: "",
     desc: "",
-    addr: "",
     img: [],
     is_sold: false,
   });
@@ -23,7 +23,14 @@ export default function AddItemForm() {
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
-    const { price, header, img, category, item_status, addr } = values;
+    const user = localStorage.getItem("bkpass-user");
+    if (!user) {
+      navigate("/403");
+    }
+  }, []);
+
+  useEffect(() => {
+    const { price, header, img, category, item_status } = values;
     if (category === "Chọn danh mục" || category === "") {
       setDone({ status: false, msg: "Vui lòng chọn danh mục" });
     } else if (img.length === 0) {
@@ -37,8 +44,6 @@ export default function AddItemForm() {
       setDone({ status: false, msg: "Giá tiền không thể là số âm" });
     } else if (header === "") {
       setDone({ status: false, msg: "Vui lòng điền tên mặt hàng" });
-    } else if (addr === "") {
-      setDone({ status: false, msg: "Vui lòng điền địa chỉ" });
     } else {
       setDone({ status: true, msg: "validated form" });
     }
@@ -53,27 +58,29 @@ export default function AddItemForm() {
   }
 
   // FOR FINAL SUBMISSION....
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
-      /*console.log("in validation", loginRoute);
-      const { password, username } = values;
-      const { data } = await axios.post(loginRoute, {
-        username,
-        password,
-      });
-      if (data.status === false) {
-        toast.error(data.msg, toastOptions);
-      } else {
-        localStorage.setItem("chat-app-user", JSON.stringify(data.user));
-        console.log(data.user);
-        if (data.user.isAvatarSet) navigate("/");
-        else {
-          navigate("/setAvatar");
-        }
-      }*/
-      if (event.target.name === "viewitem") navigate("/demo-item");
-      else if (event.target.name === "homepage") navigate("/");
+      if (event.target.name === "viewitem") {
+        const redirectID = JSON.parse(localStorage.getItem("bkpass-lastitem"))["data"]
+        navigate({ pathname: "/demo-item", search: `?id=${redirectID}` });
+      } else if (event.target.name === "homepage") navigate("/");
+      else if (event.target.name === "submit") {
+        const user = JSON.parse(localStorage.getItem("bkpass-user"));
+        await axios.post(addItemRoute, {
+          ...values,
+          idAuthor: user["_id"],
+        }).then((response)=>{
+          if (response.status){
+            toast.success("Thêm sản phẩm thành công", toastOptions);
+            console.log(response["data"])
+            localStorage.setItem("bkpass-lastitem", JSON.stringify(response["data"]));
+          }
+          else{
+            toast.error("Lỗi server. Vui lòng thử lại", toastOptions);
+          }
+        });
+      }
     }
   };
   const handleChange = (event) => {
@@ -91,13 +98,6 @@ export default function AddItemForm() {
     }
   };
   const handleValidation = () => {
-    const toastOptions = {
-      position: "top-right",
-      autoClose: 3000,
-      pauseOnHover: true,
-      draggable: true,
-      theme: "dark",
-    };
     if (done["status"] === false) {
       toast.error(done["msg"], toastOptions);
       return false;
@@ -198,7 +198,7 @@ export default function AddItemForm() {
                 type="radio"
                 id="status-new"
                 name="item_status"
-                value="Mới"
+                value="Hàng mới"
                 className="hidden peer"
                 onChange={(e) => handleChange(e)}
                 required
@@ -266,7 +266,7 @@ export default function AddItemForm() {
               onChange={(e) => handleChange(e)}
               suffix="VND"
             />
-          </div>  
+          </div>
 
           <div className="mb-6">
             <label
@@ -285,24 +285,6 @@ export default function AddItemForm() {
             ></textarea>
           </div>
 
-          <div className="mb-6">
-            <label
-              htmlFor="location"
-              className="block mb-2 text-sm font-medium text-gray-900"
-            >
-              Địa chỉ nhận hàng (*)
-            </label>
-
-            <input
-              type="text"
-              id="location"
-              name="addr"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="268, Lý Thường Kiệt. Phường 14, Quận 10"
-              onChange={(e) => handleChange(e)}
-              required
-            />
-          </div>
           <div className="inline-flex">
             <button
               type="button"
@@ -315,6 +297,7 @@ export default function AddItemForm() {
 
             <button
               type="submit"
+              name="need-confirmation"
               className="ml-6 inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
               data-bs-toggle={done["status"] ? "modal" : ""}
               data-bs-target={done["status"] ? "#popup-modal" : ""}
@@ -385,10 +368,6 @@ export default function AddItemForm() {
                       09/10/2022
                     </h3>
                     <h3>
-                      <span className="text-gray-500">Địa chỉ giao hàng:</span>{" "}
-                      {values.addr}
-                    </h3>
-                    <h3>
                       <span className="text-gray-500">Mô tả</span>
                     </h3>
                     <p className="leading-5 pr-10 text-justify">
@@ -455,6 +434,7 @@ export default function AddItemForm() {
                         data-modal-toggle="popup-modal"
                         type="submit"
                         onClick={handleSubmit}
+                        name="submit"
                         className="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
                         data-bs-toggle="modal"
                         data-bs-target="#success-modal"
@@ -550,3 +530,11 @@ export default function AddItemForm() {
     </div>
   );
 }
+
+const toastOptions = {
+  position: "top-right",
+  autoClose: 3000,
+  pauseOnHover: true,
+  draggable: true,
+  theme: "dark",
+};
