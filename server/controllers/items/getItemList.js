@@ -15,7 +15,12 @@ const getItemList = async (req, res) => {
             "markby" : "markBy"
         }
         for (const key in filter) {
-            searchPattern[filter[key]] = req.query[key];
+            if (req.query[key]) {
+                if (key === "markby") {
+                    delete searchPattern.isSelling;
+                }
+                searchPattern[filter[key]] = req.query[key];
+            }
         }
         const sortType = {
             "time" : {

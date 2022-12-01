@@ -1,5 +1,5 @@
 # register
-GET http://localhost:5000/user/register
+GET http://localhost:5000/api/register
 Content-Type: application/json
 {
     name: "Pham Minh Duy",
@@ -13,10 +13,10 @@ Content-Type: application/json
 ###
 # log in
 
-GET http://localhost:5000/user/login
+GET http://localhost:5000/api/login
 Content-Type: application/json
 {
-    emailOrPhone: "duypm1111",
+    email: "duypm1111",
     password: "aaaaaa"
 }
 
@@ -24,22 +24,22 @@ Content-Type: application/json
 # get list of item
 # filter gồm có page, limit, author, category, name, sortby, status, markby
 # xong
-GET http://localhost:5000/items?page=1&limit=10
+GET http://localhost:5000/api/items?page=1&limit=10
 {
     token: "" 
 }
 ### có thể không có token (nếu chưa đăng nhập)
 ###
-GET http://localhost:5000/items?author=author_id_here
+GET http://localhost:5000/api/items?author=author_id_here
 
 ###
-GET http://localhost:5000/items?category=giaotrinh
+GET http://localhost:5000/api/items?category=giaotrinh
 
 ###
-GET http://localhost:5000/items?name=giaitich1
+GET http://localhost:5000/api/items?name=giaitich1
 
 ###
-GET http://localhost:5000/items?markby=user_id_here
+GET http://localhost:5000/api/items?markby=user_id_here
 
 
 # kiểu trả về là danh sách các item
@@ -64,7 +64,7 @@ GET http://localhost:5000/items?markby=user_id_here
 
 ### chi tiết mặt hàng
 # xong
-GET http://localhost:5000/item/:itemId
+GET http://localhost:5000/api/item/:itemId
 {
     token: "" 
 }
@@ -91,7 +91,7 @@ GET http://localhost:5000/item/:itemId
 
 ### đăng mặt hàng mới
 # xong
-POST  http://localhost:5000/item
+POST  http://localhost:5000/api/item
 Content-Type: application/json
 Authorization: token_here
 {
@@ -104,7 +104,7 @@ Authorization: token_here
 }
 
 ### update mặt hàng
-PUT http://localhost:5000/item/:itemId
+PUT http://localhost:5000/api/item/:itemId
 Content-Type: application/json
 Authorization: token_here
 {
@@ -119,11 +119,21 @@ Authorization: token_here
 }
 
 ### xóa mặt hàng
-DELETE http://localhost:5000/item/:itemId
+DELETE http://localhost:5000/api/item/:itemId
+
+### đánh dấu mặt hàng
+POST http://localhost:5000/api/item/:itemId/mark
+Content-Type: application/json
+Authorization: token_here
+
+### bỏ đánh dấu mặt hàng
+POST http://localhost:5000/api/item/:itemId/mark
+Content-Type: application/json
+Authorization: token_here
 
 ### search saler
 # xong
-GET http://localhost:5000/users?name=duy&sortby=1
+GET http://localhost:5000/api/users?name=duy&sortby=1
 
 ### kiểu trả về
 {
@@ -143,7 +153,7 @@ GET http://localhost:5000/users?name=duy&sortby=1
 
 ### get saler detail
 # xong
-GET http://localhost:5000/user/:userId
+GET http://localhost:5000/api/user/:userId
 ### kiểu trả về
 {
     id: "",
@@ -158,7 +168,7 @@ GET http://localhost:5000/user/:userId
 
 ### change user info
 # xong
-PUT http://localhost:5000/user/:userId
+PUT http://localhost:5000/api/user/:userId
 Authorization: "token here"
 
 {
@@ -168,7 +178,7 @@ Authorization: "token here"
 }
 ### get saler feedback
 # xong
-GET http://localhost:5000/user/:userId/feedback
+GET http://localhost:5000/api/user/:userId/feedback
 ### kiểu trả về
 {
     feedback: [
@@ -185,7 +195,7 @@ GET http://localhost:5000/user/:userId/feedback
 }
 ### thêm feedback
 # xong
-POST http://localhost:5000/user/:userId/feedback
+POST http://localhost:5000/api/user/:userId/feedback
 Authorization: 
 {
     feedback: "",
@@ -194,4 +204,4 @@ Authorization:
 
 ### Xóa feedback
 # xong
-DELETE  http://localhost:5000/user/:userId/feedback/:feedbackId
+DELETE  http://localhost:5000/api/user/:userId/feedback/:feedbackId

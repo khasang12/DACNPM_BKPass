@@ -13,7 +13,7 @@ app.use(cors())
 
 bcrypt = require('bcryptjs')
 
-app.post('/api/auth/register', async (req, res) => {
+app.post('/api/register', async (req, res) => {
     try {
         const { name, gender, email, phoneNum, password,  image } = req.body
         if (!(name && gender && email && phoneNum && password && image)) {
@@ -49,7 +49,7 @@ app.post('/api/auth/register', async (req, res) => {
     }
 })
 
-app.post("/api/auth/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
 
     try {
         const { email, password } = req.body;
@@ -78,6 +78,9 @@ app.post("/api/auth/login", async (req, res) => {
         console.log(err);
     }
 });
+
+const route = require('./routes/index');
+app.use('/api', route);
 
 app.listen(5000, () => { console.log("Server started on 5000"); })
 
