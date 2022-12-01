@@ -13,7 +13,7 @@ const authenticate = require('../middlewares/auth');
 const optionalAuth = require('../middlewares/optionalAuth');
 
 router.get('/:itemId', optionalAuth, getItemDetail);
-router.post('/', authenticate, postItem);
+router.post('', authenticate, postItem);
 router.put("/:itemId", authenticate, updateItem);
 router.delete("/:itemId", authenticate, deleteItem);
 

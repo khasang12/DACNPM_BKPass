@@ -3,9 +3,9 @@ const usersModel = require('../../models/users');
 
 const getItemList = async (req, res) => {
     try {
-        const searchPattern = {isSelling: true};
         const user = req.body.author;
-        const pageNum = parseInt(req.query.page? req.query.pageNum : 1);
+        const searchPattern = {isSelling: true};
+        const pageNum = parseInt(req.query.page? req.query.page : 1);
         const limit = parseInt(req.query.limit? req.query.limit : 10);
         const filter = {
             "author" : "idAuthor",
@@ -19,7 +19,8 @@ const getItemList = async (req, res) => {
                 if (key === "markby") {
                     delete searchPattern.isSelling;
                 }
-                searchPattern[filter[key]] = req.query[key];
+                if (key === "name") searchPattern.title = { $regex: req.query.name, $options: 'i' }
+                else searchPattern[filter[key]] = req.query[key];
             }
         }
         const sortType = {
@@ -38,10 +39,11 @@ const getItemList = async (req, res) => {
         }
         const start = limit * (pageNum - 1);
         const end = limit * pageNum;
+        console.log(searchPattern);
         const itemsList = await itemsModel.find(searchPattern)
                                     .limit(end)
-                                    .sort(sortType[req.query.sortby])
-        if ((end <= 0) || (start > salers.length)) {
+                                    .sort(sortType[req.query.sortby? req.query.sortby:"time"]);
+        if ((end <= 0) || (start > itemsList.length)) {
             res.status(400).send({msg: "Invalid page num"});
         }
         else {
@@ -49,6 +51,7 @@ const getItemList = async (req, res) => {
             const result = []
             const chooseField = ["_id", "category", "status", "price", "title", "image", "date", 
                                 "isMarked", "isSelling", "idAuthor", "authorName", "authorImage"];
+            const success = true
             for (let i = 0; i < chosenItems.length ; i++) {
                 const item = chosenItems[i]
                 item.isMarked = false
@@ -59,7 +62,7 @@ const getItemList = async (req, res) => {
                 }
                 const saler = await usersModel.findById({_id : item.idAuthor})
                                                 .select("name image");
-                if (!saler) res.status(400).send({msg: "Saler not found"});
+                if (!saler) success = false;
                 item.authorName = saler.name;
                 item.authorImage = saler.image;
                 const simplifiedItem = {}
@@ -68,7 +71,8 @@ const getItemList = async (req, res) => {
                 })
                 result.push(simplifiedItem);
             }
-            res.status(200).send({items : result})
+            if (success) res.status(200).send({items : result});
+            else res.status(404).send({msg: "saler not found"})
         }
     } catch (error) {
         res.status(400).send({err: error})

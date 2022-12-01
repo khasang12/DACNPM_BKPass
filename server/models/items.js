@@ -16,7 +16,7 @@ const itemSchema = new mongoose.Schema(
             required: true
         },
         price: {
-            type: NumberDecimal,
+            type: Number,
             required: true
         },
         title: {
@@ -31,10 +31,6 @@ const itemSchema = new mongoose.Schema(
             required: true
         },
         date: {
-            type: Date,
-            required: true
-        },
-        markDate: {
             type: Date,
             required: true
         },

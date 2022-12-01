@@ -14,6 +14,6 @@ router.put('/:userId', authenticate, updateUser)
 
 router.get('/:userId/feedback', getUserFeedbacks);
 router.post('/:userId/feedback', authenticate, postFeedback);
-router.post('/:userId/feedback/:feedbackId', authenticate, deleteFeedback);
+router.delete('/:userId/feedback/:feedbackId', authenticate, deleteFeedback);
 
 module.exports = router

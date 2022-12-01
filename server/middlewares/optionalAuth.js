@@ -1,8 +1,9 @@
-const usersModel = require('../../models/users');
+const usersModel = require('../models/users');
+const jwt = require("jsonwebtoken")
 
 const optionalAuth = async (req, res, next) => {
     try {
-        const token = request.header('Authorization');
+        const token = req.header('Authorization');
         if (!token) {
             req.body.author = null;
         }

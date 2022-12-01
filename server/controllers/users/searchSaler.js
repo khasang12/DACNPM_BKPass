@@ -4,31 +4,25 @@ const searchSaler = async (req, res) => {
     try {
         const sortBy = req.query.sortby;
         const name = req.query.name;
-        const pageNum = parseInt(req.query.page? req.query.pageNum : 1);
+        const pageNum = parseInt(req.query.page? req.query.page : 1);
         const limit = parseInt(req.query.limit? req.query.limit : 10);
-        const sortPattern = {};
+        sortPattern = {}
         if (sortBy === "rate") {
-            sortPattern = {
-                averageStarsRate : -1,
-                numRate : -1
-            }
+            sortPattern.averageStarsRate = -1;
+            sortPattern.numRate = -1
         }
         else if (sortBy === "currNum") {
-            sortPattern = {
-                numSellingItems: -1
-            }
+            sortPattern.numSellingItems= -1;
         }
         else {
-            sortPattern = {
-                numSaledItems: -1
-            }
+            sortPattern.numSaledItems= -1;
         }
         const start = limit * (pageNum - 1);
         const end = limit * pageNum;
-        const salers = await usersModel.find({name: name})
+        const salers = await usersModel.find({name: { $regex: name, $options: 'i' }})
                         .limit(end)
                         .sort(sortPattern)
-                        .select("_id image name description numSellingItems numSaledItems rate numFeedback");
+                        .select("_id image name description numSellingItems numSaledItems averageStarsRate numRate");
         if ((end <= 0) || (start > salers.length)) {
             res.status(400).send({msg: "Invalid page num"});
         }

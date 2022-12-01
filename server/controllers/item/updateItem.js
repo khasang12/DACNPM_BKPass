@@ -10,7 +10,9 @@ const updateItem = async (req, res) => {
                                 .select("_id category status price title image date isSelling idAuthor");
         if (String(author._id) !== item.idAuthor) res.status(403).send({msg: "Not authorized"});
         updateField.forEach(key => {
-            item[key] = req.body[key];
+            if (req.body[key] != null && req.body[key] !== '') {
+                item[key] = req.body[key];
+            }
         })
         const result = await item.save();
         res.status(200).send({item: result})
