@@ -1,59 +1,60 @@
 # register
-GET http://localhost:5000/register
+POST http://localhost:5000/api/register
 Content-Type: application/json
+
 {
-    name: "Pham Minh Duy",
-    email: "duy.pham@gmail.com",
-    phoneNum: "1234567890",
-    gender: "male",
-    studentId: "1919191",
-    password: "duyduy",
-    image: "http://"
+    "name": "Pham Minh Duy",
+    "email": "duy11@gmail.com",
+    "phoneNum": "1234567891",
+    "gender": "male",
+    "password": "duyduy",
+    "image": "http://"
 }
 ###
 # log in
 
-GET http://localhost:5000/login
+POST http://localhost:5000/api/login
 Content-Type: application/json
+
 {
-    emailOrPhone: "duypm1111",
-    password: "aaaaaa"
+    "email": "duy.pham@gmail.com",
+    "password": "duyduy"
 }
 
 ###
 # get list of item
-# filter gồm có pagenum, limit, author, category, name, markby, sortby
-GET http://localhost:5000/items?pagenum=1&limit=10
-{
-    token: "" 
-}
+# filter gồm có page, limit, author, category, name, sortby, status, markby
+# xong
+GET http://localhost:5000/api/items?page=1&limit=5
+
 ### có thể không có token (nếu chưa đăng nhập)
 ###
-GET http://localhost:5000/items?author=12221212
+GET http://localhost:5000/api/items?author=6388ed02c7716a285cfdfc59
 
 ###
-GET http://localhost:5000/items?category=giaotrinh
+GET http://localhost:5000/api/items?category=book
 
 ###
-GET http://localhost:5000/items?name=giaitich1
+GET http://localhost:5000/api/items?name=Giải tích
 
 ###
-GET http://localhost:5000/items?markby=12221212
+GET http://localhost:5000/api/items?markby=user_id_here
+
 
 # kiểu trả về là danh sách các item
 {
     items: [
         {
-            id: "",
+            _id: "",
             category: "",
             status: "",
             price: "",
             title: "",
             image: "",
-            createAt: "",
+            date: "",
             isMarked: "",
             isSelling: "",
-            authorId: "",
+            idAuthor: "",
             authorName: "",
             authorImage: "",
         }
@@ -61,10 +62,9 @@ GET http://localhost:5000/items?markby=12221212
 }
 
 ### chi tiết mặt hàng
-GET http://localhost:5000/item/:itemId
-{
-    token: "" 
-}
+# xong
+GET http://localhost:5000/api/item/63890a8196d966305c73a641
+
 
 ### có thể không có token (nếu chưa đăng nhập)
 ### kiểu trả về
@@ -78,48 +78,59 @@ GET http://localhost:5000/item/:itemId
     address: "",
     numConcerner: 10,
     image: "",
-    createAt: "",
+    date: "",
     isMarked: "",
     isSelling: "",
-    authorId: "",
+    idAuthor: "",
     authorName: "",
     authorImage: "",
 }
 
 ### đăng mặt hàng mới
-POST  http://localhost:5000/item
+# xong
+POST http://localhost:5000/api/item
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4OGVjM2EyYmRhZTMxMjc4M2JlNjEyIiwiZW1haWwiOiJkdXkucGhhbUBnbWFpbC5jb20iLCJpYXQiOjE2Njk5MjM5NDksImV4cCI6MTY2OTkzMTE0OX0.Fc7W4RYLUSg1vdpmY_IBoECPmNy4k6Aa_4ixjgB1Npc
+
 {
-    category: "",
-    status: "",
-    price: 100000,
-    title: "",
-    description: "",
-    address: "",
-    image: "",
-    token: "",
+    "category": "electronics",
+    "status": "used",
+    "price": 5000000,
+    "title": "Điện thoại 3",
+    "description": "Mô tả 3",
+    "image": "http://vanhoanghethuat.vn/datasite///201807/BAI_VIET_14562/03%20(3).jpg"
 }
 
 ### update mặt hàng
-PUT http://localhost:5000/item/:itemId
+PUT http://localhost:5000/api/item/63890b3596d966305c73a65f
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4OGVjM2EyYmRhZTMxMjc4M2JlNjEyIiwiZW1haWwiOiJkdXkucGhhbUBnbWFpbC5jb20iLCJpYXQiOjE2Njk5MjM5NDksImV4cCI6MTY2OTkzMTE0OX0.Fc7W4RYLUSg1vdpmY_IBoECPmNy4k6Aa_4ixjgB1Npc
+
 {
-    category: "",
-    status: "",
-    price: 100000,
-    title: "",
-    description: "",
-    address: "",
-    image: "",
-    token: "",
-    isSelling: ""
+    "category": "book",
+    "status": "used",
+    "price": 100000,
+    "isSelling": false
 }
 
 ### xóa mặt hàng
-DELETE http://localhost:5000/item/:itemId
+DELETE http://localhost:5000/api/item/63890b3596d966305c73a65f
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4OGVjM2EyYmRhZTMxMjc4M2JlNjEyIiwiZW1haWwiOiJkdXkucGhhbUBnbWFpbC5jb20iLCJpYXQiOjE2Njk5MjM5NDksImV4cCI6MTY2OTkzMTE0OX0.Fc7W4RYLUSg1vdpmY_IBoECPmNy4k6Aa_4ixjgB1Npc
+
+### đánh dấu mặt hàng
+POST http://localhost:5000/api/item/63890a8196d966305c73a641/mark
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4OGVjM2EyYmRhZTMxMjc4M2JlNjEyIiwiZW1haWwiOiJkdXkucGhhbUBnbWFpbC5jb20iLCJpYXQiOjE2Njk5MjM5NDksImV4cCI6MTY2OTkzMTE0OX0.Fc7W4RYLUSg1vdpmY_IBoECPmNy4k6Aa_4ixjgB1Npc
+
+### bỏ đánh dấu mặt hàng
+DELETE  http://localhost:5000/api/item/63890a8196d966305c73a641/mark
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4OGVjM2EyYmRhZTMxMjc4M2JlNjEyIiwiZW1haWwiOiJkdXkucGhhbUBnbWFpbC5jb20iLCJpYXQiOjE2Njk5MjM5NDksImV4cCI6MTY2OTkzMTE0OX0.Fc7W4RYLUSg1vdpmY_IBoECPmNy4k6Aa_4ixjgB1Npc
 
 ### search saler
-GET http://localhost:5000/users?name=duy&sortby=1
+# xong
+GET http://localhost:5000/api/users?name=duy&sortby=rate
 
 ### kiểu trả về
 {
@@ -137,9 +148,9 @@ GET http://localhost:5000/users?name=duy&sortby=1
     ]
 }
 
-
 ### get saler detail
-GET http://localhost:5000/user/:userId
+# xong
+GET http://localhost:5000/api/user/6388ec3a2bdae312783be612
 ### kiểu trả về
 {
     id: "",
@@ -151,8 +162,21 @@ GET http://localhost:5000/user/:userId
     rate: "",
     numFeedback: 15,
 }
+
+### change user info
+# xong
+PUT http://localhost:5000/api/user/6388ec3a2bdae312783be612
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4OGVjM2EyYmRhZTMxMjc4M2JlNjEyIiwiZW1haWwiOiJkdXkucGhhbUBnbWFpbC5jb20iLCJpYXQiOjE2Njk5MjM5NDksImV4cCI6MTY2OTkzMTE0OX0.Fc7W4RYLUSg1vdpmY_IBoECPmNy4k6Aa_4ixjgB1Npc
+
+{
+    "user": {
+        "name": "duy after update"
+    }
+}
 ### get saler feedback
-GET http://localhost:5000/user/:userId/feedback
+# xong
+GET http://localhost:5000/api/user/637f275fa8e8180e88b8f1a8/feedback
 ### kiểu trả về
 {
     feedback: [
@@ -168,12 +192,18 @@ GET http://localhost:5000/user/:userId/feedback
     ]
 }
 ### thêm feedback
-POST http://localhost:5000/user/:userId/feedback
+# xong
+POST http://localhost:5000/api/user/637f275fa8e8180e88b8f1a8/feedback
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4OGVjM2EyYmRhZTMxMjc4M2JlNjEyIiwiZW1haWwiOiJkdXkucGhhbUBnbWFpbC5jb20iLCJpYXQiOjE2Njk5MjM5NDksImV4cCI6MTY2OTkzMTE0OX0.Fc7W4RYLUSg1vdpmY_IBoECPmNy4k6Aa_4ixjgB1Npc
+
 {
-    token: "",
-    feedback: "",
-    numStarsRate: 5
+    "feedback": "Feedback 3",
+    "numStarsRate": 2
 }
 
 ### Xóa feedback
-DELETE  http://localhost:5000/user/:userId/feedback/:feedbackId
+# xong
+DELETE  http://localhost:5000/api/user/637f275fa8e8180e88b8f1a8/feedback/638907c55e5594284887a61d
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4OGVjM2EyYmRhZTMxMjc4M2JlNjEyIiwiZW1haWwiOiJkdXkucGhhbUBnbWFpbC5jb20iLCJpYXQiOjE2Njk5MjM5NDksImV4cCI6MTY2OTkzMTE0OX0.Fc7W4RYLUSg1vdpmY_IBoECPmNy4k6Aa_4ixjgB1Npc

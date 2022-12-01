@@ -34,9 +34,18 @@ const itemSchema = new mongoose.Schema(
             type: Date,
             required: true
         },
-        markDate: {
-            type: Date,
-            required: true
+        markBy: {
+            type: [String],
+            default: [],
+            index: 1
+        },
+        numConcerner: {
+            type: Number,
+            default: 0
+        },
+        isSelling: {
+            type: Boolean,
+            default: true
         }
     }
 )

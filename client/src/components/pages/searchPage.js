@@ -104,8 +104,8 @@ export default function SearchPage() {
                                         <option value="priceUp">
                                             Giá tăng dần
                                         </option>
-                                        <option value="all">
-                                            Tất cả
+                                        <option value="numConcern">
+                                            Quan tâm nhiều
                                         </option>
                                     </select>
                                 </div>
@@ -116,7 +116,7 @@ export default function SearchPage() {
                                 </div>
                                 <div className="w-28">
                                     <select onChange={onChangeProductState}
-                                        defaultValue="all"
+                                        defaultValue=""
                                         className="border-[#1488d8] after:border-[#1488d8] border-2 py-1 px-4 rounded appearance-none"
                                     >
                                         <option value="new">
@@ -125,7 +125,7 @@ export default function SearchPage() {
                                         <option value="used">
                                             Cũ
                                         </option>
-                                        <option value="all">
+                                        <option value="">
                                             Tất cả
                                         </option>
                                     </select>
