@@ -1,83 +1,10 @@
 import Item from "./Item";
 
-export default function ItemsList() {
-    const items = [
-        {
-            id: 1,
-            image: "https://thumbs.dreamstime.com/b/hand-opened-book-global-network-connection-knowledge-education-e-booking-learning-concept-elements-imag-116592659.jpg",
-            name: "Item 1",
-            cost: "300.000",
-            time: new Date() - 1000000
-        },
-        {
-            id: 2,
-            image: "https://thumbs.dreamstime.com/b/hand-opened-book-global-network-connection-knowledge-education-e-booking-learning-concept-elements-imag-116592659.jpg",
-            name: "Item 1",
-            cost: "300.000",
-            time: new Date() - 4000000
-        },
-        {
-            id: 3,
-            image: "https://thumbs.dreamstime.com/b/hand-opened-book-global-network-connection-knowledge-education-e-booking-learning-concept-elements-imag-116592659.jpg",
-            name: "Item 1",
-            cost: "300.000",
-            time: new Date() - 6000000
-        },
-        {
-            id: 4,
-            image: "https://thumbs.dreamstime.com/b/hand-opened-book-global-network-connection-knowledge-education-e-booking-learning-concept-elements-imag-116592659.jpg",
-            name: "Item 1",
-            cost: "300.000",
-            time: new Date() - 10000000
-        },
-        {
-            id: 5,
-            image: "https://thumbs.dreamstime.com/b/hand-opened-book-global-network-connection-knowledge-education-e-booking-learning-concept-elements-imag-116592659.jpg",
-            name: "Item 1",
-            cost: "300.000",
-            time: new Date() - 20000000
-        },
-        {
-            id: 6,
-            image: "https://thumbs.dreamstime.com/b/hand-opened-book-global-network-connection-knowledge-education-e-booking-learning-concept-elements-imag-116592659.jpg",
-            name: "Item 1",
-            cost: "300.000",
-            time: new Date() - 40000000
-        },
-        {
-            id: 7,
-            image: "https://thumbs.dreamstime.com/b/hand-opened-book-global-network-connection-knowledge-education-e-booking-learning-concept-elements-imag-116592659.jpg",
-            name: "Item 1",
-            cost: "300.000",
-            time: new Date() - 80000000
-        },
-        {
-            id: 8,
-            image: "https://thumbs.dreamstime.com/b/hand-opened-book-global-network-connection-knowledge-education-e-booking-learning-concept-elements-imag-116592659.jpg",
-            name: "Item 1",
-            cost: "300.000",
-            time: new Date() - 100000000
-        },
-        {
-            id: 9,
-            image: "https://thumbs.dreamstime.com/b/hand-opened-book-global-network-connection-knowledge-education-e-booking-learning-concept-elements-imag-116592659.jpg",
-            name: "Item 1",
-            cost: "300.000",
-            time: new Date() - 150000000
-        },
-        {
-            id: 10,
-            image: "https://thumbs.dreamstime.com/b/hand-opened-book-global-network-connection-knowledge-education-e-booking-learning-concept-elements-imag-116592659.jpg",
-            name: "Item 1",
-            cost: "300.000",
-            time: new Date() - 200000000
-        },
-    ];
-    
+export default function ItemsList({itemList}) {
     return (
         <div className="w-full flex flex-col items-center">
             <div className="flex flex-row flex-wrap justify-center w-full">
-                {items.map(
+                {itemList.map(
                     (item) => {
                         return <Item item={item} key={item.id}/>
                     }

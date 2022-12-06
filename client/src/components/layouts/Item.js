@@ -13,13 +13,13 @@ export default function Item({item}) {
             </div>
             <div className="flex flex-col p-4">
                 <div className="mb-1 text-xl font-bold">
-                    {item.name}
+                    {item.title}
                 </div>
                 <div className="text-lg text-[#030981] font-semibold">
-                    {item.cost} VNĐ
+                    {item.price} VNĐ
                 </div>
                 <div className="text-sm text-[#1488D8] font-semibold">
-                    {timeAgo(item.time)}
+                    {timeAgo(item.date)}
                 </div>
             </div>
         </div>

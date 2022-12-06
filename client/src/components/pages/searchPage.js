@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import ItemsList from '../layouts/ItemList';
 import SalerList from "../layouts/salerList";
+import { searchItemsByCategory, searchItemsByName } from "../../api/itemsApi";
+import { searchUsersByName } from "../../api/usersApi";
 
 export default function SearchPage() {
     const [searchMode, setSearchMode] = useState(1);
