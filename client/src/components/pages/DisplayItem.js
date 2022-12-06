@@ -1,10 +1,26 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { getItemRoute } from "../../api/APIRoutes";
 
 export default function DisplayItem() {
+  const [item, setItem] = useState({});
   const navigate = useNavigate();
   const [isTracked, setTracked] = useState(false);
   const [isSold, setSold] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    getItem();
+  }, []);
+
+  const getItem = async () => {
+    await axios
+      .get(getItemRoute, { params: { id: searchParams.get("id") } })
+      .then((response) => setItem(response["data"]))
+      .catch((err) => alert(err));
+  };
+
   const handleSubmit = (event) => {
     if (event.target.name === "profile") navigate("/comment");
     else if (event.target.name === "status") {
@@ -22,25 +38,25 @@ export default function DisplayItem() {
           data-bs-ride="carousel"
         >
           <div class="carousel-inner relative w-full overflow-hidden">
-            <div class="carousel-item active relative float-left w-full">
+            <div class="carousel-item relative active float-left w-full">
               <img
-                src="https://www.lib.hcmut.edu.vn/uploads/noidung/giao-trinh-giai-tich-1-0-830.jpg"
-                class="block w-full"
-                alt="Wild Landscape"
-              />
-            </div>
-            <div class="carousel-item relative float-left w-full">
-              <img
-                src="https://www.lib.hcmut.edu.vn/uploads/noidung/giao-trinh-giai-tich-1-0-830.jpg"
+                src="https://www.lib.hcmut.edu.vn/uploads/noidung/giao-trinh-giai-tich-2-0-367.jpg"
                 class="block w-full"
                 alt="Camera"
               />
             </div>
             <div class="carousel-item relative float-left w-full">
               <img
-                src="https://www.lib.hcmut.edu.vn/uploads/noidung/giao-trinh-giai-tich-1-0-830.jpg"
+                src="https://www.lib.hcmut.edu.vn/uploads/noidung/giao-trinh-giai-tich-2-0-367.jpg"
                 class="block w-full"
-                alt="Exotic Fruits"
+                alt="Camera"
+              />
+            </div>
+            <div class="carousel-item relative float-left w-full">
+              <img
+                src="https://www.lib.hcmut.edu.vn/uploads/noidung/giao-trinh-giai-tich-2-0-367.jpg"
+                class="block w-full"
+                alt="Camera"
               />
             </div>
           </div>
@@ -70,15 +86,15 @@ export default function DisplayItem() {
           </button>
         </div>
 
-        <h1 className="font-bold text-4xl">Giải tích 1</h1>
+        <h1 className="font-bold text-4xl">{item.title}</h1>
         <h1 className="font-bold text-3xl text-blue-600 leading-loose">
-          15.000 đ
+          {item.price + " đ"}
         </h1>
         <h3>
           <span className="flex flex-row items-center">
             <p className="text-gray-500 mr-5">Tag:</p>
             <p className="px-2 py-1 bg-green-300 rounded mr-5 hover:bg-gray-300">
-              Giáo trình
+              {item.category}
             </p>
             {/* <p className="px-2 py-1 bg-green-300 rounded hover:bg-gray-300">
               Năm 1
@@ -87,31 +103,27 @@ export default function DisplayItem() {
         </h3>
         <h3>
           <span className={`text-gray-500`}>Trạng thái mặt hàng:</span>{" "}
-          {isSold ? <span className="font-bold text-lg text-red-700">Đã bán</span> : <span className="font-bold text-lg text-[#030391]">Đang rao bán</span>}
+          {isSold ? (
+            <span className="font-bold text-lg text-red-700">Đã bán</span>
+          ) : (
+            <span className="font-bold text-lg text-[#030391]">
+              Đang rao bán
+            </span>
+          )}
         </h3>
 
         <h3>
-          <span className="text-gray-500">Tình trạng sản phẩm:</span> Đã sử dụng
+          <span className="text-gray-500">Tình trạng sản phẩm:</span>{" "}
+          {item.status}
         </h3>
-        
+
         <h3>
-          <span className="text-gray-500">Ngày đăng:</span> 09/10/2022
-        </h3>
-        <h3>
-          <span className="text-gray-500">Địa chỉ giao hàng:</span> Cổng Ký túc
-          xá Khu A - ĐHQG TPHCM
+          <span className="text-gray-500">Ngày đăng:</span> {item.date}
         </h3>
         <h3>
           <span className="text-gray-500">Mô tả</span>
         </h3>
-        <p className="leading-5 md:pr-10 text-justify">
-          Giải tích toán học là bộ môn của toán học liên quan đến những vấn đề
-          của biến đổi và chuyển động. Phương tiện chủ yếu của nó là nghiên cứu
-          các đại lượng vô cùng bé. Nó đề cập đến chuyện những đại lượng nọ tiến
-          đến những đại lượng kia. Hai nhánh chính của giải tích là phép tính vi
-          phân và phép tính tích phân được liên hệ với nhau bởi định lý cơ bản
-          của giải tích.
-        </p>
+        <p className="leading-5 md:pr-10 text-justify">{item.description}</p>
         <div className="inline-flex">
           <button
             className="bg-blue-300 focus:outline-none text-gray-800 font-bold py-2 px-5 md:px-10 mr-5 rounded"

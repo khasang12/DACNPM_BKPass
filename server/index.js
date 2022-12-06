@@ -1,14 +1,15 @@
 const express = require('express')
 const cors = require('cors')
-const app = express();
 
-const User = require("./models/users");
+const userRoutes = require('./routes/userRoutes')
+const itemRoutes = require('./routes/itemRoutes')
 const dotenv = require("dotenv");
+
+const app = express();
 require("dotenv").config();
 
 dotenv.config();
 app.use(express.json())
-const jwt = require("jsonwebtoken")
 app.use(cors())
 
 bcrypt = require('bcryptjs')
