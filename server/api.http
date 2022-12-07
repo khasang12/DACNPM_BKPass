@@ -4,8 +4,8 @@ Content-Type: application/json
 
 {
     "name": "Pham Minh Duy",
-    "email": "duy11@gmail.com",
-    "phoneNum": "1234567891",
+    "email": "duy1111@gmail.com",
+    "phoneNum": "0234567898",
     "gender": "male",
     "password": "duyduy",
     "image": "http://"
@@ -17,7 +17,7 @@ POST http://localhost:5000/api/login
 Content-Type: application/json
 
 {
-    "email": "duy.pham@gmail.com",
+    "email": "duy111@gmail.com",
     "password": "duyduy"
 }
 
