@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginRoute } from "../../api/APIRoutes";
 import axios from "axios";
 
 export default function Login() {
-  const navigate = useNavigate();
   const [done, setDone] = useState({ status: false, msg: "empty form" });
   const [values, setValues] = useState({
     email: "",
@@ -30,16 +29,17 @@ export default function Login() {
     if (handleValidation()) {
       console.log("in validation", loginRoute);
       const { password, email } = values;
-      const { data } = await axios.post(loginRoute, {
-        email,
-        password,
-      });
-      if (data.status === false) {
-        toast.error(data.msg, toastOptions);
+      const res = await axios.post(loginRoute, {
+        email: email,
+        password: password
+      })
+      console.log(res);
+      if (res.status !== 200) {
+        toast.error(res.data.msg, toastOptions);
       } else {
-        localStorage.setItem("bkpass-user", JSON.stringify(data.user));
+        localStorage.setItem("bkpass-user", JSON.stringify(res.data));
         toast.success("Đăng nhập thành công", toastOptions);
-        navigate(-1);
+        window.location.assign('./');
       }
       console.log("OK");
     }

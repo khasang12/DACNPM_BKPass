@@ -15,26 +15,39 @@ import Register from "./components/pages/register";
 import Login from "./components/pages/Login";
 import NotFound from "./components/pages/NotFound";
 import Unauthenticated from "./components/pages/Unauthenticated";
+import { Navbar } from './components/Navbar';
+import { Footer } from './components/Footer';
+import {userContext} from './context/userContext';
 
 function App() {
+  const [user, setUser] = React.useState(null);
+  React.useEffect(() => {
+    const token = localStorage.getItem("bkpass-user");
+    const newUser = (typeof token !== "undefined")? JSON.parse(token):null;
+    setUser(newUser);
+  }, [])
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="add-item" element={<AddItemForm />} />
-        <Route path="demo-item" element={<DisplayItem />} />
-        <Route path="/" element={<InitPage />} />
-        <Route path="search" element={<SearchPage />} />
-        <Route path="buy-history" element={<BuyHistory />} />
-        <Route path="sell-history" element={<SellHistory />} />
-        <Route path="comment" element={<Comment />} />
-        <Route path ="dev" element = {<DevTeam/>}/>
-        <Route path = "add-comment" element = {<AddComment/>} />
-        <Route path = "register" element = {<Register/>}/>
-        <Route path = "login" element = {<Login/>}/>
-        <Route path="403" element = {<Unauthenticated/>} />
-        <Route path="*" element = {<NotFound/>} />
-      </Routes>
-    </BrowserRouter>
+    <userContext.Provider value={{user, setUser}}>
+      <Navbar/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="add-item" element={<AddItemForm />} />
+          <Route path="demo-item" element={<DisplayItem />} />
+          <Route path="/" element={<InitPage />} />
+          <Route path="search" element={<SearchPage />} />
+          <Route path="buy-history" element={<BuyHistory />} />
+          <Route path="sell-history" element={<SellHistory />} />
+          <Route path="/user/:userId" element={<Comment />} />
+          <Route path ="dev" element = {<DevTeam/>}/>
+          <Route path = "add-comment" element = {<AddComment/>} />
+          <Route path = "register" element = {<Register/>}/>
+          <Route path = "login" element = {<Login/>}/>
+          <Route path="403" element = {<Unauthenticated/>} />
+          <Route path="*" element = {<NotFound/>} />
+        </Routes>
+      </BrowserRouter>
+      <Footer/>
+    </userContext.Provider>
   );
 }
 
