@@ -39,7 +39,7 @@ export default function Login() {
       } else {
         localStorage.setItem("bkpass-user", JSON.stringify(data.user));
         toast.success("Đăng nhập thành công", toastOptions);
-        navigate(-1);
+        window.location.assign('/');
       }
       console.log("OK");
     }
