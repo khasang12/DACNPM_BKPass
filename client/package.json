@@ -24,6 +24,7 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^9.0.8",
     "rerousel": "^0.1.9",
+    "sweetalert": "^2.1.2",
     "tw-elements": "^1.0.0-alpha12",
     "web-vitals": "^2.1.4"
   },

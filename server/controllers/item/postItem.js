@@ -2,10 +2,12 @@ const itemsModel = require('../../models/items');
 
 const postItem = async (req, res) => {
     try {
+        console.log(1)
         const author = req.body.author;
-        const item = req.body;
-        item.idAuthor = author._id;
-        item.date = new Date();
+        const data = req.body.item;
+        const idAuthor = author._id;
+        const date = new Date();
+        const item = {...data, idAuthor, date}
         const newItem = new itemsModel(item);
         const result = await newItem.save();
         res.status(200).send({item: result})

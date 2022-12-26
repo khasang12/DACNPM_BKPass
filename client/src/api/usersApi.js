@@ -1,15 +1,15 @@
 import axios from 'axios'
 
-export const searchUsersByName = async (name, sortBy, callback) => {
+export const searchUsersByName = async (name, page, sortBy, callback, errCallback) => {
     try {
         const sortType = sortBy? sortBy:'rate';
-        const url = process.env.REACT_SERVER_URL + `/users?name=${name}&sortby=${sortType}`;
+        const url = `${process.env.REACT_APP_SERVER_URL}/users?page=${page}&name=${name}&sortby=${sortType}`;
         const res = await axios.get(url, {});
         if (res.status === 200) {
-            callback(res.data);
+            callback(res.data.users);
         }
         else {
-            console.log(res.data);
+            errCallback();
         }
     } catch (error) {
         console.log(error);

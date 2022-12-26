@@ -31,9 +31,14 @@ export function Navbar() {
   };
 
   const handleDropdown = (e, key) => {
-    const updatedValues = {};
-    updatedValues[key] = !dropDown[key];
-    setDropDown({ ...dropDown, ...updatedValues });
+    if ((key === "items") && (!userLogin)) {
+      window.location.assign(`./403`);
+    }
+    else {
+      const updatedValues = {};
+      updatedValues[key] = !dropDown[key];
+      setDropDown({ ...dropDown, ...updatedValues });
+    }
   };
 
   const onSearchBoxChange = (e) => {
@@ -44,7 +49,7 @@ export function Navbar() {
     if (e.key === "Enter") {
       e.preventDefault();
       if (searchStr !== "") {
-        window.location.assign(`./search?s=${searchStr}`);
+        window.location.assign(`${process.env.REACT_APP_FRONTEND_ROOT}/search?s=${searchStr}`);
       }
     }
   };
@@ -135,9 +140,6 @@ export function Navbar() {
                   className="mr-2"
                 ></FontAwesomeIcon>
                 Thông báo
-                <span className="invisible md:visible text-sm absolute top-0 lg:left-1/3 translate-middle rounded-full p-1 bg-red-500 text-white">
-                  +1 <span className="visually-hidden">unread messages</span>
-                </span>
                 {userLogin && dropDown["noti"] && <DropdownNotification />}
               </button>
 
@@ -146,15 +148,11 @@ export function Navbar() {
                   onClick={(e) => handleDropdown(e, "user")}
                   className=" inline-flex text-[#030391] hover:text-[#1488D8] p-1 md:text-start lg:pr-2 lg:pt-4 md:pt-0 md:pr-0 w-full"
                 >
-                  <FontAwesomeIcon
-                    icon={faUser}
-                    className="mr-2 border rounded-full md:w-5 md:h-5 align-bottom  md:p-2 mr-2"
-                  ></FontAwesomeIcon>
-                  {/* <img
-                    src={logo}
+                  <img
+                    src={userLogin.image}
                     alt=""
-                    className="w-5 h-5 md:w-10 md:h-10 align-bottom  md:p-2 mr-2"
-                  /> */}
+                    className="w-5 h-5 md:w-10 md:h-10 align-bottom md:p-2 mr-2 object-fit rounded-full"
+                  />
                   <p className="flex align-middle my-auto">
                     {userLogin.name}
                   </p>
@@ -198,7 +196,7 @@ export function Navbar() {
               className="align-middle mr-3 rounded-full bg-[#030391] text-white pl-3 pr-3 ml-2"
               onClick={(e) => {
                 e.preventDefault();
-                window.location.assign("./add-item");
+                window.location.assign(`${process.env.REACT_APP_FRONTEND_ROOT}/add-item`);
               }}
             >
               Đăng
@@ -261,6 +259,16 @@ const DropdownUser = () => {
             {(userLogin)? "Tài khoản" : "Đăng kí"}
           </a>
         </li>
+        {userLogin? (
+          <li>
+            <a
+              href={`${process.env.REACT_APP_FRONTEND_ROOT}/user/${userLogin._id}`}
+              className="block py-2 px-4 hover:bg-gray-100 hover:text-[#1488D8] text-[#030391]"
+            >
+              Cài đặt
+            </a>
+        </li>
+        ) : null}
         <li>
           <a
             href={(userLogin)? `${process.env.REACT_APP_FRONTEND_ROOT}` : `${process.env.REACT_APP_FRONTEND_ROOT}/login`}
@@ -293,7 +301,7 @@ const DropdownNotification = () => {
       </div>
       <div className="divide-y divide-gray-100 overflow-auto h-72">
         {NotiData.map((noti) => (
-          <a
+          <button
             href="#"
             className="flex py-3 px-4 hover:bg-gray-100"
             key={noti.id}
@@ -327,7 +335,7 @@ const DropdownNotification = () => {
                 {noti.time}
               </div>
             </div>
-          </a>
+          </button>
         ))}
       </div>
 

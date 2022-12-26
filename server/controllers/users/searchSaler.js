@@ -23,7 +23,7 @@ const searchSaler = async (req, res) => {
                         .limit(end)
                         .sort(sortPattern)
                         .select("_id image name description numSellingItems numSaledItems averageStarsRate numRate");
-        if ((end <= 0) || (start > salers.length)) {
+        if ((end <= 0) || (start >= salers.length)) {
             res.status(400).send({msg: "Invalid page num"});
         }
         else {

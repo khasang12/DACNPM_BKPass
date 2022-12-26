@@ -39,10 +39,7 @@ app.post('/api/register', async (req, res) => {
                 })
                 const token = jwt.sign(
                     { user_id: newUser._id, email },
-                    process.env.JWT_KEY,
-                    {
-                        expiresIn: "2h",
-                    }
+                    process.env.JWT_KEY
                 );
                 res.status(200).send({
                     _id: newUser._id,
@@ -77,10 +74,7 @@ app.post("/api/login", async (req, res) => {
                 // Create token
                 const token = jwt.sign(
                     { user_id: user._id, email },
-                    process.env.JWT_KEY,
-                    {
-                        expiresIn: "2h",
-                    }
+                    process.env.JWT_KEY
                 );
                 res.status(200).send({
                     _id: user._id,

@@ -9,13 +9,14 @@ const getFeedbacks = async (req, res) => {
         }
         const feedbacks = user.feedbacks;
         const result = [];
+        const chooseField = ["isDeleted", "_id", "authorId", "content", "numStarsRate", "createAt"]
         for (let i = 0; i < feedbacks.length ; i++) {
-            const feedback = feedbacks[feedbacks.length - i - 1];
-            if (!feedback.isDeleted) {
-                const author = await userModel.findById(feedback.authorId);
-                feedback.authorImage = author.image;
-                feedback.authorName = author.name;
-            }
+            const feedback = {};
+            chooseField.forEach((field) => feedback[field] = feedbacks[feedbacks.length - i - 1][field]);
+            const author = await userModel.findById(feedback.authorId)
+                                    .select("image name");
+            feedback.authorImage = author.image;
+            feedback.authorName = author.name;
             result.push(feedback);
         }
         res.status(200).send({feedbacks : result})

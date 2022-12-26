@@ -23,8 +23,13 @@ function App() {
   const [user, setUser] = React.useState(null);
   React.useEffect(() => {
     const token = localStorage.getItem("bkpass-user");
-    const newUser = (typeof token !== "undefined")? JSON.parse(token):null;
-    setUser(newUser);
+    if ((token === undefined) || (token == null))
+    {
+      setUser(null)
+    }
+    else {
+      setUser(JSON.parse(token))
+    }
   }, [])
   return (
     <userContext.Provider value={{user, setUser}}>
@@ -32,14 +37,14 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="add-item" element={<AddItemForm />} />
-          <Route path="demo-item" element={<DisplayItem />} />
+          <Route path="/item/:itemId" element={<DisplayItem />} />
           <Route path="/" element={<InitPage />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="buy-history" element={<BuyHistory />} />
           <Route path="sell-history" element={<SellHistory />} />
           <Route path="/user/:userId" element={<Comment />} />
           <Route path ="dev" element = {<DevTeam/>}/>
-          <Route path = "add-comment" element = {<AddComment/>} />
+          <Route path = "user/:userId/add-comment" element = {<AddComment/>} />
           <Route path = "register" element = {<Register/>}/>
           <Route path = "login" element = {<Login/>}/>
           <Route path="403" element = {<Unauthenticated/>} />
