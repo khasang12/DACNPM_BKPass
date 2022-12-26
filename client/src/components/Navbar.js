@@ -8,6 +8,7 @@ import {
   faBell,
   faBriefcase,
   faUser,
+  faUserAstronaut,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useContext } from "react";
@@ -359,6 +360,5 @@ const DropdownNotification = () => {
         </div>
       </a>
     </div>
-
   );
 };
