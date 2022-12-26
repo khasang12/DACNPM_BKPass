@@ -1,22 +1,26 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import CurrencyInput from "react-currency-input-field";
+import React, { useEffect, useState, useContext } from "react";
+import CurrencyInput, {formatValue} from "react-currency-input-field";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { addItemRoute } from "../../api/APIRoutes";
+import { uploadItem } from "../../api/itemApi";
+import {userContext} from "../../context/userContext";
 
 export default function AddItemForm() {
   const navigate = useNavigate();
+  const user = useContext(userContext).user;
   const [values, setValues] = useState({
     category: "",
-    item_status: "",
+    status: "",
     price: "",
-    header: "",
-    desc: "",
-    img: [],
-    is_sold: false,
+    title: "",
+    description: "",
+    image: [],
+    isSelling: true
   });
+  const [imgBuffer, setImgbuffer] = useState([])
+
   // FOR EACH SUBMISSION
   const [done, setDone] = useState({ status: false, msg: "empty form" });
   // FOR FILES UPLOADING....
@@ -30,18 +34,18 @@ export default function AddItemForm() {
   }, []);
 
   useEffect(() => {
-    const { price, header, img, category, item_status } = values;
+    const { price, header, image, category, status } = values;
     if (category === "Chọn danh mục" || category === "") {
       setDone({ status: false, msg: "Vui lòng chọn danh mục" });
-    } else if (img.length === 0) {
+    } else if (imgBuffer.length === 0) {
       setDone({ status: false, msg: "Vui lòng thêm ít nhất 1 ảnh" });
-    } else if (item_status === "") {
+    } else if (status === "") {
       setDone({
         status: false,
         msg: "Vui lòng chọn trạng thái hàng (Mới/Đã sử dụng)",
       });
-    } else if (!price.match(/^\d+(?:[,]\d+)*VND$/)) {
-      setDone({ status: false, msg: "Giá tiền không thể là số âm" });
+    } else if (price.match(/^\d+(?:[,]\d+)*VND$/)) {
+      setDone({ status: false, msg: "Giá tiền không hợp lệ" });
     } else if (header === "") {
       setDone({ status: false, msg: "Vui lòng điền tên mặt hàng" });
     } else {
@@ -53,8 +57,39 @@ export default function AddItemForm() {
     const files = e.target.files;
     const arr = Array.from(files);
     const arrItem = arr.map((file) => URL.createObjectURL(file));
-    setValues({ ...values, img: [arrItem] });
-    await setFiles(arrItem);
+    console.log(arrItem)
+    setImgbuffer(arrItem);
+    setFiles(arrItem);
+  }
+
+  function pFileReader(file){
+    return new Promise((resolve, reject) => {
+      var fr = new FileReader();  
+      fr.onloadend = () => resolve(fr.result);
+      fr.onerror = reject;
+      fr.readAsDataURL(file);
+    });
+  }
+
+  const uploadImageToCloud = async () => {
+    try {
+      const dataArr = []
+      for (let i = 0; i < imgBuffer.length; i++) {
+        const blob = await fetch(imgBuffer[i]).then(r => r.blob());
+        const image = await pFileReader(blob).then(data => data);
+        const data = new FormData();
+        data.append("file", image);
+        data.append("upload_preset", "BK_Pass");
+        const res = await axios.post(`${process.env.REACT_APP_CLOUDINARY_URL}`, data, {});
+        dataArr.push(res.data.url)
+      }
+      console.log(dataArr)
+      const newValue = {...values, image: dataArr}
+      setValues(newValue)
+      return newValue
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   // FOR FINAL SUBMISSION....
@@ -66,20 +101,10 @@ export default function AddItemForm() {
         navigate({ pathname: "/demo-item", search: `?id=${redirectID}` });
       } else if (event.target.name === "homepage") navigate("/");
       else if (event.target.name === "submit") {
-        const user = JSON.parse(localStorage.getItem("bkpass-user"));
-        await axios.post(addItemRoute, {
-          ...values,
-          idAuthor: user["_id"],
-        }).then((response)=>{
-          if (response.status){
-            toast.success("Thêm sản phẩm thành công", toastOptions);
-            console.log(response["data"])
-            localStorage.setItem("bkpass-lastitem", JSON.stringify(response["data"]));
-          }
-          else{
-            toast.error("Lỗi server. Vui lòng thử lại", toastOptions);
-          }
-        });
+        const newItem = await uploadImageToCloud();
+        await uploadItem(user.token, newItem, () => {
+          toast.success("Đăng bài thành công", toastOptions);
+        })
       }
     }
   };
@@ -90,13 +115,15 @@ export default function AddItemForm() {
     });
     let number;
     if (event.target.name === "price") {
-      number = event.target.value.replaceAll(",", "");
+      const regex = /([,.])/g
+      number = event.target.value.replace(regex, "");
       setValues({
         ...values,
         price: number,
       });
     }
   };
+
   const handleValidation = () => {
     if (done["status"] === false) {
       toast.error(done["msg"], toastOptions);
@@ -104,6 +131,7 @@ export default function AddItemForm() {
     }
     return true;
   };
+
   return (
     <div className="flex flex-col lg:flex-row bg-blue-50 md:px-40">
       <div className="flex-end lg:flex-auto justify-center items-center text-gray-700 bg-white px-4 py-7 mx-0">
@@ -175,10 +203,10 @@ export default function AddItemForm() {
               onChange={(e) => handleChange(e)}
               className="block appearance-none md:w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
             >
-              <option>Chọn danh mục</option>
-              <option>Sách</option>
-              <option>Thiết bị số</option>
-              <option>Vật dụng khác</option>
+              <option value="">Chọn danh mục</option>
+              <option value="book">Sách</option>
+              <option value="electronics">Thiết bị số</option>
+              <option value="other">Vật dụng khác</option>
             </select>
           </div>
 
@@ -197,8 +225,8 @@ export default function AddItemForm() {
               <input
                 type="radio"
                 id="status-new"
-                name="item_status"
-                value="Hàng mới"
+                name="status"
+                value="new"
                 className="hidden peer"
                 onChange={(e) => handleChange(e)}
                 required
@@ -216,8 +244,8 @@ export default function AddItemForm() {
               <input
                 type="radio"
                 id="status-old"
-                name="item_status"
-                value="Đã sử dụng"
+                name="status"
+                value="used"
                 onChange={(e) => handleChange(e)}
                 className="hidden peer"
               />
@@ -241,8 +269,8 @@ export default function AddItemForm() {
             </label>
             <input
               type="text"
-              id="header"
-              name="header"
+              id="title"
+              name="title"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Tiêu đề cho mặt hàng của bạn"
               onChange={(e) => handleChange(e)}
@@ -262,23 +290,21 @@ export default function AddItemForm() {
               name="price"
               placeholder="Nhập giá tiền"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              decimalsLimit={2}
               onChange={(e) => handleChange(e)}
-              suffix="VND"
             />
           </div>
 
           <div className="mb-6">
             <label
-              htmlFor="desc"
+              htmlFor="description"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
               Mô tả (dưới 100 từ)
             </label>
             <textarea
-              id="desc"
+              id="description"
               rows="4"
-              name="desc"
+              name="description"
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
               onChange={(e) => handleChange(e)}
               placeholder="Mô tả mặt hàng..."
@@ -309,7 +335,7 @@ export default function AddItemForm() {
             <div
               className="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
               id="exampleModalXl"
-              tabindex="-1"
+              tabIndex="-1"
               aria-labelledby="exampleModalXlLabel"
               aria-modal="true"
               role="dialog"
@@ -333,19 +359,22 @@ export default function AddItemForm() {
                   </div>
                   <div className="modal-body relative p-4 leading-loose">
                     <div className="flex flex-row">
-                      {values.img[0]
-                        ? values.img[0].map((item) => (
+                      {files? files.map((item) => (
                             <img
                               src={item}
                               alt="item"
                               className="block w-1/5 h-full"
+                              key={item}
                             />
                           ))
                         : ""}
                     </div>
                     <h1 className="font-bold text-4xl">{values.header}</h1>
                     <h1 className="font-bold text-3xl text-blue-600 leading-loose">
-                      {values.price}
+                      {formatValue({
+                        value: values.price,
+                        groupSeparator: '.'
+                      })}
                     </h1>
                     <h3>
                       <span className="flex flex-row items-center">
@@ -357,21 +386,21 @@ export default function AddItemForm() {
                     </h3>
                     <h3>
                       <span className="text-gray-500">Tình trạng:</span>{" "}
-                      {values.item_status}
+                      {values.status}
                     </h3>
                     <h3>
                       <span className="text-gray-500">Trạng thái:</span>{" "}
-                      {values.is_sold ? "Đã bán" : "Đang rao bán"}
+                      {!values.isSelling ? "Đã bán" : "Đang rao bán"}
                     </h3>
                     <h3>
                       <span className="text-gray-500">Ngày đăng:</span>{" "}
-                      09/10/2022
+                      {(new Date()).toUTCString()}
                     </h3>
                     <h3>
                       <span className="text-gray-500">Mô tả</span>
                     </h3>
                     <p className="leading-5 pr-10 text-justify">
-                      {values.desc}
+                      {values.description}
                     </p>
                   </div>
                 </div>
@@ -384,7 +413,7 @@ export default function AddItemForm() {
               id="popup-modal"
               data-bs-backdrop="static"
               data-bs-keyboard="false"
-              tabindex="-1"
+              tabIndex="-1"
               aria-labelledby="popup-modalLabel"
               aria-hidden="true"
             >
@@ -405,9 +434,9 @@ export default function AddItemForm() {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          fill-rule="evenodd"
+                          fillRule="evenodd"
                           d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                          clip-rule="evenodd"
+                          clipRule="evenodd"
                         ></path>
                       </svg>
                     </button>
@@ -421,9 +450,9 @@ export default function AddItemForm() {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
                           d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                         ></path>
                       </svg>
@@ -460,7 +489,7 @@ export default function AddItemForm() {
               id="success-modal"
               data-bs-backdrop="static"
               data-bs-keyboard="false"
-              tabindex="-1"
+              tabIndex="-1"
               aria-labelledby="success-modalLabel"
               aria-hidden="true"
             >
@@ -481,9 +510,9 @@ export default function AddItemForm() {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          fill-rule="evenodd"
+                          fillRule="evenodd"
                           d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                          clip-rule="evenodd"
+                          clipRule="evenodd"
                         ></path>
                       </svg>
                     </button>

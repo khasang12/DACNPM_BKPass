@@ -1,10 +1,14 @@
 import ReactStars from "react-rating-stars-component";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import { postFeedback } from "../../api/userApi";
+import { userContext } from "../../context/userContext";
+import { useParams } from "react-router-dom";
 export function AddComment() {
+  const {userId} = useParams();
   const navigate = useNavigate();
+  const user = useContext(userContext).user;
   const [values, setValues] = useState({
     star: 0,
     comment: "",
@@ -13,7 +17,6 @@ export function AddComment() {
 
   useEffect(() => {
     const { comment, star } = values;
-    console.log("values:", values);
     if (star == 0 || star == undefined) {
       setDone({ status: false, msg: "Rating tối thiểu 1 sao" });
     } else if (comment === "" || comment == undefined) {
@@ -35,18 +38,18 @@ export function AddComment() {
       toast.error(done["msg"], toastOptions);
       return false;
     }
-    console.log("ok");
     return true;
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     if (handleValidation()) {
-      console.log("Good");
+      postFeedback(user.token, userId, values.star, values.comment, () => (
+        console.log("Good")
+      ))
     }
   };
   const handleComment = (event) => {
     if (event.target.value) {
-      console.log(values);
       setValues({
         ...values,
         comment: event.target.value,
@@ -78,7 +81,6 @@ export function AddComment() {
         <div className="flex justify-end mt-2">
           <div className="pr-6">
             <button
-              onClick={(e) => handleSubmit(e)}
               name="confirm"
               type="submit"
               className="h-12 w-[150px] bg-blue-400 text-sm text-white rounded-lg transition-all cursor-pointer hover:bg-blue-600"
@@ -142,9 +144,9 @@ export function AddComment() {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   ></path>
                 </svg>
@@ -181,7 +183,7 @@ export function AddComment() {
         id="success-modal"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="success-modalLabel"
         aria-hidden="true"
       >

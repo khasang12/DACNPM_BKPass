@@ -35,7 +35,7 @@ const deleteFeedback = async (req, res) => {
                         return total + feedback.numStarsRate;
                     }
                 }, 0)
-                user.averageStarsRate = totalRate / user.numRate;
+                user.averageStarsRate = (totalRate / user.numRate).toFixed(1);
                 await user.save();
                 res.status(200).send({});
             }

@@ -4,21 +4,20 @@ Content-Type: application/json
 
 {
     "name": "Pham Minh Duy",
-    "email": "duy11@gmail.com",
-    "phoneNum": "1234567891",
+    "email": "duy1111@gmail.com",
+    "phoneNum": "0234567898",
     "gender": "male",
     "password": "duyduy",
     "image": "http://"
 }
 ###
 # log in
-
 POST http://localhost:5000/api/login
 Content-Type: application/json
 
 {
-    "email": "duy.pham@gmail.com",
-    "password": "duyduy"
+    "email": "duy88@gmail.com",
+    "password": "12345678"
 }
 
 ###
@@ -63,8 +62,8 @@ GET http://localhost:5000/api/items?markby=user_id_here
 
 ### chi tiết mặt hàng
 # xong
-GET http://localhost:5000/api/item/63890a8196d966305c73a641
-
+GET http://localhost:5000/api/item/63890b2296d966305c73a65c
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNhOTQwZTdkZmRhNDAxNDQ4OTNhNDdjIiwiZW1haWwiOiJkdXk4OEBnbWFpbC5jb20iLCJpYXQiOjE2NzIwNDE5NDd9.61p3HgSVRkacKlFCdZ7QWVcIuasRtBgcoQKaQO6S2Kw
 
 ### có thể không có token (nếu chưa đăng nhập)
 ### kiểu trả về
@@ -90,26 +89,28 @@ GET http://localhost:5000/api/item/63890a8196d966305c73a641
 # xong
 POST http://localhost:5000/api/item
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4OGVjM2EyYmRhZTMxMjc4M2JlNjEyIiwiZW1haWwiOiJkdXkucGhhbUBnbWFpbC5jb20iLCJpYXQiOjE2Njk5MjM5NDksImV4cCI6MTY2OTkzMTE0OX0.Fc7W4RYLUSg1vdpmY_IBoECPmNy4k6Aa_4ixjgB1Npc
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNhOTQwZTdkZmRhNDAxNDQ4OTNhNDdjIiwiZW1haWwiOiJkdXk4OEBnbWFpbC5jb20iLCJpYXQiOjE2NzIwNzIyMjR9.aZNZwzC6RqAMCPfwylUb0Mq2-rPZpV6UBs1wUFlZmYQ
 
 {
-    "category": "electronics",
-    "status": "used",
-    "price": 5000000,
-    "title": "Điện thoại 3",
-    "description": "Mô tả 3",
-    "image": "http://vanhoanghethuat.vn/datasite///201807/BAI_VIET_14562/03%20(3).jpg"
+    "item" : {
+        "category": "electronics",
+        "status": "new",
+        "price": 30000000,
+        "title": "Macbook M1 1",
+        "description": "Thử\nxem \ncó xuống \ndòng \nđược không",
+        "image": [
+            "http://res.cloudinary.com/dath/image/upload/v1672071978/tqlki0eyzhnrlphmi9e7.jpg",
+            "http://res.cloudinary.com/dath/image/upload/v1672071979/puyvizaabal3ofniagn4.jpg"
+        ]
+    }
 }
 
 ### update mặt hàng
-PUT http://localhost:5000/api/item/63890b3596d966305c73a65f
+PUT http://localhost:5000/api/item/63890a8196d966305c73a641
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4OGVjM2EyYmRhZTMxMjc4M2JlNjEyIiwiZW1haWwiOiJkdXkucGhhbUBnbWFpbC5jb20iLCJpYXQiOjE2Njk5MjM5NDksImV4cCI6MTY2OTkzMTE0OX0.Fc7W4RYLUSg1vdpmY_IBoECPmNy4k6Aa_4ixjgB1Npc
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNhOTQwZTdkZmRhNDAxNDQ4OTNhNDdjIiwiZW1haWwiOiJkdXk4OEBnbWFpbC5jb20iLCJpYXQiOjE2NzIwNDE4NTV9.Xt400wm-cxZhIV_tmEbnXnN7lkcnohcmtleyQ5P_vJQ
 
 {
-    "category": "book",
-    "status": "used",
-    "price": 100000,
     "isSelling": false
 }
 
@@ -119,30 +120,30 @@ Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4OGVjM2EyYmRhZTMxMjc4M2JlNjEyIiwiZW1haWwiOiJkdXkucGhhbUBnbWFpbC5jb20iLCJpYXQiOjE2Njk5MjM5NDksImV4cCI6MTY2OTkzMTE0OX0.Fc7W4RYLUSg1vdpmY_IBoECPmNy4k6Aa_4ixjgB1Npc
 
 ### đánh dấu mặt hàng
-POST http://localhost:5000/api/item/63890a8196d966305c73a641/mark
+POST http://localhost:5000/api/item/63890b2296d966305c73a65c/mark
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4OGVjM2EyYmRhZTMxMjc4M2JlNjEyIiwiZW1haWwiOiJkdXkucGhhbUBnbWFpbC5jb20iLCJpYXQiOjE2Njk5MjM5NDksImV4cCI6MTY2OTkzMTE0OX0.Fc7W4RYLUSg1vdpmY_IBoECPmNy4k6Aa_4ixjgB1Npc
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNhOTQwZTdkZmRhNDAxNDQ4OTNhNDdjIiwiZW1haWwiOiJkdXk4OEBnbWFpbC5jb20iLCJpYXQiOjE2NzIwNDE4NTV9.Xt400wm-cxZhIV_tmEbnXnN7lkcnohcmtleyQ5P_vJQ
 
 ### bỏ đánh dấu mặt hàng
-DELETE  http://localhost:5000/api/item/63890a8196d966305c73a641/mark
+DELETE  http://localhost:5000/api/item/63890b2296d966305c73a65c/mark
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM4OGVjM2EyYmRhZTMxMjc4M2JlNjEyIiwiZW1haWwiOiJkdXkucGhhbUBnbWFpbC5jb20iLCJpYXQiOjE2Njk5MjM5NDksImV4cCI6MTY2OTkzMTE0OX0.Fc7W4RYLUSg1vdpmY_IBoECPmNy4k6Aa_4ixjgB1Npc
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNhOTQwZTdkZmRhNDAxNDQ4OTNhNDdjIiwiZW1haWwiOiJkdXk4OEBnbWFpbC5jb20iLCJpYXQiOjE2NzIwNDE4NTV9.Xt400wm-cxZhIV_tmEbnXnN7lkcnohcmtleyQ5P_vJQ
 
 ### search saler
 # xong
-GET http://localhost:5000/api/users?name=duy&sortby=rate
+GET http://localhost:5000/api/users?page=1&name=d&sortby=rate
 
 ### kiểu trả về
 {
     users: [
         {
-            id: "",
+            _id: "",
             image: "",
             name: "",
             description: "",
             numSellingItem: 10,
             numSaledItem: 10,
-            rate: "",
+            averageStarsRate: "",
             numFeedback: 15
         },
     ]
@@ -150,7 +151,7 @@ GET http://localhost:5000/api/users?name=duy&sortby=rate
 
 ### get saler detail
 # xong
-GET http://localhost:5000/api/user/6388ec3a2bdae312783be612
+GET http://localhost:5000/api/user/637f275fa8e8180e88b8f1a8
 ### kiểu trả về
 {
     id: "",

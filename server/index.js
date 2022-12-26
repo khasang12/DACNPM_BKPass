@@ -1,8 +1,9 @@
-const express = require('express')
-const cors = require('cors')
+const express = require('express');
+const cors = require('cors');
 
-const userRoutes = require('./routes/userRoutes')
-const itemRoutes = require('./routes/itemRoutes')
+const User = require('./models/users');
+const jwt = require('jsonwebtoken');
+
 const dotenv = require("dotenv");
 
 const app = express();
@@ -38,12 +39,10 @@ app.post('/api/register', async (req, res) => {
                 })
                 const token = jwt.sign(
                     { user_id: newUser._id, email },
-                    process.env.JWT_KEY,
-                    {
-                        expiresIn: "2h",
-                    }
+                    process.env.JWT_KEY
                 );
                 res.status(200).send({
+                    _id: newUser._id,
                     email: newUser.email,
                     name: newUser.name,
                     phoneNum: newUser.phoneNum,
@@ -75,12 +74,10 @@ app.post("/api/login", async (req, res) => {
                 // Create token
                 const token = jwt.sign(
                     { user_id: user._id, email },
-                    process.env.JWT_KEY,
-                    {
-                        expiresIn: "2h",
-                    }
+                    process.env.JWT_KEY
                 );
                 res.status(200).send({
+                    _id: user._id,
                     email: user.email,
                     name: user.name,
                     phoneNum: user.phoneNum,

@@ -39,12 +39,11 @@ const getItemList = async (req, res) => {
         }
         const start = limit * (pageNum - 1);
         const end = limit * pageNum;
-        console.log(searchPattern);
         const itemsList = await itemsModel.find(searchPattern)
                                     .limit(end)
                                     .sort(sortType[req.query.sortby? req.query.sortby:"time"]);
-        if ((end <= 0) || (start > itemsList.length)) {
-            res.status(400).send({msg: "Invalid page num"});
+        if ((end <= 0) || (start >= itemsList.length)) {
+            res.status(200).send({items: []});
         }
         else {
             const chosenItems = itemsList.slice(start, end);

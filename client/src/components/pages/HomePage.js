@@ -1,7 +1,49 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import img1 from "../../assets/img/coverimg.jpg";
 import ItemsList from '../layouts/ItemList';
+import { getListItem } from "../../api/itemsApi";
+import { useEffect, useState} from "react";
+import swal from 'sweetalert';
 export function Homepage() {
+    const [currPage, setCurrPage] = useState(1);
+    const [itemsList, setItemsList] = useState([]);
+
+    const lastPageNotification = () => {
+        swal({
+            text: "This is the last page!",
+            icon: "warning",
+            dangerMode: true,
+        })
+    }
+
+    const errorNotification = () => {
+        swal({
+            text: "This is the last page!",
+            icon: "error",
+            dangerMode: true,
+        })
+    }
+    useEffect(() => {
+        getListItem(currPage, (items) => {
+            setItemsList(items);
+        }, errorNotification)
+    }, [])
+
+    const navigate = (e, amount) => {
+        const newPage = currPage + amount;
+        if (newPage > 0) {
+            getListItem(newPage, (data) => {
+                if (data.length !== 0) {
+                    setItemsList(data);
+                    setCurrPage(newPage);
+                }
+                else {
+                    lastPageNotification();
+                }
+            }, errorNotification)
+        }
+    }
+
     return (
         <div >
             <div id="carouselExampleCaptions" class="carousel slide relative" data-bs-ride="carousel">
@@ -72,8 +114,7 @@ export function Homepage() {
             <div className='font-bold p-10 font-size'>
                 Tin đăng mới
             </div>
-            <ItemsList />
-
+            <ItemsList itemList={itemsList} currPage={currPage} navigate={navigate}/>
         </div>
 
     );

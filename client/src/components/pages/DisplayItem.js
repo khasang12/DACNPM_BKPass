@@ -1,94 +1,107 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { getItemRoute } from "../../api/APIRoutes";
+import React, { useEffect, useState, useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getItemDetail, markItem, unmarkItem, updateStatus } from "../../api/itemApi";
+import { userContext } from "../../context/userContext";
+import {formatValue} from "react-currency-input-field";
 
 export default function DisplayItem() {
   const [item, setItem] = useState({});
   const navigate = useNavigate();
-  const [isTracked, setTracked] = useState(false);
-  const [isSold, setSold] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const {itemId} = useParams();
+  const user = useContext(userContext).user;
 
   useEffect(() => {
-    getItem();
-  }, []);
+    getItemDetail(user? user.token:null, itemId, (data) => {
+      setItem(data);
+    })
+  }, [user, itemId]);
 
-  const getItem = async () => {
-    await axios
-      .get(getItemRoute, { params: { id: searchParams.get("id") } })
-      .then((response) => setItem(response["data"]))
-      .catch((err) => alert(err));
-  };
-
-  const handleSubmit = (event) => {
-    if (event.target.name === "profile") navigate("/comment");
+  const handleSubmit = async (event) => {
+    if (event.target.name === "profile") navigate(`../user/${item.idAuthor}`);
+    else if (event.target.name === "homepage") window.location.assign(`${process.env.REACT_APP_FRONTEND_ROOT}`);
     else if (event.target.name === "status") {
-      setSold(!isSold);
+      await updateStatus(user.token, itemId, !item.isSelling, () => {
+        setItem({...item, isSelling: !item.isSelling})
+      })
     } else if (event.target.name === "track") {
-      setTracked(!isTracked);
+      if (item.isMarked) {
+        await unmarkItem(user.token, itemId, () => {
+          setItem({...item, isMarked: false})
+        })
+      }
+      else {
+        await markItem(user.token, itemId, () => {
+          setItem({...item, isMarked: true})
+        })
+      }
     }
   };
   return (
-    <div className="flex bg-blue-50 border md:px-60">
-      <div className=" bg-white px-10 py-10 leading-loose">
+    <div className="flex w-full bg-blue-50 border md:px-60">
+      <div className=" bg-white w-full px-10 py-10 leading-loose">
         <div
           id="carouselExampleControls"
-          className="mb-10 md:w-1/3 carousel slide relative"
+          className="mb-10 md:w-1/2 h-96 carousel slide relative"
           data-bs-ride="carousel"
         >
-          <div class="carousel-inner relative w-full overflow-hidden">
-            <div class="carousel-item relative active float-left w-full">
-              <img
-                src="https://www.lib.hcmut.edu.vn/uploads/noidung/giao-trinh-giai-tich-2-0-367.jpg"
-                class="block w-full"
-                alt="Camera"
-              />
+          {item.image? (
+            <div className="carousel-inner relative w-full overflow-hidden">
+              {item.image.map((img) => {
+                if (img === item.image[0]) {
+                  return (
+                    <div className="carousel-item relative active float-left w-full" key={img}>
+                      <img
+                        src={img}
+                        className="block w-full h-96 object-contain"
+                        alt="..."
+                      />
+                    </div>
+                  )
+                }
+                return (
+                  <div className="carousel-item relative float-left w-full" key={img}>
+                    <img
+                      src={img}
+                      className="block w-full"
+                      alt="..."
+                    />
+                  </div>
+                )
+              })}
             </div>
-            <div class="carousel-item relative float-left w-full">
-              <img
-                src="https://www.lib.hcmut.edu.vn/uploads/noidung/giao-trinh-giai-tich-2-0-367.jpg"
-                class="block w-full"
-                alt="Camera"
-              />
-            </div>
-            <div class="carousel-item relative float-left w-full">
-              <img
-                src="https://www.lib.hcmut.edu.vn/uploads/noidung/giao-trinh-giai-tich-2-0-367.jpg"
-                class="block w-full"
-                alt="Camera"
-              />
-            </div>
-          </div>
+          ) : null}
           <button
-            class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
+            className="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
             type="button"
             data-bs-target="#carouselExampleControls"
             data-bs-slide="prev"
           >
             <span
-              class="carousel-control-prev-icon inline-block bg-no-repeat"
+              className="carousel-control-prev-icon inline-block bg-slate-500"
               aria-hidden="true"
             ></span>
-            <span class="visually-hidden">Previous</span>
+            <span className="visually-hidden">Previous</span>
           </button>
           <button
-            class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
+            className="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
             type="button"
             data-bs-target="#carouselExampleControls"
             data-bs-slide="next"
           >
             <span
-              class="carousel-control-next-icon inline-block bg-no-repeat"
+              className="carousel-control-next-icon inline-block bg-slate-500"
               aria-hidden="true"
             ></span>
-            <span class="visually-hidden">Next</span>
+            <span className="visually-hidden">Next</span>
           </button>
         </div>
 
         <h1 className="font-bold text-4xl">{item.title}</h1>
         <h1 className="font-bold text-3xl text-blue-600 leading-loose">
-          {item.price + " đ"}
+          {formatValue({
+            value: item.price,
+            groupSeparator: '.'
+          })} VND
         </h1>
         <h3>
           <span className="flex flex-row items-center">
@@ -103,7 +116,7 @@ export default function DisplayItem() {
         </h3>
         <h3>
           <span className={`text-gray-500`}>Trạng thái mặt hàng:</span>{" "}
-          {isSold ? (
+          {!item.isSelling ? (
             <span className="font-bold text-lg text-red-700">Đã bán</span>
           ) : (
             <span className="font-bold text-lg text-[#030391]">
@@ -114,40 +127,54 @@ export default function DisplayItem() {
 
         <h3>
           <span className="text-gray-500">Tình trạng sản phẩm:</span>{" "}
-          {item.status}
+          {(item.status === "new")? "Mới" : "Cũ"}
         </h3>
 
         <h3>
-          <span className="text-gray-500">Ngày đăng:</span> {item.date}
+          <span className="text-gray-500">Ngày đăng:</span> {(new Date(item.date)).toUTCString()}
         </h3>
         <h3>
           <span className="text-gray-500">Mô tả</span>
         </h3>
-        <p className="leading-5 md:pr-10 text-justify">{item.description}</p>
+        <p className="leading-5 md:pr-10 text-justify whitespace-pre-line">
+          {item.description? item.description : (
+            <span className="italic">Sản phẩm này chưa có mô tả</span>
+          )}
+        </p>
         <div className="inline-flex">
-          <button
-            className="bg-blue-300 focus:outline-none text-gray-800 font-bold py-2 px-5 md:px-10 mr-5 rounded"
-            data-bs-toggle="modal"
-            data-bs-target="#change-tracking-modal"
-          >
-            {isTracked ? "Đánh dấu" : "Hủy đánh dấu"}
-          </button>
-          <button
-            className="bg-red-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-5 md:px-10 rounded"
-            data-bs-toggle="modal"
-            data-bs-target="#change-status-modal"
-          >
-            Thay trạng thái
-          </button>
+          {(user && (user._id !== item.idAuthor))? (
+            <button
+              className="bg-blue-300 focus:outline-none text-gray-800 font-bold py-2 px-5 md:px-10 mr-5 rounded"
+              data-bs-toggle="modal"
+              data-bs-target="#change-tracking-modal"
+            >
+              {!item.isMarked ? "Đánh dấu" : "Hủy đánh dấu"}
+            </button>
+          ) : null}
+          {(user && (user._id === item.idAuthor))? (
+            <button
+              className="bg-red-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-5 md:px-10 rounded"
+              data-bs-toggle="modal"
+              data-bs-target="#change-status-modal"
+            >
+              Thay trạng thái
+            </button>
+          ) : null}
         </div>
 
         <h3 className="text-gray-500 mt-5">Người bán</h3>
         <span className="flex flex-row items-center">
-          <i className="mr-5 p-4 border-2 rounded-full border-sky-500 fas fa-user-tie"></i>
-          Kha Sang
+          <div className="mr-5">
+            <img src={item.authorImage} className="object-fit w-16 h-16 rounded-full border-2 border-sky-500"></img>
+          </div>
+          <div>
+            {item.authorName}
+          </div>
         </span>
         <button
-          onClick={handleSubmit}
+          onClick={(e) => {
+            window.location.assign(`${process.env.REACT_APP_FRONTEND_ROOT}/user/${item.idAuthor}`)
+          }}
           name="profile"
           className="bg-yellow-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-5 mr-5 mt-2 rounded"
         >
@@ -161,7 +188,7 @@ export default function DisplayItem() {
         id="change-status-modal"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="popup-modalLabel"
         aria-hidden="true"
       >
@@ -182,9 +209,9 @@ export default function DisplayItem() {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </button>
@@ -198,14 +225,14 @@ export default function DisplayItem() {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   ></path>
                 </svg>
                 <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                  Thay đổi trạng thái sang {isSold ? "Đang rao bán" : "Đã bán"}{" "}
+                  Thay đổi trạng thái sang {!item.isSelling ? "Đang rao bán" : "Đã bán"}{" "}
                   ?
                 </h3>
                 <button
@@ -238,7 +265,7 @@ export default function DisplayItem() {
         id="change-tracking-modal"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="popup-modalLabel"
         aria-hidden="true"
       >
@@ -259,9 +286,9 @@ export default function DisplayItem() {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </button>
@@ -275,14 +302,14 @@ export default function DisplayItem() {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   ></path>
                 </svg>
                 <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                  Xác nhận {isTracked ? " hủy" : ""} đánh dấu ?
+                  Xác nhận {item.isMarked ? " hủy" : ""} đánh dấu ?
                 </h3>
                 <button
                   data-modal-toggle="change-tracking-modal"
@@ -314,7 +341,7 @@ export default function DisplayItem() {
         id="success-modal"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="success-modalLabel"
         aria-hidden="true"
       >
@@ -335,9 +362,9 @@ export default function DisplayItem() {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </button>

@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import { useSearchParams } from "react-router-dom";
 import ItemsList from '../layouts/ItemList';
 import SalerList from "../layouts/salerList";
+import { searchItemsByCategory, searchItemsByName } from "../../api/itemsApi";
+import { searchUsersByName } from "../../api/usersApi";
+import swal from 'sweetalert';
 
 export default function SearchPage() {
     const [searchMode, setSearchMode] = useState(1);
@@ -9,32 +12,118 @@ export default function SearchPage() {
     const btnActiveStyle = 'bg-[#1488D8] text-white';
     const btnInactiveStyle = 'bg-white text-[#1488D8]';
 
+    const [currPage, setCurrPage] = useState(1);
+    const [itemsList, setItemsList] = useState([]);
+    const [usersList, setUsersList] = useState([]);
+
+    const [sortItemType, setSortItemType] = useState('time');
+    const [sortUserType, setSortUserType] = useState('rate');
+    const [productStatus, setProductStatus] = useState('');
+
     const onClickSearchByNameBtn = (e) => {
         e.preventDefault();
         setSearchMode(1);
+        setCurrPage(1);
     }
 
     const onClickSearchByTagBtn = (e) => {
         e.preventDefault();
         setSearchMode(2);
+        setCurrPage(1);
     }
 
     const onClickSearchSalerBtn = (e) => {
         e.preventDefault();
         setSearchMode(3);
+        setCurrPage(1);
     }
 
     const onChangeSortItem = (e) => {
-        console.log(e.target.value);
+        setSortItemType(e.target.value);
     }
 
     const onChangeSortSaler = (e) => {
-        console.log(e.target.value);
+        setSortUserType(e.target.value);
     }
 
     const onChangeProductState = (e) => {
-        console.log(e.target.value);
+        setProductStatus(e.target.value);
     }
+
+    const lastPageNotification = () => {
+        swal({
+            text: "This is the last page!",
+            icon: "warning",
+            dangerMode: true,
+        })
+    }
+
+    const errorNotification = () => {
+        swal({
+            text: "This is the last page!",
+            icon: "error",
+            dangerMode: true,
+        })
+    }
+
+    const itemPageNavigate = (e, amount) => {
+        const newPage = currPage+amount;
+        if (newPage > 0) {
+            if (searchMode === 1) {
+                searchItemsByName(urlParams.get("s"), newPage, sortItemType, productStatus, (data) => {
+                    if (data.length !== 0) {
+                        setItemsList(data);
+                        setCurrPage(newPage);
+                    }
+                    else {
+                        lastPageNotification();
+                    }
+                }, errorNotification)
+            }
+            else {
+                searchItemsByCategory(urlParams.get("s"), newPage, sortItemType, productStatus, (data) => {
+                    if (data.length !== 0) {
+                        setItemsList(data);
+                        setCurrPage(newPage);
+                    }
+                    else {
+                        lastPageNotification();
+                    }
+                }, errorNotification)
+            }
+        }
+    }
+
+    const userPageNavigate = (e, amount) => {
+        const newPage = currPage+amount;
+        if (newPage > 0) {
+            searchUsersByName(urlParams.get("s"), newPage, sortUserType,(data) => {
+                if (data.length !== 0) {
+                    setUsersList(data);
+                    setCurrPage(newPage);
+                }
+            })
+        }
+    }
+
+    useEffect(() => {
+        if (searchMode === 1) {
+            setCurrPage(1);
+            searchItemsByName(urlParams.get("s"), 1, sortItemType, productStatus, (data) => {
+                setItemsList(data);
+            }, errorNotification)
+        }
+        else if (searchMode === 2) {
+            searchItemsByCategory(urlParams.get("s"), 1, sortItemType, productStatus, (data) => {
+                setItemsList(data);
+            }, errorNotification)
+        }
+        else {
+            searchUsersByName(urlParams.get("s"), 1, sortUserType, (data) => {
+                setUsersList(data);
+            }, errorNotification)
+        }
+    }, [searchMode, productStatus, sortItemType, sortUserType, urlParams]);
 
     return (
         <div className='w-full flex flex-col mt-2 items-center'>
@@ -92,7 +181,7 @@ export default function SearchPage() {
                                 </div>
                                 <div className="w-28">
                                     <select onChange={onChangeSortItem}
-                                        defaultValue="all"
+                                        defaultValue="time"
                                         className="border-[#1488d8] border-2 py-1 px-4 rounded appearance-none"
                                     >
                                         <option value="time">
@@ -136,7 +225,19 @@ export default function SearchPage() {
                 }
             </div>
             {
-                (searchMode === 3)? (<SalerList/>) : (<ItemsList/>)
+                (searchMode === 3)? (
+                    <SalerList 
+                        salersList={usersList} 
+                        currPage={currPage} 
+                        navigate={userPageNavigate}
+                    />
+                ) : (
+                    <ItemsList 
+                        itemList={itemsList} 
+                        currPage={currPage} 
+                        navigate={itemPageNavigate}
+                    />
+                )
             }
         </div>
     )

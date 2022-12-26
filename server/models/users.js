@@ -31,8 +31,7 @@ const userSchema = new mongoose.Schema({
     },
     phoneNum : {
         type: String,
-        required: false,
-        unique: true
+        required: false
     },
     name: {
         type: String,
