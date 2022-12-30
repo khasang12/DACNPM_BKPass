@@ -10,17 +10,20 @@ import {userContext} from "../../context/userContext";
 export default function AddItemForm() {
   const navigate = useNavigate();
   const user = useContext(userContext).user;
-  const [values, setValues] = useState({
-    category: "",
-    status: "",
-    price: "",
-    title: "",
-    description: "",
-    image: [],
-    isSelling: true
-  });
+  const [values, setValues] = useState(
+    sessionStorage.getItem("item")
+      ? JSON.parse(sessionStorage.getItem("item"))
+      : {
+          category: "",
+          status: "",
+          price: "",
+          title: "",
+          description: "",
+          image: [],
+          isSelling: true,
+        }
+  );
   const [imgBuffer, setImgbuffer] = useState([])
-
   // FOR EACH SUBMISSION
   const [done, setDone] = useState({ status: false, msg: "empty form" });
   // FOR FILES UPLOADING....
@@ -202,6 +205,7 @@ export default function AddItemForm() {
               name="category"
               onChange={(e) => handleChange(e)}
               className="block appearance-none md:w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+              value={values.category}
             >
               <option value="">Chọn danh mục</option>
               <option value="book">Sách</option>
@@ -227,6 +231,7 @@ export default function AddItemForm() {
                 id="status-new"
                 name="status"
                 value="new"
+                checked={values.status == "new"}
                 className="hidden peer"
                 onChange={(e) => handleChange(e)}
                 required
@@ -246,6 +251,7 @@ export default function AddItemForm() {
                 id="status-old"
                 name="status"
                 value="used"
+                checked={values.status == "used"}
                 onChange={(e) => handleChange(e)}
                 className="hidden peer"
               />
@@ -274,6 +280,7 @@ export default function AddItemForm() {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="Tiêu đề cho mặt hàng của bạn"
               onChange={(e) => handleChange(e)}
+              value={values.title}
               required
             />
           </div>
@@ -290,6 +297,7 @@ export default function AddItemForm() {
               name="price"
               placeholder="Nhập giá tiền"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              value={values.price}
               onChange={(e) => handleChange(e)}
             />
           </div>
@@ -306,6 +314,7 @@ export default function AddItemForm() {
               rows="4"
               name="description"
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+              value={values.description}
               onChange={(e) => handleChange(e)}
               placeholder="Mô tả mặt hàng..."
             ></textarea>
@@ -359,7 +368,8 @@ export default function AddItemForm() {
                   </div>
                   <div className="modal-body relative p-4 leading-loose">
                     <div className="flex flex-row">
-                      {files? files.map((item) => (
+                      {files
+                        ? files.map((item) => (
                             <img
                               src={item}
                               alt="item"
@@ -373,7 +383,7 @@ export default function AddItemForm() {
                     <h1 className="font-bold text-3xl text-blue-600 leading-loose">
                       {formatValue({
                         value: values.price,
-                        groupSeparator: '.'
+                        groupSeparator: ".",
                       })}
                     </h1>
                     <h3>
@@ -394,7 +404,7 @@ export default function AddItemForm() {
                     </h3>
                     <h3>
                       <span className="text-gray-500">Ngày đăng:</span>{" "}
-                      {(new Date()).toUTCString()}
+                      {new Date().toUTCString()}
                     </h3>
                     <h3>
                       <span className="text-gray-500">Mô tả</span>

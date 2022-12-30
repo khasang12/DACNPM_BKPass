@@ -1,30 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import items from "../layouts/data";
 import SellingItem from "../layouts/soldItemList";
 import TakeOffItem from "../layouts/take-offItem";
 import ReactPaginate from "react-paginate";
+import { useNavigate } from "react-router-dom";
 
-const buttons = [
-  {
-    name: "Đang bán",
-    value: "on",
-  },
-  {
-    name: "Đã ngừng bán",
-    value: "done",
-  },
-];
 function getList() {
   const itemList = items;
   return itemList;
 }
 function filterList(itemState) {
-  let filteredList = getList().filter((item) => item.state === itemState);
+  let filteredList = getList().filter((item) => item.isSelling === itemState);
   return filteredList;
 }
 
 const SellHistory = () => {
-  const list = filterList("on");
+  const userLogin = localStorage.getItem("bkpass-user");
+  const navigate = useNavigate()
+  useEffect(()=>{
+    !userLogin && navigate("/403")
+  },[])
+  const list = filterList(true);
   const [filteredList, setFilteredList] = useState(list);
   const [isDone, setIsDone] = useState(false);
   const itemsPerPage = 10;
@@ -33,9 +29,9 @@ const SellHistory = () => {
   const [itemOffset, setItemOffset] = useState(0);
 
   function handleList(e) {
-    let typeitem = e.target.value;
+    let typeitem = e.target.value==="on"?true:false;
     setFilteredList(filterList(typeitem));
-    typeitem == "done"? setIsDone(true):setIsDone(false);
+    typeitem === false? setIsDone(true):setIsDone(false);
     setCurrentItems(filterList(typeitem).slice(0,9));
     setPageCount(Math.ceil(filterList(typeitem).length / itemsPerPage));
   }
@@ -54,11 +50,9 @@ const SellHistory = () => {
     return(
       isDone?
         currentItems.map((item) => {
-          // console.log(item);
           return <TakeOffItem item={item} key={item.id} />;
         }):
         currentItems.map((item) => {
-          // console.log(item);
           return <SellingItem item={item} key={item.id} />;
         })
     );
@@ -70,7 +64,7 @@ const SellHistory = () => {
           <button className="w-1/2 text-[#fff] self-stretch box-content focus:underline peer-checked:underline underline-offset-4"
           value="on"
           onClick={handleList}>
-            Đang bán
+            Đang rao bán
           </button>
           <button className="w-1/2 text-[#fff] self-stretch box-content focus:underline peer-checked:underline underline-offset-4"
           value="done"

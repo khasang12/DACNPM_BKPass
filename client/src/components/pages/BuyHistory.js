@@ -1,29 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import items from "../layouts/data";
 import BoughtItem from "../layouts/boughtItem";
 import CompleteItem from "../layouts/completeItem";
 import ReactPaginate from "react-paginate";
+import { useNavigate } from "react-router-dom";
 
-const buttons = [
-  {
-    name: "Đang bán",
-    value: "on",
-  },
-  {
-    name: "Đã ngừng bán",
-    value: "done",
-  },
-];
 function getList() {
   const itemList = items;
   return itemList;
 }
 function filterList(itemState) {
-  let filteredList = getList().filter((item) => item.state === itemState);
+  let filteredList = getList().filter((item) => item.isSelling === itemState);
   return filteredList;
 }
 const BuyHistory = () => {
-  const list = filterList("on");
+  const userLogin = localStorage.getItem("bkpass-user");
+  const navigate = useNavigate();
+  useEffect(() => {
+    !userLogin && navigate("/403");
+  }, []);
+
+  const list = filterList(true);
   const [filteredList, setFilteredList] = useState(list);
   const [isDone, setIsDone] = useState(false);
   const itemsPerPage = 10;
@@ -32,18 +29,18 @@ const BuyHistory = () => {
   const [itemOffset, setItemOffset] = useState(0);
   
   function handleList(e) {
-    let typeitem = e.target.value;
+    let typeitem = e.target.value === "on" ? true : false;
     setFilteredList(filterList(typeitem));
-    typeitem == "done"? setIsDone(true):setIsDone(false);
-    setCurrentItems(filterList(typeitem).slice(0,9));
+    typeitem === false ? setIsDone(true) : setIsDone(false);
+    setCurrentItems(filterList(typeitem).slice(0, 9));
     setPageCount(Math.ceil(filterList(typeitem).length / itemsPerPage));
   }
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     setCurrentItems(filteredList.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(filteredList.length / itemsPerPage));
   }, [itemOffset, itemsPerPage]);
+
   function handlePageClick(e) {
     const newOffset = e.selected * itemsPerPage % items.length;
     // console.log(`User requested page number ${e.selected}, which is offset ${newOffset}`);
@@ -69,12 +66,12 @@ const BuyHistory = () => {
           <button className="w-1/2 text-[#fff] self-stretch box-content focus:underline peer-checked:underline underline-offset-4"
           value="on"
           onClick={handleList}>
-            Đang bán
+            Đang trưng bày
           </button>
           <button className="w-1/2 text-[#fff] self-stretch box-content focus:underline peer-checked:underline underline-offset-4"
           value="done"
           onClick={handleList}>
-            Đã ngừng bán
+            Đã có người mua
           </button>
       </div>
       <div className="w-full max-w-[700px] flex flex-col items-center">
