@@ -3,7 +3,7 @@ const items = [
         id:1,
         state: "marking",
         owner: "Nguyễn Văn A",
-        image : "https://thumbs.dreamstime.com/b/hand-opened-book-global-network-connection-knowledge-education-e-booking-learning-concept-elements-imag-116592659.jpg",
+        image : ["https://thumbs.dreamstime.com/b/hand-opened-book-global-network-connection-knowledge-education-e-booking-learning-concept-elements-imag-116592659.jpg","https://thumbs.dreamstime.com/b/hand-opened-book-global-network-connection-knowledge-education-e-booking-learning-concept-elements-imag-116592659.jpg"],
         name : "Set sách mới nhú dành cho các bé Khoa Máy tính",
         cost : "80.000",
         time : new Date() - 1000000
