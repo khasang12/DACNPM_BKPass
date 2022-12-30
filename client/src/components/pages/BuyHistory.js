@@ -1,61 +1,17 @@
 import React, { useState, useEffect } from "react";
-
 import items from "../layouts/data";
-import Item from "../layouts/boughtItem";
-import FilterButton from "../layouts/filterbutton";
-import { faChampagneGlasses } from "@fortawesome/free-solid-svg-icons";
+import BoughtItem from "../layouts/boughtItem";
+import CompleteItem from "../layouts/completeItem";
+import ReactPaginate from "react-paginate";
 
-// export default function BuyHistory() {
-//     const [activeFilter, setActiveFilter] = useState("bought");
-//     const MouseEvent = (e) => {
-//         e.preventDefault();
-//         const el = e.target;
-//         setActiveFilter(el);
-//     }
-
-//     // const posts = useMany<{
-//     //     id: number,
-//     //     state: string,
-//     // }>({
-//     //     resource: items,
-//     //     ids: Array.from(Array(10).keys()).slice(1),
-//     // }).data;
-
-//   const filters = ["marking", "bought"];
-//     return (
-//         <>
-//         <div className="w-full flex flex-col items-center">
-//             <div className="flex flex-row flex-wrap justify-start mt-2 mb-4">
-//             {filters.map((filter, index) => {
-//                 return (
-//                     <FilterButton
-//                     key={index}
-//                     title={filter}
-//                     isActive={filter === activeFilter}
-//                     onClick={MouseEvent}
-//                     />
-//                 );
-//                 })}
-//             </div>
-//         </div>
-//         <div className="w-full flex flex-col items-center" style={{"maxWidth":"682px"}}>
-//             {items
-//             .filter((item) => item.state.includes(activeFilter))
-//             .map((item) => {
-//                 return <Item item={item} key={item.id} state={item.state}/>;
-//               })}
-//         </div>
-//         </>
-//     )
-// }
 const buttons = [
   {
-    name: "Đang đánh dấu",
-    value: "marking",
+    name: "Đang bán",
+    value: "on",
   },
   {
-    name: "Đã bán",
-    value: "bought",
+    name: "Đã ngừng bán",
+    value: "done",
   },
 ];
 function getList() {
@@ -67,51 +23,76 @@ function filterList(itemState) {
   return filteredList;
 }
 const BuyHistory = () => {
-  // const [item, setItem] = useState(items);
-  // const itemList = [...new Set(items.map((Val) => Val.state))];
-  // const filterItem = (cur) => {
-  //     return {items.filter(newVal => newVal.state === cur)};
-  // };
-  // return (
-  //     <div className="w-full flex flex-col items-center">
-  //         <div className="flex flex-row flex-wrap justify-start mt-2 mb-4">
-  //             <FilterButton
-  //             filterItem={filterItem}
-  //             itemList={itemList}
-  //             />
-  //         </div>
-  //         <div className="w-full flex flex-col items-center" style={{"maxWidth":"682px"}}>
-  //             <Item item={item}/>
-  //         </div>
-  //     </div>
-  // )
-  const list = filterList("marking");
+  const list = filterList("on");
   const [filteredList, setFilteredList] = useState(list);
+  const [isDone, setIsDone] = useState(false);
+  const itemsPerPage = 10;
+  const [currentItems, setCurrentItems] = useState(list);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  
   function handleList(e) {
-    let typeItem = e.target.value;
-    setFilteredList(filterList(typeItem));
+    let typeitem = e.target.value;
+    setFilteredList(filterList(typeitem));
+    typeitem == "done"? setIsDone(true):setIsDone(false);
+    setCurrentItems(filterList(typeitem).slice(0,9));
+    setPageCount(Math.ceil(filterList(typeitem).length / itemsPerPage));
   }
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    setCurrentItems(filteredList.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(filteredList.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage]);
+  function handlePageClick(e) {
+    const newOffset = e.selected * itemsPerPage % items.length;
+    // console.log(`User requested page number ${e.selected}, which is offset ${newOffset}`);
+    setItemOffset(newOffset);
+  };
+  function ListRender() {
+    return(
+      isDone?
+        currentItems.map((item) => {
+          // console.log(item);
+          return <CompleteItem item={item} key={item.id} />;
+        }):
+        currentItems.map((item) => {
+          // console.log(item);
+          return <BoughtItem item={item} key={item.id} />;
+        })
+    );
+  }
+  
   return (
     <div className="w-full flex flex-col items-center">
-      <div className="flex flex-row flex-wrap justify-start mt-2 mb-4">
-        {buttons &&
-          buttons.map((type, index) => (
-            <>
-              <button value={type.value} onClick={handleList}>
-                {type.name}
-              </button>
-            </>
-          ))}
+      <div className="max-w-[700px] w-full flex-wrap justify-start bg-[#1488D8] mt-2 mb-2 p-2">
+          <button className="w-1/2 text-[#fff] self-stretch box-content focus:underline peer-checked:underline underline-offset-4"
+          value="on"
+          onClick={handleList}>
+            Đang bán
+          </button>
+          <button className="w-1/2 text-[#fff] self-stretch box-content focus:underline peer-checked:underline underline-offset-4"
+          value="done"
+          onClick={handleList}>
+            Đã ngừng bán
+          </button>
       </div>
-      <div
-        className="w-full flex flex-col items-center"
-        style={{ maxWidth: "682px" }}
-      >
-        {list &&
-          filteredList.map((item) => {
-            console.log(item);
-            return <Item item={item} key={item.id} />;
-          })}
+      <div className="w-full max-w-[700px] flex flex-col items-center">
+        <ListRender />
+        <ReactPaginate
+        breakLabel="..."
+        nextLabel=">"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="<"
+        renderOnZeroPageCount={null}
+        className="flex flex-row md:items-center p-2 m-2"
+        nextClassName="block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        previousClassName="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        pageClassName="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        activeClassName="z-10 py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+      />
       </div>
     </div>
   );
