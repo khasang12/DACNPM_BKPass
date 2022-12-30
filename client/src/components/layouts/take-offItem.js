@@ -19,7 +19,7 @@ const TakeOffItem = ({ item }) => {
   return (
     <div className="max-w-[700px] w-full flex flex-col border-2 m-1 py-2 border-[#1488D8] rounded-2 relative">
     <div className="w-full mb-1 text-black font-bold indent-2 border-b-2">
-      {item.owner}
+      {item.idAuthor}
     </div>
     <div className="w-full md:grid md:grid-cols-2" style={{"gridTemplateColumns":"4fr 1fr"}}>
       <div className="w-full flex flex-row">
@@ -31,7 +31,7 @@ const TakeOffItem = ({ item }) => {
           />
         </div>
         <div className="flex flex-col">
-          <div className="mb-1 h-1/2" style={{minHeight: "48px"}}>{item.name}</div>
+          <div className="mb-1 h-1/2" style={{minHeight: "48px"}}>{item.title}</div>
           <div className="flex flex-row text-lg text-[#030981] h-3/10 relative"> 
             <div className="text-left font-semibold">
               {"Giá: "}

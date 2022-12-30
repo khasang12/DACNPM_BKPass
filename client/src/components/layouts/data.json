@@ -1,0 +1,431 @@
+[{
+  "_id": {
+    "$oid": "63890a8196d966305c73a641"
+  },
+  "image": [
+    "http://vanhoanghethuat.vn/datasite///201807/BAI_VIET_14562/03%20(3).jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "book",
+  "status": "used",
+  "price": "100000",
+  "title": "Giải tích 1",
+  "description": "Mô tả 1",
+  "idAuthor": "63a940e7dfda40144893a47c",
+  "date": {
+    "$date": {
+      "$numberLong": "1669925505185"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63890a9696d966305c73a644"
+  },
+  "image": [
+    "http://vanhoanghethuat.vn/datasite///201807/BAI_VIET_14562/03%20(3).jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "book",
+  "status": "used",
+  "price": "100000",
+  "title": "Giải tích 2",
+  "description": "Mô tả 2",
+  "idAuthor": "6388ed02c7716a285cfdfc59",
+  "date": {
+    "$date": {
+      "$numberLong": "1669925526534"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63890aa596d966305c73a647"
+  },
+  "image": [
+    "http://vanhoanghethuat.vn/datasite///201807/BAI_VIET_14562/03%20(3).jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "book",
+  "status": "used",
+  "price": "120000",
+  "title": "Giải tích 3",
+  "description": "Mô tả 3",
+  "idAuthor": "6388ed02c7716a285cfdfc59",
+  "date": {
+    "$date": {
+      "$numberLong": "1669925541306"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63890ac296d966305c73a64a"
+  },
+  "image": [
+    "http://vanhoanghethuat.vn/datasite///201807/BAI_VIET_14562/03%20(3).jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "book",
+  "status": "new",
+  "price": "140000",
+  "title": "Giải tích 3",
+  "description": "Mô tả 3",
+  "idAuthor": "6388ec3a2bdae312783be612",
+  "date": {
+    "$date": {
+      "$numberLong": "1669925570492"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63890af196d966305c73a64d"
+  },
+  "image": [
+    "http://vanhoanghethuat.vn/datasite///201807/BAI_VIET_14562/03%20(3).jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "electronics",
+  "status": "new",
+  "price": "14000000",
+  "title": "Máy tính",
+  "description": "Mô tả 3",
+  "idAuthor": "6388ec3a2bdae312783be612",
+  "date": {
+    "$date": {
+      "$numberLong": "1669925617943"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63890af896d966305c73a650"
+  },
+  "image": [
+    "http://vanhoanghethuat.vn/datasite///201807/BAI_VIET_14562/03%20(3).jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "electronics",
+  "status": "new",
+  "price": "14000000",
+  "title": "Máy tính 1",
+  "description": "Mô tả 3",
+  "idAuthor": "6388ec3a2bdae312783be612",
+  "date": {
+    "$date": {
+      "$numberLong": "1669925624527"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63890afd96d966305c73a653"
+  },
+  "image": [
+    "http://vanhoanghethuat.vn/datasite///201807/BAI_VIET_14562/03%20(3).jpg"
+  ],
+  "markBy": [
+    "63a813d8e5082c28c027b2bc"
+  ],
+  "numConcerner": 1,
+  "isSelling": true,
+  "category": "electronics",
+  "status": "new",
+  "price": "14000000",
+  "title": "Máy tính 2",
+  "description": "Mô tả 3",
+  "idAuthor": "6388ec3a2bdae312783be612",
+  "date": {
+    "$date": {
+      "$numberLong": "1669925629458"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63890b0296d966305c73a656"
+  },
+  "image": [
+    "http://vanhoanghethuat.vn/datasite///201807/BAI_VIET_14562/03%20(3).jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "electronics",
+  "status": "new",
+  "price": "14000000",
+  "title": "Máy tính 3",
+  "description": "Mô tả 3",
+  "idAuthor": "6388ec3a2bdae312783be612",
+  "date": {
+    "$date": {
+      "$numberLong": "1669925634234"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63890b1a96d966305c73a659"
+  },
+  "image": [
+    "http://vanhoanghethuat.vn/datasite///201807/BAI_VIET_14562/03%20(3).jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "electronics",
+  "status": "new",
+  "price": "14000000",
+  "title": "Điện thoại 1",
+  "description": "Mô tả 3",
+  "idAuthor": "6388ec3a2bdae312783be612",
+  "date": {
+    "$date": {
+      "$numberLong": "1669925658153"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63890b2296d966305c73a65c"
+  },
+  "image": [
+    "http://vanhoanghethuat.vn/datasite///201807/BAI_VIET_14562/03%20(3).jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "electronics",
+  "status": "new",
+  "price": "1400000",
+  "title": "Điện thoại 2",
+  "description": "Mô tả 3",
+  "idAuthor": "6388ec3a2bdae312783be612",
+  "date": {
+    "$date": {
+      "$numberLong": "1669925666721"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63a9bfc75dfa613174409406"
+  },
+  "image": [
+    "http://res.cloudinary.com/dath/image/upload/v1672068915/yljv0zflgxpukywh3pqq.jpg",
+    "http://res.cloudinary.com/dath/image/upload/v1672068916/f7smlnsqeatyhwku6qe4.png"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "book",
+  "status": "new",
+  "price": "50000",
+  "title": "Giải tích 2 HCMUT",
+  "description": "Liên hệ với mình tại: ...",
+  "idAuthor": "63a940e7dfda40144893a47c",
+  "date": {
+    "$date": {
+      "$numberLong": "1672069063887"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63a9cea46f0623388c7384a6"
+  },
+  "image": [
+    "http://res.cloudinary.com/dath/image/upload/v1672071978/tqlki0eyzhnrlphmi9e7.jpg",
+    "http://res.cloudinary.com/dath/image/upload/v1672071979/puyvizaabal3ofniagn4.jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "electronics",
+  "status": "new",
+  "price": "30000000",
+  "title": "Macbook M1",
+  "description": "Thử\nxem \ncó xuống \ndòng \nđược không",
+  "idAuthor": "63a940e7dfda40144893a47c",
+  "date": {
+    "$date": {
+      "$numberLong": "1672072868163"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63a9d2f8c3d09912b024b577"
+  },
+  "image": [
+    "http://res.cloudinary.com/dath/image/upload/v1672073915/q5xmbqnzwvqbuzsqfxnj.jpg",
+    "http://res.cloudinary.com/dath/image/upload/v1672073916/y6zclawdyqikkefghbew.jpg",
+    "http://res.cloudinary.com/dath/image/upload/v1672073917/vtsoyddtmgoqx5dprnf8.jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "electronics",
+  "status": "new",
+  "price": "50000000",
+  "title": "Macbook M1 Air mới",
+  "description": "Hello",
+  "idAuthor": "63a813d8e5082c28c027b2bc",
+  "date": {
+    "$date": {
+      "$numberLong": "1672073976659"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63a9d4e0c3d09912b024b5b2"
+  },
+  "image": [
+    "http://res.cloudinary.com/dath/image/upload/v1672074265/pplzxxxosj8h5od4qjfl.jpg",
+    "http://res.cloudinary.com/dath/image/upload/v1672074266/fvcxdyiu5csfsy8yb1i1.jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "book",
+  "status": "new",
+  "price": "60000",
+  "title": "Hóa đại cương",
+  "description": "hello",
+  "idAuthor": "63a813d8e5082c28c027b2bc",
+  "date": {
+    "$date": {
+      "$numberLong": "1672074464422"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63a9d65bc3d09912b024b5fd"
+  },
+  "image": [
+    "http://res.cloudinary.com/dath/image/upload/v1672074763/cxeqngjznumx2dejba4j.jpg",
+    "http://res.cloudinary.com/dath/image/upload/v1672074764/drmflkvsrrs3wkwtjtne.png"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "book",
+  "status": "new",
+  "price": "60000",
+  "title": "Giải bài tập giải tích",
+  "description": "hello",
+  "idAuthor": "63a813d8e5082c28c027b2bc",
+  "date": {
+    "$date": {
+      "$numberLong": "1672074843544"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63a9d836c3d09912b024b647"
+  },
+  "image": [
+    "http://res.cloudinary.com/dath/image/upload/v1672075317/n00abhga7x4f4jvxbotv.jpg",
+    "http://res.cloudinary.com/dath/image/upload/v1672075318/o6ma1mnowczij0uoiy4d.jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "book",
+  "status": "used",
+  "price": "40000",
+  "title": "Giải bài tập Hóa",
+  "description": "aaa",
+  "idAuthor": "63a813d8e5082c28c027b2bc",
+  "date": {
+    "$date": {
+      "$numberLong": "1672075318655"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63a9de2cc3d09912b024b74b"
+  },
+  "image": [
+    "http://res.cloudinary.com/dath/image/upload/v1672076843/jp7wp29hg2b51qyvvhmm.jpg",
+    "http://res.cloudinary.com/dath/image/upload/v1672076844/jkbjpgq9u9dluhrswx0b.jpg",
+    "http://res.cloudinary.com/dath/image/upload/v1672076844/hycvyytq6fb7oullbl91.jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "electronics",
+  "status": "used",
+  "price": "30000000",
+  "title": "Macbook siêu giảm giá",
+  "description": "hello.\nLiên hệ tại: ...",
+  "idAuthor": "63a813d8e5082c28c027b2bc",
+  "date": {
+    "$date": {
+      "$numberLong": "1672076844683"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63a9e06d06c3723a70d3f0b1"
+  },
+  "image": [
+    "http://res.cloudinary.com/dath/image/upload/v1672077420/qjooofjaj0j81yw67ls4.jpg",
+    "http://res.cloudinary.com/dath/image/upload/v1672077420/s3xwlae2q3ydrmwclmhw.png"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "book",
+  "status": "new",
+  "price": "36000",
+  "title": "Giáo trình giải tích",
+  "description": "hello mn",
+  "idAuthor": "63a940e7dfda40144893a47c",
+  "date": {
+    "$date": {
+      "$numberLong": "1672077421019"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63a9e09406c3723a70d3f0ca"
+  },
+  "image": [
+    "http://res.cloudinary.com/dath/image/upload/v1672077460/pvb1qw8cvosbpoty6zso.jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "book",
+  "status": "used",
+  "price": "20000",
+  "title": "Hóa Đại cương 1",
+  "description": "hello",
+  "idAuthor": "63a940e7dfda40144893a47c",
+  "date": {
+    "$date": {
+      "$numberLong": "1672077460782"
+    }
+  },
+  "__v": 0
+}]

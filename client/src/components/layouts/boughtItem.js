@@ -15,7 +15,7 @@ const BoughtItem = ({ item }) => {
   return (
   <div className="max-w-[700px] w-full flex flex-col border-2 m-1 py-2 border-[#1488D8] rounded-2 relative">
     <div className="w-full mb-1 text-black font-bold indent-2 border-b-2">
-      {item.name}
+      {item.title}
     </div>
     <div className="w-full md:grid md:grid-cols-2" style={{"gridTemplateColumns":"4fr 1fr"}}>
       <div className="w-full flex flex-row">

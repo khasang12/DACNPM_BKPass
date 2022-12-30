@@ -32,10 +32,9 @@ export function Navbar() {
   };
 
   const handleDropdown = (e, key) => {
-    if ((key === "items") && (!userLogin)) {
+    if (key === "items" && !userLogin) {
       window.location.assign(`./403`);
-    }
-    else {
+    } else {
       const updatedValues = {};
       updatedValues[key] = !dropDown[key];
       setDropDown({ ...dropDown, ...updatedValues });
@@ -50,7 +49,9 @@ export function Navbar() {
     if (e.key === "Enter") {
       e.preventDefault();
       if (searchStr !== "") {
-        window.location.assign(`${process.env.REACT_APP_FRONTEND_ROOT}/search?s=${searchStr}`);
+        window.location.assign(
+          `${process.env.REACT_APP_FRONTEND_ROOT}/search?s=${searchStr}`
+        );
       }
     }
   };
@@ -111,7 +112,9 @@ export function Navbar() {
                 className="text-[#030391] hover:text-[#1488D8] p-1 md:text-start lg:pr-2 lg:pt-4 md:pt-0 md:pr-0 w-full"
                 onClick={(e) => {
                   e.preventDefault();
-                  window.location.assign(`${process.env.REACT_APP_FRONTEND_ROOT}`)
+                  window.location.assign(
+                    `${process.env.REACT_APP_FRONTEND_ROOT}`
+                  );
                 }}
               >
                 <FontAwesomeIcon
@@ -154,9 +157,7 @@ export function Navbar() {
                     alt=""
                     className="w-5 h-5 md:w-10 md:h-10 align-bottom md:p-2 mr-2 object-fit rounded-full"
                   />
-                  <p className="flex align-middle my-auto">
-                    {userLogin.name}
-                  </p>
+                  <p className="flex align-middle my-auto">{userLogin.name}</p>
                   {dropDown["user"] && <DropdownUser />}
                 </button>
               ) : (
@@ -197,7 +198,9 @@ export function Navbar() {
               className="align-middle mr-3 rounded-full bg-[#030391] text-white pl-3 pr-3 ml-2"
               onClick={(e) => {
                 e.preventDefault();
-                window.location.assign(`${process.env.REACT_APP_FRONTEND_ROOT}/add-item`);
+                window.location.assign(
+                  `${process.env.REACT_APP_FRONTEND_ROOT}/add-item`
+                );
               }}
             >
               Đăng
@@ -246,7 +249,9 @@ const DropdownUser = () => {
   return (
     <div
       id="dropdown"
-      className={`${(userLogin)?"md:top-16":""} md:bottom-auto -bottom-10 left-28 md:left-auto absolute md:justify-end z-50 w-full md:w-auto lg:w-44 bg-white rounded divide-y divide-gray-100 shadow`}
+      className={`${
+        userLogin ? "md:top-16" : ""
+      } md:bottom-auto -bottom-10 left-28 md:left-auto absolute md:justify-end z-50 w-full md:w-auto lg:w-44 bg-white rounded divide-y divide-gray-100 shadow`}
     >
       <ul
         className="py-1 text-sm text-gray-700 dark:text-gray-200"
@@ -254,13 +259,17 @@ const DropdownUser = () => {
       >
         <li>
           <a
-            href={(userLogin) ? `${process.env.REACT_APP_FRONTEND_ROOT}/user/${userLogin._id}` : `${process.env.REACT_APP_FRONTEND_ROOT}/register`}
+            href={
+              userLogin
+                ? `${process.env.REACT_APP_FRONTEND_ROOT}/user/${userLogin._id}`
+                : `${process.env.REACT_APP_FRONTEND_ROOT}/register`
+            }
             className="block py-2 px-4 hover:bg-gray-100 hover:text-[#1488D8] text-[#030391]"
           >
-            {(userLogin)? "Tài khoản" : "Đăng kí"}
+            {userLogin ? "Tài khoản" : "Đăng kí"}
           </a>
         </li>
-        {userLogin? (
+        {userLogin ? (
           <li>
             <a
               href={`${process.env.REACT_APP_FRONTEND_ROOT}/user/${userLogin._id}`}
@@ -268,21 +277,25 @@ const DropdownUser = () => {
             >
               Cài đặt
             </a>
-        </li>
+          </li>
         ) : null}
         <li>
           <a
-            href={(userLogin)? `${process.env.REACT_APP_FRONTEND_ROOT}` : `${process.env.REACT_APP_FRONTEND_ROOT}/login`}
+            href={
+              userLogin
+                ? `${process.env.REACT_APP_FRONTEND_ROOT}`
+                : `${process.env.REACT_APP_FRONTEND_ROOT}/login`
+            }
             onClick={(e) => {
               localStorage.clear();
               adjustUser(null);
             }}
             type="button"
             className="block py-2 px-4 hover:bg-gray-100 hover:text-[#1488D8] text-[#030391]"
-            data-bs-toggle={(userLogin)? "modal":""}
-            data-bs-target={(userLogin)? "popup-modal":""}
+            data-bs-toggle={userLogin ? "modal" : ""}
+            data-bs-target={userLogin ? "popup-modal" : ""}
           >
-            {(userLogin) ? "Đăng xuất" : "Đăng nhập"}
+            {userLogin ? "Đăng xuất" : "Đăng nhập"}
           </a>
         </li>
       </ul>
@@ -332,7 +345,9 @@ const DropdownNotification = () => {
                 {noti.vendor}
               </div>
               <div className="text-xs text-blue-600">
-                <span className="font-semibold text-gray-900">Cập nhật từ:</span>{" "}
+                <span className="font-semibold text-gray-900">
+                  Cập nhật từ:
+                </span>{" "}
                 {noti.time}
               </div>
             </div>

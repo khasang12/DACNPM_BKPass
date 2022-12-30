@@ -25,7 +25,7 @@ const CompleteItem = ({ item }) => {
           />
         </div>
         <div className="flex flex-col">
-          <div className="mb-1 h-1/2" style={{minHeight: "48px"}}>{item.name}</div>
+          <div className="mb-1 h-1/2" style={{minHeight: "48px"}}>{item.title}</div>
           <div className="flex flex-row text-lg text-[#030981] h-3/10 relative"> 
             <div className="text-left font-semibold">
               {"Giá: "}

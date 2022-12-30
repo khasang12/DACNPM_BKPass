@@ -7,7 +7,7 @@ import {
   faTrashCan,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import ModalForm from "./itemInfo";
+import {Link} from "react-router-dom"
 
 const DoneModal = () => {
   <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
@@ -63,45 +63,51 @@ export default function SellingItem ({ item }) {
       navigate("/add-comment");
     } else if (event.target.name === "redo") {
       navigate("/demo-item");
+    } else if (event.target.name === "edit"){
+      sessionStorage.setItem("item",JSON.stringify(item))
+      navigate("/add-item")
     }
   };
   return (
-  <div className="max-w-[700px] w-full flex flex-col border-2 m-1 py-2 border-[#1488D8] rounded-2 relative">
-    <div className="w-full md:grid md:grid-cols-2" style={{"gridTemplateColumns":"4fr 1fr"}}>
-      <div className="w-full flex flex-row">
-        <div className="block w-[120px] h-full px-2">
-          <img
-            alt="item"
-            src={item.image[0]}
-            className="align-middle w-[120px]"
-          />
-        </div>
-        <div className="flex flex-col">
-          <div className="mb-1 h-1/2" style={{minHeight: "50px"}}>{item.name}</div>
-          <div className="flex flex-row text-lg text-[#030981] h-3/10 relative"> 
-            <div className="text-left font-semibold">
-              {"Giá: "}
-              {item.price}
+    <div className="max-w-[700px] w-full flex flex-col border-2 m-1 py-2 border-[#1488D8] rounded-2 relative">
+      <div
+        className="w-full md:grid md:grid-cols-2"
+        style={{ gridTemplateColumns: "4fr 1fr" }}
+      >
+        <div className="w-full flex flex-row">
+          <div className="block w-[120px] h-full px-2">
+            <img
+              alt="item"
+              src={item.image[0]}
+              className="align-middle w-[120px]"
+            />
+          </div>
+          <div className="flex flex-col">
+            <div className="mb-1 h-1/2" style={{ minHeight: "50px" }}>
+              {item.title}
+            </div>
+            <div className="flex flex-row text-lg text-[#030981] h-3/10 relative">
+              <div className="text-left font-semibold">
+                {"Giá: "}
+                {item.price}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="flex flex-row relative">
-          <div className="text-lg text-[#030981] font-italic h-2/10 bottom-0"> 
-            
+          <div className="flex flex-row relative">
+            <div className="text-lg text-[#030981] font-italic h-2/10 bottom-0"></div>
           </div>
-        </div>    
+        </div>
+      </div>
+      <div className="w-full md:flex md:flex-row-reverse align-middle">
+          <button
+            className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button"
+            name="edit"
+            onClick={handleSubmit}
+          >
+            Edit
+          </button>
       </div>
     </div>
-    <div className="w-full md:flex md:flex-row-reverse align-middle">
-      <button
-        className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
-        open modal
-      </button>
-      {showModal && <ModalForm setOpenModal={setShowModal}  setActivated={setDisabled} Item={item} />}
-    </div>
-  </div>
   );
 }
