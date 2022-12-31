@@ -73,6 +73,8 @@ export default function SellingItem ({ item }) {
         });
     }
   };
+
+  //Thêm function ngừng bán
   return (
     <div className="max-w-[700px] w-full flex flex-col border-b-2 md:border-2 m-1 py-2 border-[#1488D8] rounded-2 relative">
       <div className="w-full md:grid md:grid-cols-2" style={{"gridTemplateColumns":"4fr 1fr"}}>
