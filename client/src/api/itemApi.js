@@ -123,3 +123,24 @@ export const updateItem = async (token, itemId, item, callback) => {
   }
 };
 
+export const deleteItem = async (token, itemId, callback) => {
+  try {
+    const url = `${process.env.REACT_APP_SERVER_URL}/item/${itemId}`;
+    const res = await axios.delete(
+      url,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    if (res.status === 200) {
+      callback();
+    } else {
+      console.log(res.data.msg);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+

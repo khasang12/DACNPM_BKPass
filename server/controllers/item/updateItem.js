@@ -9,7 +9,7 @@ const updateItem = async (req, res) => {
         console.log(itemId);
         const item = await itemsModel.findById(itemId)
                                 .select("_id category status price title image date isSelling idAuthor");
-        const req_item= req.body["item"];
+        const req_item= req.body["item"]?req.body["item"]:{isSelling:false};
         const req_author = req.body["author"];
         if (String(req_author._id) !== item.idAuthor)
           res.status(403).send({ msg: "Not authorized" });

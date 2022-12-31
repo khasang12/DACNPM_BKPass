@@ -379,7 +379,7 @@ export default function AddItemForm() {
                           ))
                         : ""}
                     </div>
-                    <h1 className="font-bold text-4xl">{values.header}</h1>
+                    <h1 className="font-bold text-4xl">{values.title}</h1>
                     <h1 className="font-bold text-3xl text-blue-600 leading-loose">
                       {formatValue({
                         value: values.price,
