@@ -4,36 +4,51 @@ import BoughtItem from "../layouts/boughtItem";
 import CompleteItem from "../layouts/completeItem";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
+import { getListMarkedItem } from "../../api/itemsApi";
 
-function getList() {
-  const itemList = items;
-  return itemList;
-}
-function filterList(itemState) {
-  let filteredList = getList().filter((item) => item.isSelling === itemState);
-  return filteredList;
-}
 const BuyHistory = () => {
   const userLogin = localStorage.getItem("bkpass-user");
   const navigate = useNavigate();
+  const [filteredList, setFilteredList] = useState([]);
+  const [isSold, setIsSold] = useState(true);
+  const itemsPerPage = 10;
+  const [currentItems, setCurrentItems] = useState(filteredList);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+
   useEffect(() => {
     !userLogin && navigate("/403");
   }, []);
 
-  const list = filterList(true);
-  const [filteredList, setFilteredList] = useState(list);
-  const [isDone, setIsDone] = useState(false);
-  const itemsPerPage = 10;
-  const [currentItems, setCurrentItems] = useState(list);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-  
+  useEffect(() => {
+    filterList(isSold);
+  }, [isSold]);
+
+  async function filterList(itemState) {
+    await getListMarkedItem(
+      JSON.parse(userLogin)["_id"],
+      itemState,
+      (items) => {
+        setFilteredList(items);
+      }
+    );
+  }
+
   function handleList(e) {
-    let typeitem = e.target.value === "on" ? true : false;
-    setFilteredList(filterList(typeitem));
-    typeitem === false ? setIsDone(true) : setIsDone(false);
-    setCurrentItems(filterList(typeitem).slice(0, 9));
-    setPageCount(Math.ceil(filterList(typeitem).length / itemsPerPage));
+    if (e.target.value === "sold"){
+      if(isSold===false){
+        setIsSold(true)
+      }
+      else return;
+    } 
+    else if (e.target.value === "selling"){
+      if(isSold===true){
+        setIsSold(false)
+      }
+      else return;
+    }
+    setCurrentItems(filteredList.slice(0, 9));
+    setPageCount(Math.ceil(filteredList.length / itemsPerPage));
   }
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -48,7 +63,7 @@ const BuyHistory = () => {
   };
   function ListRender() {
     return(
-      isDone?
+      !isSold?
         currentItems.map((item) => {
           // console.log(item);
           return <CompleteItem item={item} key={item.id} />;
@@ -64,12 +79,12 @@ const BuyHistory = () => {
     <div className="w-full flex flex-col items-center">
       <div className="max-w-[700px] w-full flex-wrap justify-start bg-[#1488D8] mt-2 mb-2 p-2">
           <button className="w-1/2 text-[#fff] self-stretch box-content focus:underline peer-checked:underline underline-offset-4"
-          value="on"
+          value="selling"
           onClick={handleList}>
             Đang trưng bày
           </button>
           <button className="w-1/2 text-[#fff] self-stretch box-content focus:underline peer-checked:underline underline-offset-4"
-          value="done"
+          value="sold"
           onClick={handleList}>
             Đã có người mua
           </button>
