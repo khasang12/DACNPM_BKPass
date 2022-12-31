@@ -288,7 +288,10 @@ const DropdownUser = () => {
                 : `${process.env.REACT_APP_FRONTEND_ROOT}/login`
             }
             onClick={(e) => {
-              localStorage.clear();
+              if (userLogin) {
+                localStorage.clear();
+                window.location.assign("/")
+              }
               adjustUser(null);
             }}
             type="button"
