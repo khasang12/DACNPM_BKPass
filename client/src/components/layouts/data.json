@@ -428,4 +428,50 @@
     }
   },
   "__v": 0
+},
+{
+  "_id": {
+    "$oid": "63a9e09406c3723a70d3f0ca"
+  },
+  "image": [
+    "http://res.cloudinary.com/dath/image/upload/v1672077460/pvb1qw8cvosbpoty6zso.jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": false,
+  "category": "book",
+  "status": "used",
+  "price": "20000",
+  "title": "Hóa Đại cương 1 Bán rồi",
+  "description": "hello",
+  "idAuthor": "6378da7e9633512d7489ff47",
+  "date": {
+    "$date": {
+      "$numberLong": "1672077460782"
+    }
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "63a9e09406c3723a70d3f0ca"
+  },
+  "image": [
+    "http://res.cloudinary.com/dath/image/upload/v1672077460/pvb1qw8cvosbpoty6zso.jpg"
+  ],
+  "markBy": [],
+  "numConcerner": 0,
+  "isSelling": true,
+  "category": "book",
+  "status": "used",
+  "price": "20000",
+  "title": "Hóa Đại cương 1 Chưa bán",
+  "description": "hello",
+  "idAuthor": "6378da7e9633512d7489ff47",
+  "date": {
+    "$date": {
+      "$numberLong": "1672077460782"
+    }
+  },
+  "__v": 0
 }]
