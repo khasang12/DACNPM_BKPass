@@ -131,6 +131,7 @@ export default function SellingItem({ item }) {
   // console.log(newItem);
 
   const handleChange = (event) => {
+    console.log(event.target.value);
     setNewItem({
       ...newItem,
       [event.target.name]: event.target.value,
@@ -354,67 +355,69 @@ export default function SellingItem({ item }) {
                           )})
                         }
                     </div> */}
-                    <div className="w-full">
-                        <div className="w-full px-2">
-                            <form className="w-full">
-                                <div className="inline-block mb-7 relative w-full">
-                                    <label
-                                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                    htmlFor="grid-first-name"
-                                    >
-                                    Danh mục tin đăng
-                                    </label>
-                                    <select
-                                    name="category"
-                                    // onChange={(e) => handleChange(e)}
-                                    value={newItem.category}
-                                    className="block appearance-none md:w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                                    onChange={handleChange}
-                                    >
-                                    <option>Sách</option>
-                                    <option>Thiết bị số</option>
-                                    <option>Vật dụng khác</option>
-                                    </select>
-                                </div>
-                                <ul className="flex w-2/3 mt-3 mb-5 md:grid-cols-2">
-                                    <li className="flex-1">
-                                    <input
-                                        type="radio"
-                                        id="status-new"
-                                        name="item_status"
-                                        value={newItem.status === "used"? "Đã sử dụng":"Hàng mới"}
-                                        className="hidden peer"
-                                        // onChange={(e) => handleChange(e)}
-                                        required
-                                    />
-                                    <label
-                                        htmlFor="status-new"
-                                        className="inline-flex justify-center items-center p-2 md:w-1/2 text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
-                                    >
-                                        <div className="block">
-                                        <div className="w-full">Hàng mới</div>
-                                        </div>
-                                    </label>
-                                    </li>
-                                    <li className="flex-1">
-                                    <input
-                                        type="radio"
-                                        id="status-old"
-                                        name="item_status"
-                                        value="Đã sử dụng"
-                                        // onChange={(e) => handleChange(e)}
-                                        className="hidden peer"
-                                    />
-                                    <label
-                                        htmlFor="status-old"
-                                        className="inline-flex justify-center items-center p-2 md:w-1/2 text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
-                                    >
-                                        <div className="block">
-                                        <div className="w-full">Đã sử dụng</div>
-                                        </div>
-                                    </label>
-                                    </li>
-                                </ul>
+                <div className="w-full">
+                  <div className="w-full px-2">
+                    <form className="w-full">
+                      <div className="inline-block mb-7 relative w-full">
+                        <label
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          htmlFor="grid-first-name"
+                        >
+                          Danh mục tin đăng
+                        </label>
+                        <select
+                          name="category"
+                          value={newItem.category}
+                          className="block appearance-none md:w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                          onChange={handleChange}
+                        >
+                          <option>Sách</option>
+                          <option>Thiết bị số</option>
+                          <option>Vật dụng khác</option>
+                        </select>
+                      </div>
+
+                      <ul className="flex mt-3 mb-5 md:grid-cols-2">
+                        <li className="flex-1">
+                          <input
+                            className="mr-2 peer"
+                            type="radio"
+                            id="status-new"
+                            name="status"
+                            value="new"
+                            defaultChecked={item.status == "new"}
+                            onChange={handleChange}
+                          />
+                          <label
+                            htmlFor="status-new"
+                            className="inline-flex justify-center items-center p-2 md:w-1/2 text-gray-500 bg-white rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600"
+                          >
+                            <div className="block">
+                              <div className="w-full">Hàng mới</div>
+                            </div>
+                          </label>
+                        </li>
+                        <li className="flex-1">
+                          <input
+                          className="peer"
+                            type="radio"
+                            id="status-old"
+                            name="status"
+                            value="used"
+                            defaultChecked={item.status == "used"}
+                            onChange={handleChange}
+                            
+                          />
+                          <label
+                            htmlFor="status-old"
+                            className="inline-flex justify-center items-center p-2 md:w-1/2 text-gray-500 bg-white rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600"
+                          >
+                            <div className="block">
+                              <div className="w-full">Đã sử dụng</div>
+                            </div>
+                          </label>
+                        </li>
+                      </ul>
 
                                 <div className="mb-6">
                                     <label
