@@ -130,6 +130,7 @@ export default function SellingItem({ item }) {
   const [newItem, setNewItem] = useState(item);
   const [done, setDone] = useState({ status: false, msg: "empty form" });
   const handleChange = (event) => {
+    console.log(event.target.value);
     setNewItem({
       ...newItem,
       [event.target.name]: event.target.value,
@@ -374,20 +375,21 @@ export default function SellingItem({ item }) {
                           <option>Vật dụng khác</option>
                         </select>
                       </div>
-                      <ul className="flex w-2/3 mt-3 mb-5 md:grid-cols-2">
+
+                      <ul className="flex mt-3 mb-5 md:grid-cols-2">
                         <li className="flex-1">
                           <input
+                            className="mr-2 peer"
                             type="radio"
                             id="status-new"
                             name="status"
                             value="new"
-                            className="hidden peer"
-                            onChange={(e) => handleChange(e)}
-                            required
+                            defaultChecked={item.status == "new"}
+                            onChange={handleChange}
                           />
                           <label
                             htmlFor="status-new"
-                            className="inline-flex justify-center items-center p-2 md:w-1/2 text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
+                            className="inline-flex justify-center items-center p-2 md:w-1/2 text-gray-500 bg-white rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600"
                           >
                             <div className="block">
                               <div className="w-full">Hàng mới</div>
@@ -396,16 +398,18 @@ export default function SellingItem({ item }) {
                         </li>
                         <li className="flex-1">
                           <input
+                          className="peer"
                             type="radio"
                             id="status-old"
                             name="status"
                             value="used"
-                            onChange={(e) => handleChange(e)}
-                            className="hidden peer"
+                            defaultChecked={item.status == "used"}
+                            onChange={handleChange}
+                            
                           />
                           <label
                             htmlFor="status-old"
-                            className="inline-flex justify-center items-center p-2 md:w-1/2 text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100"
+                            className="inline-flex justify-center items-center p-2 md:w-1/2 text-gray-500 bg-white rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600"
                           >
                             <div className="block">
                               <div className="w-full">Đã sử dụng</div>
