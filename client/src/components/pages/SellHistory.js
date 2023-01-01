@@ -9,20 +9,18 @@ import { getListSellingItem } from "../../api/itemsApi";
 const SellHistory = () => {
   const userLogin = localStorage.getItem("bkpass-user");
   const navigate = useNavigate();
-  const [filteredList, setFilteredList] = useState([]);
-  const [isSold, setIsSold] = useState(true);
+  const [filteredList, setFilteredList] = useState();
+  const [isSelling, setIsSelling] = useState(true);
   const itemsPerPage = 10;
-  const [currentItems, setCurrentItems] = useState(filteredList);
+  const [currentItems, setCurrentItems] = useState();
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-
+  useEffect(() => {
+    filterList(isSelling);
+  }, [isSelling]);
   useEffect(() => {
     !userLogin && navigate("/403");
   }, []);
-
-  useEffect(()=>{
-    filterList(isSold)
-  },[isSold])
 
   async function filterList(itemState) {
     await getListSellingItem(
@@ -35,13 +33,14 @@ const SellHistory = () => {
   }
 
   function handleList(e) {
+    console.log(e.target.value);
     if (e.target.value === "sold") {
-      if (isSold === false) {
-        setIsSold(true);
-      } else return;
+      if (isSelling === true || !isSelling) {
+        setIsSelling(false);
+      }
     } else if (e.target.value === "selling") {
-      if (isSold === true) {
-        setIsSold(false);
+      if (isSelling === false || !isSelling) {
+        setIsSelling(true);
       } else return;
     }
     setCurrentItems(filteredList.slice(0, 9));
@@ -49,14 +48,17 @@ const SellHistory = () => {
   }
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(filteredList.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(filteredList.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
+    filteredList && setCurrentItems(filteredList.slice(itemOffset, endOffset));
+    filteredList && setPageCount(Math.ceil(filteredList.length / itemsPerPage));
+  }, [filteredList, itemOffset, itemsPerPage]);
+
   function handlePageClick(e) {
     const newOffset = (e.selected * itemsPerPage) % items.length;
+    // console.log(`User requested page number ${e.selected}, which is offset ${newOffset}`);
     setItemOffset(newOffset);
   }
   function ListRender() {
+<<<<<<< HEAD
     // console.log(currentItems);
     return isSold
       ? currentItems.map((item) => {
@@ -65,6 +67,23 @@ const SellHistory = () => {
       : currentItems.map((item) => {
           return <SellingItem item={item} key={item.id} />;
         });
+=======
+    if (currentItems)
+      return isSelling
+        ? currentItems.map((item) => {
+            // console.log(item);
+            return <SellingItem item={item} key={item.id} />;
+          })
+        : currentItems.map((item) => {
+            // console.log(item);
+            return <TakeOffItem item={item} key={item.id} />;
+          });
+    else
+      return filteredList.map((item) => {
+        // console.log(item);
+        return <SellingItem item={item} key={item.id} />;
+      });
+>>>>>>> c217d2ec992a68480619fe35791e01bcc591440d
   }
 
   return (
@@ -86,7 +105,7 @@ const SellHistory = () => {
         </button>
       </div>
       <div className="w-full max-w-[700px] flex flex-col items-center">
-        <ListRender />
+        {filteredList && <ListRender />}
         <ReactPaginate
           breakLabel="..."
           nextLabel=">"

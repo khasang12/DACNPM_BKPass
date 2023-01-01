@@ -156,6 +156,7 @@ export function Navbar() {
                     src={userLogin.image}
                     alt=""
                     className="w-5 h-5 md:w-10 md:h-10 align-bottom md:p-2 mr-2 object-fit rounded-full"
+                    width="50" height="50"
                   />
                   <p className="flex align-middle my-auto">{userLogin.name}</p>
                   {dropDown["user"] && <DropdownUser />}
@@ -287,7 +288,10 @@ const DropdownUser = () => {
                 : `${process.env.REACT_APP_FRONTEND_ROOT}/login`
             }
             onClick={(e) => {
-              localStorage.clear();
+              if (userLogin) {
+                localStorage.clear();
+                window.location.assign("/")
+              }
               adjustUser(null);
             }}
             type="button"
@@ -321,7 +325,7 @@ const DropdownNotification = () => {
             key={noti.id}
             onClick={(e) => {
               e.preventDefault();
-              window.location.assign("./demo-item");
+              window.location.assign(noti.link);
             }}
           >
             <div className="flex-shrink-0">
@@ -355,7 +359,7 @@ const DropdownNotification = () => {
         ))}
       </div>
 
-      <a className="block py-2 text-sm font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
+      <a href="/buy-history" className="block py-2 text-sm font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
         <div className="inline-flex items-center ">
           <svg
             className="mr-2 w-4 h-4 text-gray-500 dark:text-gray-400"

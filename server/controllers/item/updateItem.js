@@ -6,12 +6,16 @@ const updateItem = async (req, res) => {
         const updateField = ["category", "status", "price", "title", 
                         "description", "address", "image", "isSelling"];
         const itemId = req.params.itemId;
+        console.log(itemId);
         const item = await itemsModel.findById(itemId)
                                 .select("_id category status price title image date isSelling idAuthor");
-        if (String(author._id) !== item.idAuthor) res.status(403).send({msg: "Not authorized"});
+        const req_item= req.body["item"]?req.body["item"]:{isSelling:false};
+        const req_author = req.body["author"];
+        if (String(req_author._id) !== item.idAuthor)
+          res.status(403).send({ msg: "Not authorized" });
         updateField.forEach(key => {
-            if (req.body[key] != null && req.body[key] !== '') {
-                item[key] = req.body[key];
+            if (req_item[key] != null && req_item[key] !== "") {
+              item[key] = req_item[key];
             }
         })
         const result = await item.save();
