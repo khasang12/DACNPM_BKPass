@@ -35,7 +35,7 @@
   "price": "100000",
   "title": "Giải tích 2",
   "description": "Mô tả 2",
-  "idAuthor": "6388ed02c7716a285cfdfc59",
+  "idAuthor": "63af7ea460b7662d18fb0515",
   "date": {
     "$date": {
       "$numberLong": "1669925526534"

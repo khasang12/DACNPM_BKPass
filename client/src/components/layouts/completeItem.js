@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUserDetail } from "../../api/userApi";
 
 const CompleteItem = ({ item }) => {
+  const ID = item.idAuthor;
   const navigate = useNavigate();
   // const searching = (e) => {
   //   e.target.name = 
@@ -10,10 +12,18 @@ const CompleteItem = ({ item }) => {
   //     search: "?{name}",
   //   });
   // }
+
+  const [saler, setSaler] = useState(null);
+  useEffect(() => {
+    getUserDetail(ID, (data) => {
+      setSaler(data)
+    });
+  }, [ID])
+
   return (
     <div className="max-w-[700px] w-full flex flex-col border-2 m-1 py-2 border-[#1488D8] rounded-2 relative">
     <div className="w-full mb-1 text-black font-bold indent-2 border-b-2">
-      {item.owner}
+      {saler? saler.name:"ㅤ"}
     </div>
     <div className="w-full md:grid md:grid-cols-2" style={{"gridTemplateColumns":"4fr 1fr"}}>
       <div className="w-full flex flex-row">

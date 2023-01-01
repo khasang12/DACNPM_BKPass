@@ -57,6 +57,7 @@ const SellHistory = () => {
     setItemOffset(newOffset);
   }
   function ListRender() {
+    // console.log(currentItems);
     return isSold
       ? currentItems.map((item) => {
           return <TakeOffItem item={item} key={item.id} />;

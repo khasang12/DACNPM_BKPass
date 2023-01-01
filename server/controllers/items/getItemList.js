@@ -54,6 +54,7 @@ const getItemList = async (req, res) => {
       const result = [];
       const chooseField = [
         "_id",
+        "description",
         "category",
         "status",
         "price",
