@@ -10,7 +10,6 @@ const authenticate = async (req, res, next) => {
             const user = await usersModel.findById(verified.user_id)
                                         .select("_id image name");
             req.body.author = user;
-            console.log(req.body)
             next();
         }
     } catch (error) {
