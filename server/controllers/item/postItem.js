@@ -2,7 +2,6 @@ const itemsModel = require('../../models/items');
 
 const postItem = async (req, res) => {
     try {
-        console.log(1)
         const author = req.body.author;
         const data = req.body.item;
         const idAuthor = author._id;

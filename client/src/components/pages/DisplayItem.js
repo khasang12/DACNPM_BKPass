@@ -41,7 +41,7 @@ export default function DisplayItem() {
       <div className=" bg-white w-full px-10 py-10 leading-loose">
         <div
           id="carouselExampleControls"
-          className="mb-10 md:w-1/2 h-96 carousel slide relative"
+          className="mb-10 md:w-1/2 h-80 carousel slide relative"
           data-bs-ride="carousel"
         >
           {item.image? (
@@ -49,20 +49,20 @@ export default function DisplayItem() {
               {item.image.map((img) => {
                 if (img === item.image[0]) {
                   return (
-                    <div className="carousel-item relative active float-left w-full" key={img}>
+                    <div className="carousel-item relative active float-left w-full h-80" key={img}>
                       <img
                         src={img}
-                        className="block w-full h-96 object-contain"
+                        className="block w-full h-80 object-contain"
                         alt="..."
                       />
                     </div>
                   )
                 }
                 return (
-                  <div className="carousel-item relative float-left w-full" key={img}>
+                  <div className="carousel-item relative float-left w-full h-80" key={img}>
                     <img
                       src={img}
-                      className="block w-full"
+                      className="block w-full h-80 object-contain"
                       alt="..."
                     />
                   </div>
