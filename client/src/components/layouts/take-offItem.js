@@ -36,18 +36,15 @@ const TakeOffItem = ({ item }) => {
             />
           </div>
           <div className="flex flex-col">
-            <div className="mb-1 h-1/2" style={{ minHeight: "48px" }}>
+            <div className="pb-2 h-1/2 text-[20px]" style={{ minHeight: "28px" }}>
               {item.title}
             </div>
 
             <div className="flex flex-row text-lg text-[#030981] h-1/2 relative">
-              <div className="text-left font-semibold">
+              <div className="text-left font-semibold text-[16px]">
                 {"Giá: "}
                 {item.price}
               </div>
-            </div>
-            <div className="text-sm text-[#1488D8] font-semibold h-2/10">
-              {"Sản phẩm này đã ngừng bán."}
             </div>
           </div>
           <div className="mb-1 h-1/2 min-h-[48px] absolute right-2 top-0">
@@ -57,10 +54,10 @@ const TakeOffItem = ({ item }) => {
                 data-bs-toggle="modal"
                 data-bs-target={"#deleteModal" + item._id}
               >
-                <span className="md:hidden">
+                <span>
                   <FontAwesomeIcon icon={faTrashCan} color="#fff"></FontAwesomeIcon>
                 </span>
-                <div className="hidden md:visible">Xoá sản phẩm</div>
+                <div className="md:visible collapse">Xoá sản phẩm</div>
               </button>
             </div>
         </div>
