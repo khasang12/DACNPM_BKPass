@@ -58,16 +58,6 @@ const SellHistory = () => {
     setItemOffset(newOffset);
   }
   function ListRender() {
-<<<<<<< HEAD
-    // console.log(currentItems);
-    return isSold
-      ? currentItems.map((item) => {
-          return <TakeOffItem item={item} key={item.id} />;
-        })
-      : currentItems.map((item) => {
-          return <SellingItem item={item} key={item.id} />;
-        });
-=======
     if (currentItems)
       return isSelling
         ? currentItems.map((item) => {
@@ -83,7 +73,6 @@ const SellHistory = () => {
         // console.log(item);
         return <SellingItem item={item} key={item.id} />;
       });
->>>>>>> c217d2ec992a68480619fe35791e01bcc591440d
   }
 
   return (

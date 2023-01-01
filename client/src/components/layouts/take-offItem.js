@@ -22,7 +22,7 @@ const TakeOffItem = ({ item }) => {
     }
   }
   return (
-    <div className="max-w-[700px] w-full flex flex-col border-2 m-1 py-2 border-[#1488D8] rounded-2 relative">
+    <div className="max-w-[700px] w-full flex flex-col md:border-2 border-b-2 m-1 py-2 border-[#1488D8] rounded-2 relative">
       <div
         className="w-full md:grid md:grid-cols-2"
         style={{ gridTemplateColumns: "4fr 1fr" }}
@@ -49,37 +49,23 @@ const TakeOffItem = ({ item }) => {
             <div className="text-sm text-[#1488D8] font-semibold h-2/10">
               {"Sản phẩm này đã ngừng bán."}
             </div>
-            <div className="mb-1 h-1/2" style={{ minHeight: "48px" }}>
+          </div>
+          <div className="mb-1 h-1/2 min-h-[48px] absolute right-2 top-0">
               <button
-                className="mt-2 inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                className="mt-2 inline-block px-6 py-2.5 bg-[#E95959] text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                 type="button"
                 data-bs-toggle="modal"
                 data-bs-target={"#deleteModal" + item._id}
               >
-                Xóa sản phẩm
+                <span className="md:hidden">
+                  <FontAwesomeIcon icon={faTrashCan} color="#fff"></FontAwesomeIcon>
+                </span>
+                <div className="hidden md:visible">Xoá sản phẩm</div>
               </button>
             </div>
-          </div>
-          <div className="flex flex-row relative">
-            <div className="text-lg text-[#030981] font-italic h-2/10 bottom-0"></div>
-          </div>
         </div>
       </div>
       <div className="w-full flex align-middle justify-end md:hidden">
-        <button
-          name="delete"
-          data-modal-toggle="delete-modal"
-          type="submit"
-          data-bs-toggle="modal"
-          data-bs-target="#delete-modal"
-          className="flex-auto bg-red-500 hover:bg-gray-700 text-white border border-blue-700 rounded h-10"
-        >
-          <span className="md:hidden">
-            <FontAwesomeIcon icon={faTrashCan} color="#fff"></FontAwesomeIcon>
-          </span>
-
-          <p className="hidden md:block">Xóa mặt hàng</p>
-        </button>
         {/* Delete-Item Modal */}
         <div
           className="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
