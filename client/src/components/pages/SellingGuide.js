@@ -7,8 +7,8 @@ import success1 from "../../assets/img/success1.png";
 export default function SellingGuide() {
   return (
     <div className="content">
-      <div className="title">Hướng dẫn mua hàng </div>
-      <ul>
+      <div className="title">Hướng dẫn đăng bán mặt hàng</div>
+      <ul className="guide-page">
         Bên cạnh thanh tìm kiếm, bạn có thể thấy nút <strong>"Đăng"</strong> ở
         góc phải trên cùng của trang web. Bấm vào nút này để đăng sản phẩm của
         bạn lên trang web.

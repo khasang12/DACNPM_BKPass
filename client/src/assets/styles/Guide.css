@@ -8,7 +8,7 @@
     font-weight: bold;
     padding: 10px;
 }
-ul{
+ul.guide-page{
     list-style-type: number;
     padding: 0;
     margin: 0;
