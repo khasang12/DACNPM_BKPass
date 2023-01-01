@@ -47,7 +47,7 @@ const TakeOffItem = ({ item }) => {
               </div>
             </div>
           </div>
-          <div className="mb-1 h-1/2 min-h-[48px] absolute right-2 top-0">
+          <div className="md:mb-1 h-1/2 min-h-[48px] absolute right-2 top-0">
               <button
                 className="mt-2 inline-block px-6 py-2.5 bg-[#E95959] text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                 type="button"
@@ -57,7 +57,7 @@ const TakeOffItem = ({ item }) => {
                 <span>
                   <FontAwesomeIcon icon={faTrashCan} color="#fff"></FontAwesomeIcon>
                 </span>
-                <div className="md:visible collapse">Xoá sản phẩm</div>
+                <div className="hidden md:block">Xoá sản phẩm</div>
               </button>
             </div>
         </div>
