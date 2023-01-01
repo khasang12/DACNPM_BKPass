@@ -151,7 +151,7 @@ export function AddComment() {
                   ></path>
                 </svg>
                 <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                  Xác nhận đánh giá ?
+                  Xác nhận đánh giá?
                 </h3>
                 <button
                   data-modal-toggle="change-tracking-modal"

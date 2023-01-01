@@ -1,0 +1,18 @@
+.content{
+    font-size: 24px;
+    width: 100%;
+}
+.title {
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    padding: 10px;
+}
+ul{
+    list-style-type: number;
+    padding: 0;
+    margin: 0;
+}
+h6 > a{
+    color: red
+}

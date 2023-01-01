@@ -25,12 +25,12 @@ export function Footer() {
           <div className="flex-auto mr-auto">
             <h6>CSKH</h6>
             <p class="mb-1 md:mb-4">
-              <a href="#!" class="text-gray-600">
+              <a href="/buyingguide" class="text-gray-600">
                 Hướng dẫn mua hàng
               </a>
             </p>
             <p class="mb-1 md:mb-4">
-              <a href="#!" class="text-gray-600">
+              <a href="/sellingguide" class="text-gray-600">
                 Hướng dẫn bán hàng
               </a>
             </p>
