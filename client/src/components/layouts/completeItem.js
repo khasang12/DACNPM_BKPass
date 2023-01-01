@@ -34,9 +34,9 @@ const CompleteItem = ({ item }) => {
           />
         </div>
         <div className="flex flex-col">
-          <div className="mb-1 h-1/2" style={{minHeight: "30px"}}>{item.title}</div>
+          <div className="pb-2 h-1/2 text-[20px]" style={{minHeight: "28px"}}>{item.title}</div>
           <div className="flex flex-row text-lg text-[#030981] h-3/10 relative"> 
-            <div className="text-left font-semibold">
+            <div className="text-left font-semibold text-[16px]">
               {"Giá: "}
               {item.price}
             </div>

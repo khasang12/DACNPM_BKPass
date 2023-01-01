@@ -94,7 +94,7 @@ const BoughtItem = ({ item }) => {
                   </div>
 
                   <div className="modal-body relative py-5 mx-10 items-center justify-center text-center font-semibold">
-                    Xác nhận huỷ đánh dấu mặt hàng {item.name}?
+                    Xác nhận huỷ đánh dấu mặt hàng {item.title}?
                   </div>
                   <div className="modal-footer flex flex-row items-center justify-center">
                     <button
