@@ -2,7 +2,7 @@
 Welcome to our BKPass project.
 
 ## ✋Introduction 
-After every semester, the significant demands for exchanging products are inevitably seen on social media groups. However, there are certainly many weakpoints of considering security, manageability and item availablity. Having encountered those traumatic situations as students, we devised a semi-automated website from which "authenticated" users can sell and purchase things for the sake of effortless item management.
+After every semester, the significant demands for exchanging products and belongings are inevitably seen on social media groups. However, there are certainly many disadvantages considering security, manageability and item availablity. Having encountered those traumatic situations as students, we devised a semi-automated website from which "certified" users can sell and purchase things for the sake of effortless item management.
 
 ### Technology Stack
 * Front-end: ReactJS, TailwindCSS, and many complementary libaries provided by npm.
